@@ -298,18 +298,28 @@
 									</ul>
 								</nav>
 							<!-- Section -->
-								<section id="math-news">
-								  <header class="major">
-								    <h2>Math News</h2>
-								  </header>
-								
-								  <div class="mini-posts" id="mini-posts"></div>
-								
-								  <ul class="actions">
-								    <li><a href="news/" class="button" target="_blank" rel="noopener noreferrer">More</a></li>
-								  </ul>
+								<section>
+									<header class="major">
+										<h2>Math News</h2>
+									</header>
+									<div class="mini-posts">
+										<article>
+											<a href="#" class="image"><img src="images/pic07.jpg" alt="" /></a>
+											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
+										</article>
+										<article>
+											<a href="#" class="image"><img src="images/pic08.jpg" alt="" /></a>
+											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
+										</article>
+										<article>
+											<a href="#" class="image"><img src="images/pic09.jpg" alt="" /></a>
+											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
+										</article>
+									</div>
+									<ul class="actions">
+										<li><a href="#" class="button">More</a></li>
+									</ul>
 								</section>
-								
 							<!-- Section -->				
 								<section>
 									<header class="major">
@@ -357,66 +367,11 @@
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
-			<script>
-			  (function () {
-			    const container = document.getElementById('mini-posts');
-			    if (!container) return;
-			
-			    const jsonUrl = 'news/index.json?' + Date.now();
-			
-			    fetch(jsonUrl, { cache: 'no-cache' })
-			      .then(res => {
-			        if (!res.ok) throw new Error('Erro na rede: ' + res.status);
-			        return res.json();
-			      })
-			      .then(data => {
-			        const items = Array.isArray(data.items) ? data.items : [];
-			        if (!items.length) {
-			          container.textContent = 'Nenhuma notícia disponível.';
-			          return;
-			        }
-			
-			        // Ordena por data (mais recente primeiro)
-			        items.sort((a, b) => new Date(b.date) - new Date(a.date));
-			
-			        items.slice(0, 3).forEach(item => {
-			          const url = (item.url || '#').trim();
-			          const desc = (item.description || '').trim();
-			          const imgSrc = (item.image || '').trim();
-			
-			          const article = document.createElement('article');
-			
-			          const link = document.createElement('a');
-			          link.href = url;
-			          link.target = '_blank';
-			          link.rel = 'noopener noreferrer';
-			          link.className = 'image';
-			
-			          if (imgSrc) {
-			            const img = document.createElement('img');
-			            img.src = imgSrc;
-			            img.alt = '';
-			            img.loading = 'lazy';
-			            link.appendChild(img);
-			          }
-			
-			          const p = document.createElement('p');
-			          p.textContent = desc;
-			
-			          article.appendChild(link);
-			          article.appendChild(p);
-			          container.appendChild(article);
-			        });
-			      })
-			      .catch(err => {
-			        console.error('Falha ao carregar notícias:', err);
-			        container.textContent = 'Falha ao carregar as notícias.';
-			      });
-			  })();
-			</script>
+		
 	</body>
 
 </html>
+
 
 
 
