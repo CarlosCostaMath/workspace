@@ -309,38 +309,39 @@
 								    <li><a href="news/" class="button" target="_blank" rel="noopener noreferrer">More</a></li>
 								  </ul>
 								</section>
-								
 								<script>
 								  (function () {
-								    // Caminho RELATIVO (pasta 'news' no mesmo nível do index.html)
-								    // Usa base dinâmica para funcionar em GitHub Pages (project pages)
 								    const FEED_URL = new URL("news/index.json", window.location.href);
-								    // Evita cache agressivo do GitHub Pages
 								    FEED_URL.searchParams.set("_", Date.now());
 								
 								    const MAX_ITEMS = 3;
-								    const PLACEHOLDER_IMG = "images/pic07.jpg";
+								    // Remova ou mantenha o placeholder apenas se existir
+								    // const PLACEHOLDER_IMG = "images/pic07.jpg"; // opcional
 								
 								    const container = document.getElementById("mini-posts");
 								    if (!container) return;
 								
-								    // Util — cria um card no padrão Editorial
 								    function renderCard(item) {
 								      const art = document.createElement("article");
-								      const url = item.url || "#";
-								      const img = item.image || PLACEHOLDER_IMG;
-								      const desc = item.description || "";
 								
-								      art.innerHTML = `
-								        <a href="${url}" class="image" target="_blank" rel="noopener noreferrer">
-								          <img src="${img}" alt="">
-								        </a>
-								        <p>${desc}</p>
-								      `;
+								      // Sanitiza e remove espaços extras
+								      const url = (item.url || "#").trim();
+								      const desc = (item.description || "").trim();
+								
+								      // Cria link com atributos seguros
+								      const link = document.createElement("a");
+								      link.href = url;
+								      link.target = "_blank";
+								      link.rel = "noopener noreferrer";
+								      link.textContent = desc || "Leia mais"; // evita parágrafo vazio
+								
+								      // Se quiser manter o estilo "image + texto", mas sem imagem:
+								      // Você pode usar uma div com classe "no-image" ou similar
+								      art.appendChild(link);
+								
 								      return art;
 								    }
 								
-								    // Exibe uma mensagem de status visível (sem quebrar layout)
 								    function showStatus(msg) {
 								      const p = document.createElement("p");
 								      p.style.color = "#6b7280";
@@ -353,42 +354,45 @@
 								      try {
 								        const res = await fetch(FEED_URL.toString(), { cache: "no-cache" });
 								        if (!res.ok) {
-								          showStatus(`Erro ao carregar: ${res.status} ${res.statusText}`);
+								          showStatus(`Erro ao carregar: ${res.status}`);
 								          return;
 								        }
 								
-								        // Garante JSON válido
 								        let data;
 								        try {
 								          data = await res.json();
 								        } catch (e) {
-								          showStatus("Manifesto JSON inválido (erro de parse).");
+								          showStatus("JSON inválido.");
 								          return;
 								        }
 								
 								        const items = Array.isArray(data.items) ? data.items : [];
 								        if (!items.length) {
-								          showStatus("Nenhum item no manifesto.");
+								          showStatus("Nenhuma notícia disponível.");
 								          return;
 								        }
 								
-								        // Ordena por data desc (se tiver)
 								        items.sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0));
 								
-								        // Renderiza
-								        items.slice(0, MAX_ITEMS).forEach(i => container.appendChild(renderCard(i)));
+								        items.slice(0, MAX_ITEMS).forEach(item => {
+								          container.appendChild(renderCard(item));
+								        });
 								
-								        // Se por algum motivo nada foi renderizado, mostra status
-								        if (!container.children.length) showStatus("Nada para exibir.");
 								      } catch (err) {
-								        console.error("Math News:", err);
-								        showStatus("Erro inesperado ao carregar as notícias.");
+								        console.error("Erro ao carregar notícias:", err);
+								        showStatus("Falha ao carregar as notícias.");
 								      }
 								    }
 								
-								    document.addEventListener("DOMContentLoaded", loadNews);
+								    // Carrega quando o DOM estiver pronto
+								    if (document.readyState === "loading") {
+								      document.addEventListener("DOMContentLoaded", loadNews);
+								    } else {
+								      loadNews();
+								    }
 								  })();
 								</script>
+								
 							<!-- Section -->				
 								<section>
 									<header class="major">
@@ -440,6 +444,7 @@
 	</body>
 
 </html>
+
 
 
 
