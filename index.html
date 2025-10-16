@@ -1,3 +1,6 @@
+---
+---
+
 <!DOCTYPE HTML>
 <!--
 	Editorial by HTML5 UP
@@ -308,12 +311,12 @@
 								    {% for item in items limit:3 %}
 								      <article>
 								        {% if item.image %}
-								          <a href="{{ item.url }}" class="image" target="_blank" rel="noopener noreferrer">
-								            <img src="{{ item.image }}" alt="{{ item.description | escape }}">
+								          <a href="{{ item.url | escape }}" class="image" target="_blank" rel="noopener noreferrer">
+								            <img src="{{ item.image | escape }}" alt="{{ item.description | escape }}">
 								          </a>
 								        {% endif %}
 								        <p>
-								          <a href="{{ item.url }}" target="_blank" rel="noopener noreferrer">
+								          <a href="{{ item.url | escape }}" target="_blank" rel="noopener noreferrer">
 								            {{ item.description }}
 								          </a>
 								        </p>
@@ -322,7 +325,7 @@
 								  </div>
 								
 								  <ul class="actions">
-								    <li><a href="/news/" class="button" target="_blank" rel="noopener noreferrer">More</a></li>
+								    <li><a href="{{ '/news/' | relative_url }}" class="button" target="_blank" rel="noopener noreferrer">More</a></li>
 								  </ul>
 								</section>
 
@@ -458,6 +461,7 @@
 	</body>
 
 </html>
+
 
 
 
