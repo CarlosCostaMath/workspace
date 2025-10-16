@@ -303,12 +303,26 @@
 								    <h2>Math News</h2>
 								  </header>
 								
-								  <div class="mini-posts" id="mini-posts">
-								    <!-- será preenchido via JSON -->
+								  <div class="mini-posts">
+								    {% assign items = site.data.news.items | sort: "date" | reverse %}
+								    {% for item in items limit:3 %}
+								      <article>
+								        {% if item.image %}
+								          <a href="{{ item.url }}" class="image" target="_blank" rel="noopener noreferrer">
+								            <img src="{{ item.image }}" alt="{{ item.description | escape }}">
+								          </a>
+								        {% endif %}
+								        <p>
+								          <a href="{{ item.url }}" target="_blank" rel="noopener noreferrer">
+								            {{ item.description }}
+								          </a>
+								        </p>
+								      </article>
+								    {% endfor %}
 								  </div>
 								
 								  <ul class="actions">
-								    <li><a href="news/" class="button" target="_blank" rel="noopener noreferrer">More</a></li>
+								    <li><a href="/news/" class="button" target="_blank" rel="noopener noreferrer">More</a></li>
 								  </ul>
 								</section>
 
@@ -444,6 +458,7 @@
 	</body>
 
 </html>
+
 
 
 
