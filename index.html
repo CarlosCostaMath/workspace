@@ -311,24 +311,79 @@
 								</section>
 								
 								<script>
-								  // Caminho FIXO do manifest na raiz (ajuste se quiser outra pasta)
-								  const FEED_URL = "/news/index.json";   // ex.: /news/index.json
-								  const MAX_ITEMS = 3;                   // quantos cards mostrar
+								  // Manifesto fixo na raiz
+								  const FEED_URL = "/news/index.json";
+								  const MAX_ITEMS = 3;
 								  const PLACEHOLDER_IMG = "images/pic07.jpg";
+								  const CORS_PROXY = "https://api.allorigins.win/get?url="; // proxy público para ler HTML cross-origin
 								
-								  // Cria um card no padrão Editorial (article > a.image > img + p)
-								  function renderCard(item) {
+								  // Util: absoluta a URL de imagem em relação à página de origem
+								  function absolutize(src, base) {
+								    try { return new URL(src, base).href; } catch { return src; }
+								  }
+								
+								  // Tenta extrair OG/Twitter image do HTML do link do post
+								  async function fetchPreviewImage(targetUrl) {
+								    try {
+								      const proxied = CORS_PROXY + encodeURIComponent(targetUrl);
+								      const res = await fetch(proxied, { cache: "no-cache" });
+								      if (!res.ok) throw new Error("proxy fail");
+								      const payload = await res.json();
+								      const html = payload.contents;
+								      if (!html) throw new Error("no contents");
+								      const doc = new DOMParser().parseFromString(html, "text/html");
+								
+								      const selectors = [
+								        'meta[property="og:image"]',
+								        'meta[name="og:image"]',
+								        'meta[name="twitter:image"]',
+								        'meta[property="twitter:image"]',
+								        'link[rel="image_src"]'
+								      ];
+								      for (const sel of selectors) {
+								        const el = doc.querySelector(sel);
+								        const content = el?.getAttribute("content") || el?.getAttribute("href");
+								        if (content) return absolutize(content.trim(), targetUrl);
+								      }
+								
+								      // fallback: tenta uma primeira <img> razoável
+								      const img = doc.querySelector("article img, main img, .post img, img");
+								      if (img?.getAttribute("src")) return absolutize(img.getAttribute("src"), targetUrl);
+								
+								      return null;
+								    } catch (e) {
+								      return null;
+								    }
+								  }
+								
+								  function renderCard({ url, image, description }) {
 								    const art = document.createElement("article");
-								    const url = item.url || "#";
-								    const img = item.image || PLACEHOLDER_IMG;
-								    const desc = item.description || "";
 								    art.innerHTML = `
 								      <a href="${url}" class="image" target="_blank" rel="noopener noreferrer">
-								        <img src="${img}" alt="">
+								        <img src="${image || PLACEHOLDER_IMG}" alt="">
 								      </a>
-								      <p>${desc}</p>
+								      <p>${description || ""}</p>
 								    `;
 								    return art;
+								  }
+								
+								  async function resolveItem(item) {
+								    const out = { ...item };
+								    if (!out.image && out.url) {
+								      // cache simples para evitar múltiplos fetches na mesma sessão
+								      const key = "preview:" + out.url;
+								      const cached = sessionStorage.getItem(key);
+								      if (cached) {
+								        out.image = cached;
+								      } else {
+								        const img = await fetchPreviewImage(out.url);
+								        if (img) {
+								          out.image = img;
+								          sessionStorage.setItem(key, img);
+								        }
+								      }
+								    }
+								    return out;
 								  }
 								
 								  async function loadNews() {
@@ -341,22 +396,28 @@
 								      const data = await res.json();
 								      const items = Array.isArray(data.items) ? data.items : [];
 								
-								      // ordena por data desc (se houver) e limita
-								      items.sort((a,b) => new Date(b.date||0) - new Date(a.date||0));
-								      items.slice(0, MAX_ITEMS).forEach(i => container.appendChild(renderCard(i)));
+								      // ordena por data desc
+								      items.sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0));
+								
+								      // resolve imagens (OG) e renderiza os primeiros MAX_ITEMS
+								      const toShow = items.slice(0, MAX_ITEMS);
+								      for (const raw of toShow) {
+								        const item = await resolveItem(raw);
+								        container.appendChild(renderCard(item));
+								      }
 								
 								      if (!container.children.length) {
 								        container.innerHTML = `<p class="muted">Nenhuma notícia encontrada.</p>`;
 								      }
 								    } catch (e) {
 								      console.error(e);
-								      container.innerHTML = `<p class="muted">Erro ao carregar as notícias.</p>`;
+								      const container = document.getElementById("mini-posts");
+								      if (container) container.innerHTML = `<p class="muted">Erro ao carregar as notícias.</p>`;
 								    }
 								  }
 								
 								  document.addEventListener("DOMContentLoaded", loadNews);
 								</script>
-
 							<!-- Section -->				
 								<section>
 									<header class="major">
@@ -408,6 +469,7 @@
 	</body>
 
 </html>
+
 
 
 
