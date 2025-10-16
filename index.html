@@ -298,28 +298,64 @@
 									</ul>
 								</nav>
 							<!-- Section -->
-								<section>
-									<header class="major">
-										<h2>Math News</h2>
-									</header>
-									<div class="mini-posts">
-										<article>
-											<a href="#" class="image"><img src="images/pic07.jpg" alt="" /></a>
-											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
-										</article>
-										<article>
-											<a href="#" class="image"><img src="images/pic08.jpg" alt="" /></a>
-											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
-										</article>
-										<article>
-											<a href="#" class="image"><img src="images/pic09.jpg" alt="" /></a>
-											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
-										</article>
-									</div>
-									<ul class="actions">
-										<li><a href="#" class="button">More</a></li>
-									</ul>
+								<section id="math-news">
+								  <header class="major">
+								    <h2>Math News</h2>
+								  </header>
+								
+								  <div class="mini-posts" id="mini-posts"></div>
+								
+								  <ul class="actions">
+								    <li><a href="news/" class="button" target="_blank" rel="noopener noreferrer">More</a></li>
+								  </ul>
 								</section>
+								
+								<script>
+								  // Caminho FIXO do manifest na raiz (ajuste se quiser outra pasta)
+								  const FEED_URL = "/news/index.json";   // ex.: /news/index.json
+								  const MAX_ITEMS = 3;                   // quantos cards mostrar
+								  const PLACEHOLDER_IMG = "images/pic07.jpg";
+								
+								  // Cria um card no padrão Editorial (article > a.image > img + p)
+								  function renderCard(item) {
+								    const art = document.createElement("article");
+								    const url = item.url || "#";
+								    const img = item.image || PLACEHOLDER_IMG;
+								    const desc = item.description || "";
+								    art.innerHTML = `
+								      <a href="${url}" class="image" target="_blank" rel="noopener noreferrer">
+								        <img src="${img}" alt="">
+								      </a>
+								      <p>${desc}</p>
+								    `;
+								    return art;
+								  }
+								
+								  async function loadNews() {
+								    const container = document.getElementById("mini-posts");
+								    if (!container) return;
+								
+								    try {
+								      const res = await fetch(FEED_URL, { cache: "no-cache" });
+								      if (!res.ok) throw new Error("Manifest não encontrado");
+								      const data = await res.json();
+								      const items = Array.isArray(data.items) ? data.items : [];
+								
+								      // ordena por data desc (se houver) e limita
+								      items.sort((a,b) => new Date(b.date||0) - new Date(a.date||0));
+								      items.slice(0, MAX_ITEMS).forEach(i => container.appendChild(renderCard(i)));
+								
+								      if (!container.children.length) {
+								        container.innerHTML = `<p class="muted">Nenhuma notícia encontrada.</p>`;
+								      }
+								    } catch (e) {
+								      console.error(e);
+								      container.innerHTML = `<p class="muted">Erro ao carregar as notícias.</p>`;
+								    }
+								  }
+								
+								  document.addEventListener("DOMContentLoaded", loadNews);
+								</script>
 
 							<!-- Section -->				
 								<section>
@@ -372,6 +408,7 @@
 	</body>
 
 </html>
+
 
 
 
