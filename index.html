@@ -248,36 +248,68 @@
 								    <p>Carregando notícias...</p>
 								  </div>
 								
-								  <!-- Script colocado DENTRO da seção -->
+								  <!-- Script dentro da seção, sem innerHTML e sem template string -->
 								  <script>
-								    document.addEventListener('DOMContentLoaded', function () {
-								      const box = document.getElementById('news-list');
+								    (function () {
+								      var box = document.getElementById('news-list');
 								      if (!box) return;
 								
-								      fetch('news/links.json', { cache: 'no-store' })
-								        .then(r => r.json())
-								        .then(items => {
-								          // ordena por data desc e pega só 3
-								          items.sort((a,b) => new Date(b.date) - new Date(a.date));
-								          const top3 = items.slice(0, 3);
+								      var url = 'news/links.json?ts=' + Date.now(); // evita cache do JSON
 								
-								          box.innerHTML = top3.map(it => `
-								            <article class="link-preview">
-								              <a href="${it.url}" class="image" target="_blank" rel="noopener noreferrer">
-								                <img src="https://s.wordpress.com/mshots/v1/${encodeURIComponent(it.url)}?w=640"
-								                     alt="Prévia da página" loading="lazy" />
-								              </a>
-								              <p><strong>${it.source}</strong> — ${it.title}</p>
-								            </article>
-								          `).join('');
+								      // função que cria 1 card (sem innerHTML)
+								      function addCard(item) {
+								        var art = document.createElement('article');
+								        art.className = 'link-preview';
+								
+								        var a = document.createElement('a');
+								        a.className = 'image';
+								        a.href = item.url;
+								        a.target = '_blank';
+								        a.rel = 'noopener noreferrer';
+								
+								        var img = document.createElement('img');
+								        img.loading = 'lazy';
+								        img.alt = 'Prévia da página';
+								
+								        // miniatura (sem nocache nas imagens pra não falhar)
+								        img.src = 'https://s.wordpress.com/mshots/v1/' + encodeURIComponent(item.url) + '?w=640';
+								        img.onerror = function(){ a.remove(); }; // se a imagem falhar, remove só a imagem
+								
+								        var p = document.createElement('p');
+								        var strong = document.createElement('strong');
+								        strong.appendChild(document.createTextNode(item.source || ''));
+								
+								        var sep = document.createTextNode(' — ');
+								        var title = document.createTextNode(item.title || '');
+								
+								        p.appendChild(strong);
+								        p.appendChild(sep);
+								        p.appendChild(title);
+								
+								        a.appendChild(img);
+								        art.appendChild(a);
+								        art.appendChild(p);
+								        box.appendChild(art);
+								      }
+								
+								      fetch(url)
+								        .then(function(r){ return r.json(); })
+								        .then(function(items){
+								          items.sort(function(a,b){ return new Date(b.date) - new Date(a.date); });
+								          var top3 = items.slice(0, 3);
+								
+								          // limpa a área de notícias com segurança
+								          while (box.firstChild) box.removeChild(box.firstChild);
+								
+								          // adiciona 3 cards
+								          top3.forEach(addCard);
 								        })
-								        .catch(() => {
-								          box.innerHTML = '<p>Não foi possível carregar as notícias.</p>';
+								        .catch(function(){
+								          box.textContent = 'Não foi possível carregar as notícias.';
 								        });
-								    });
+								    })();
 								  </script>
 								</section>
-
 							<!-- Section -->
 								<section>
 									<header class="major">
@@ -312,6 +344,7 @@
 	</body>
 
 </html>
+
 
 
 
