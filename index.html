@@ -274,41 +274,62 @@
 								  <header class="major">
 								    <h2>News Math</h2>
 								  </header>
+								
 								  <div class="mini-posts" id="news-list">
 								    <p>Carregando notícias...</p>
 								  </div>
+								
+								  <ul class="actions">
+								    <li><a id="news-load-more" class="button">Mostrar mais</a></li>
+								  </ul>
 								</section>
 								
 								<script>
-								(async function() {
-								  const container = document.getElementById('news-list');
-								  const jsonURL = 'news/links.json'; // raiz
+								(function(){
+								  const CHUNK = 3;              // quantos itens carregar por clique (mude para 10 se quiser)
+								  const listEl = document.getElementById('news-list');
+								  const btnMore = document.getElementById('news-load-more');
+								  const jsonURL = 'news/links.json'; // estamos no index raiz
+								  const mshot = (u,w=640)=>`https://s.wordpress.com/mshots/v1/${encodeURIComponent(u)}?w=${w}`;
+								  const fmt = iso => {
+								    try { return new Date(iso+'T00:00:00').toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric'}) }
+								    catch { return iso }
+								  };
 								
-								  try {
-								    console.log('Carregando:', jsonURL);
-								    const res = await fetch(jsonURL, { cache: 'no-store' });
-								    console.log('Status:', res.status);
-								    if (!res.ok) throw new Error('HTTP ' + res.status);
-								    const data = await res.json();
+								  let items = [];
+								  let shown = 0;
 								
-								    // ordena por data desc
-								    data.sort((a,b) => new Date(b.date) - new Date(a.date));
-								
-								    const latest = data.slice(0,3);
-								    container.innerHTML = latest.map(item => `
+								  function renderChunk(){
+								    const slice = items.slice(shown, shown + CHUNK);
+								    const html = slice.map(it => `
 								      <article class="link-preview">
-								        <a href="${item.url}" class="image" target="_blank" rel="noopener noreferrer">
-								          <img src="https://s.wordpress.com/mshots/v1/${encodeURIComponent(item.url)}?w=640"
-								               alt="Prévia da página" loading="lazy" />
+								        <a href="${it.url}" class="image" target="_blank" rel="noopener noreferrer">
+								          <img src="${mshot(it.url)}" alt="Prévia da página" loading="lazy">
 								        </a>
-								        <p><strong>${item.source}</strong> — ${item.title}</p>
+								        <p><strong>${it.source}</strong> — ${it.title} <br><small>${fmt(it.date)}</small></p>
 								      </article>
 								    `).join('');
+								    listEl.insertAdjacentHTML('beforeend', html);
+								    shown += slice.length;
 								
-								  } catch (err) {
-								    console.error('Falha ao carregar notícias de', jsonURL, err);
-								    container.innerHTML = '<p>Não foi possível carregar as notícias.</p>';
+								    // esconde botão quando acabar
+								    if (shown >= items.length) btnMore.style.display = 'none';
 								  }
+								
+								  fetch(jsonURL, {cache:'no-store'})
+								    .then(r => { if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
+								    .then(data => {
+								      // ordena por data desc
+								      items = data.sort((a,b)=> new Date(b.date) - new Date(a.date));
+								      listEl.innerHTML = '';
+								      renderChunk();                // primeiros 3
+								      btnMore.addEventListener('click', renderChunk);
+								    })
+								    .catch(err => {
+								      console.error('Falha ao carregar notícias:', err);
+								      listEl.innerHTML = '<p>Não foi possível carregar as notícias.</p>';
+								      btnMore.style.display = 'none';
+								    });
 								})();
 								</script>
 
@@ -346,6 +367,7 @@
 	</body>
 
 </html>
+
 
 
 
