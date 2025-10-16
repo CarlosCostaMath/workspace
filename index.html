@@ -249,6 +249,50 @@
 									</ul>
 								</section>
 
+								<section id="universo-matematico">
+								  <header class="major">
+								    <h2>Universo Matemático</h2>
+								  </header>
+								  <div class="mini-posts" id="news-list">
+								    <p>Carregando notícias...</p>
+								  </div>
+								</section>
+								
+								<script>
+								(async function() {
+								  const container = document.getElementById('news-list');
+								
+								  try {
+								    const res = await fetch('news/links.json');
+								    const data = await res.json();
+								
+								    // ordena por data decrescente
+								    data.sort((a,b) => new Date(b.date) - new Date(a.date));
+								
+								    // pega os 3 mais novos
+								    const latest = data.slice(0,3);
+								
+								    // gera HTML dos cards
+								    container.innerHTML = latest.map(item => `
+								      <article class="link-preview">
+								        <a href="${item.url}" class="image" target="_blank" rel="noopener noreferrer">
+								          <img
+								            src="https://s.wordpress.com/mshots/v1/${encodeURIComponent(item.url)}?w=640"
+								            alt="Prévia da página"
+								            loading="lazy"
+								          />
+								        </a>
+								        <p><strong>${item.source}</strong> — ${item.title}</p>
+								      </article>
+								    `).join('');
+								
+								  } catch (err) {
+								    container.innerHTML = '<p>Não foi possível carregar as notícias.</p>';
+								    console.error(err);
+								  }
+								})();
+								</script>
+
 							<!-- Section -->
 								<section>
 									<header class="major">
@@ -283,6 +327,7 @@
 	</body>
 
 </html>
+
 
 
 
