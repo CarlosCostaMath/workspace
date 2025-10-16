@@ -282,34 +282,32 @@
 								<script>
 								(async function() {
 								  const container = document.getElementById('news-list');
+								  const jsonURL = 'news/links.json'; // raiz
 								
 								  try {
-								    const res = await fetch('news/links.json');
+								    console.log('Carregando:', jsonURL);
+								    const res = await fetch(jsonURL, { cache: 'no-store' });
+								    console.log('Status:', res.status);
+								    if (!res.ok) throw new Error('HTTP ' + res.status);
 								    const data = await res.json();
 								
-								    // ordena por data decrescente
+								    // ordena por data desc
 								    data.sort((a,b) => new Date(b.date) - new Date(a.date));
 								
-								    // pega os 3 mais novos
 								    const latest = data.slice(0,3);
-								
-								    // gera HTML dos cards
 								    container.innerHTML = latest.map(item => `
 								      <article class="link-preview">
 								        <a href="${item.url}" class="image" target="_blank" rel="noopener noreferrer">
-								          <img
-								            src="https://s.wordpress.com/mshots/v1/${encodeURIComponent(item.url)}?w=640"
-								            alt="Prévia da página"
-								            loading="lazy"
-								          />
+								          <img src="https://s.wordpress.com/mshots/v1/${encodeURIComponent(item.url)}?w=640"
+								               alt="Prévia da página" loading="lazy" />
 								        </a>
 								        <p><strong>${item.source}</strong> — ${item.title}</p>
 								      </article>
 								    `).join('');
 								
 								  } catch (err) {
+								    console.error('Falha ao carregar notícias de', jsonURL, err);
 								    container.innerHTML = '<p>Não foi possível carregar as notícias.</p>';
-								    console.error(err);
 								  }
 								})();
 								</script>
@@ -348,6 +346,7 @@
 	</body>
 
 </html>
+
 
 
 
