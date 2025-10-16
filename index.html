@@ -361,38 +361,37 @@
 			<script src="assets/js/main.js"></script>
 			<script>
 			  (function () {
-			    // news/index.json está no mesmo nível do index.html
-			    const FEED_URL = "news/index.json";
-			    const MAX_ITEMS = 3; // ajuste se quiser mais/menos
+			    const FEED_URL = "news/index.json";   // news no mesmo nível do index
+			    const MAX_ITEMS = 3;
 			
-			    const container = document.querySelector("#math-news #mini-posts");
+			    const container = document.getElementById("mini-posts");
 			    if (!container) return;
 			
 			    function makeCard(item) {
-			      const art = document.createElement("article");
+			      const art  = document.createElement("article");
 			
 			      const url  = (item.url || "#").trim();
 			      const desc = (item.description || "").trim();
-			      const imgUrl = (item.image || "").trim();
+			      const img  = (item.image || "").trim();
 			
-			      // Se vier image no JSON, usa o bloco padrão do tema: <a class="image"><img></a>
-			      if (imgUrl) {
+			      // Se há image no JSON, monta bloco padrão do Editorial
+			      if (img) {
 			        const aImg = document.createElement("a");
-			        aImg.href = url || "#";
 			        aImg.className = "image";
+			        aImg.href = url || "#";
 			        aImg.target = "_blank";
 			        aImg.rel = "noopener noreferrer";
 			
-			        const img = document.createElement("img");
-			        img.src = imgUrl;            // usa somente a URL do JSON
-			        img.alt = desc || "preview";
-			        img.loading = "lazy";
+			        const imgtag = document.createElement("img");
+			        imgtag.src = img;              // usa APENAS a URL do JSON
+			        imgtag.alt = desc || "preview";
+			        imgtag.loading = "lazy";
 			
-			        aImg.appendChild(img);
+			        aImg.appendChild(imgtag);
 			        art.appendChild(aImg);
 			      }
 			
-			      // Texto/descrição como link
+			      // Descrição como link
 			      const p = document.createElement("p");
 			      const aText = document.createElement("a");
 			      aText.href = url || "#";
@@ -405,54 +404,47 @@
 			      return art;
 			    }
 			
-			    function showMsg(msg) {
-			      const p = document.createElement("p");
-			      p.style.color = "#6b7280";
-			      p.style.margin = "0.5rem 0 0";
-			      p.textContent = msg;
-			      container.appendChild(p);
-			    }
-			
 			    async function loadNews() {
+			      // 1) Busca o JSON com cache-buster, mas só substitui o DOM se tudo der certo
+			      let data;
 			      try {
-			        const url = new URL(FEED_URL, window.location.href);
-			        // evita cache antigo do GitHub Pages
-			        url.searchParams.set("_", Date.now());
-			
-			        const res = await fetch(url.toString(), { cache: "no-cache" });
-			        if (!res.ok) { showMsg(`Erro ao carregar: ${res.status}`); return; }
-			
-			        let data;
-			        try { data = await res.json(); }
-			        catch { showMsg("JSON inválido."); return; }
-			
-			        const items = Array.isArray(data.items) ? data.items : [];
-			        if (!items.length) { showMsg("Nenhuma notícia disponível."); return; }
-			
-			        // ordena por data desc e limita
-			        items.sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0));
-			        const slice = items.slice(0, MAX_ITEMS);
-			
-			        // limpa e renderiza
-			        container.innerHTML = "";
-			        slice.forEach(item => container.appendChild(makeCard(item)));
-			
+			        const u = new URL(FEED_URL, window.location.href);
+			        u.searchParams.set("_", Date.now());
+			        const res = await fetch(u.toString(), { cache: "no-cache" });
+			        if (!res.ok) throw new Error("HTTP " + res.status);
+			        data = await res.json();
 			      } catch (e) {
-			        console.error("Math News:", e);
-			        showMsg("Falha ao carregar as notícias.");
+			        console.warn("Math News: falha ao buscar/parsear JSON:", e);
+			        return; // Mantém placeholders, não mexe em nada
 			      }
+			
+			      const items = Array.isArray(data.items) ? data.items : [];
+			      if (!items.length) return; // Sem itens? Mantém placeholders
+			
+			      // 2) Ordena e constrói os cards em memória
+			      items.sort((a,b) => new Date(b.date || 0) - new Date(a.date || 0));
+			      const take = items.slice(0, MAX_ITEMS);
+			
+			      const frag = document.createDocumentFragment();
+			      for (const it of take) frag.appendChild(makeCard(it));
+			
+			      // 3) Substitui o conteúdo SÓ agora (quando já está pronto)
+			      // Assim, se qualquer passo acima falhar, nada fora da seção é afetado.
+			      container.replaceChildren(frag);
 			    }
 			
+			    // Dispara quando o DOM estiver pronto
 			    if (document.readyState === "loading") {
 			      document.addEventListener("DOMContentLoaded", loadNews);
 			    } else {
 			      loadNews();
 			    }
 			  })();
-			</script>		
+			</script>	
 	</body>
 
 </html>
+
 
 
 
