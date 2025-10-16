@@ -307,21 +307,22 @@
 								  </header>
 								
 								  <div class="mini-posts">
-								    {% assign items = site.data.news.items | sort: "date" | reverse %}
-								    {% for item in items limit:3 %}
-								      <article>
-								        {% if item.image %}
-								          <a href="{{ item.url | escape }}" class="image" target="_blank" rel="noopener noreferrer">
-								            <img src="{{ item.image | escape }}" alt="{{ item.description | escape }}">
-								          </a>
-								        {% endif %}
-								        <p>
-								          <a href="{{ item.url | escape }}" target="_blank" rel="noopener noreferrer">
-								            {{ item.description }}
-								          </a>
-								        </p>
-								      </article>
-								    {% endfor %}
+									{% assign items = site.data.news.items | sort: "date" | reverse %}
+									{% for item in items limit:3 %}
+									  <article>
+									    {% if item.image %}
+									      <a href="{{ item.url | escape }}" class="image" target="_blank" rel="noopener noreferrer">
+									        <img src="{{ item.image | escape }}" alt="{{ item.description | escape }}">
+									      </a>
+									    {% endif %}
+									
+									    <!-- Descrição SEM link -->
+									    <p>{{ item.description }}</p>
+									
+									    <!-- (Opcional) um link discreto separado -->
+									    <!-- <p style="margin-top:.25rem"><a href="{{ item.url | escape }}" target="_blank" rel="noopener noreferrer">→ abrir matéria</a></p> -->
+									  </article>
+									{% endfor %}
 								  </div>
 								
 								  <ul class="actions">
@@ -461,6 +462,7 @@
 	</body>
 
 </html>
+
 
 
 
