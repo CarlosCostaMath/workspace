@@ -315,29 +315,56 @@
 								    FEED_URL.searchParams.set("_", Date.now());
 								
 								    const MAX_ITEMS = 3;
-								    // Remova ou mantenha o placeholder apenas se existir
-								    // const PLACEHOLDER_IMG = "images/pic07.jpg"; // opcional
+								    const PLACEHOLDER_IMG = "images/pic07.jpg"; // troque se preferir
 								
 								    const container = document.getElementById("mini-posts");
 								    if (!container) return;
 								
+								    function hostname(u) {
+								      try { return new URL(u).hostname.replace(/^www\./, ""); } catch { return ""; }
+								    }
+								
+								    function resolveSrc(src) {
+								      if (!src) return PLACEHOLDER_IMG;
+								      try { return new URL(src, window.location.href).href; } catch { return PLACEHOLDER_IMG; }
+								    }
+								
 								    function renderCard(item) {
 								      const art = document.createElement("article");
 								
-								      // Sanitiza e remove espaços extras
 								      const url = (item.url || "#").trim();
 								      const desc = (item.description || "").trim();
+								      const imgSrc = resolveSrc(item.image);
 								
-								      // Cria link com atributos seguros
-								      const link = document.createElement("a");
-								      link.href = url;
-								      link.target = "_blank";
-								      link.rel = "noopener noreferrer";
-								      link.textContent = desc || "Leia mais"; // evita parágrafo vazio
+								      // <a class="image"><img></a>
+								      const aImg = document.createElement("a");
+								      aImg.href = url || "#";
+								      aImg.className = "image";
+								      aImg.target = "_blank";
+								      aImg.rel = "noopener noreferrer";
 								
-								      // Se quiser manter o estilo "image + texto", mas sem imagem:
-								      // Você pode usar uma div com classe "no-image" ou similar
-								      art.appendChild(link);
+								      const img = document.createElement("img");
+								      img.src = imgSrc;
+								      img.alt = desc || hostname(url) || "prévia";
+								      img.loading = "lazy";
+								      img.onerror = () => { if (img.src !== PLACEHOLDER_IMG) img.src = PLACEHOLDER_IMG; };
+								
+								      aImg.appendChild(img);
+								      art.appendChild(aImg);
+								
+								      // <p>descrição (link clicável)</p>
+								      const p = document.createElement("p");
+								      if (url) {
+								        const aText = document.createElement("a");
+								        aText.href = url;
+								        aText.target = "_blank";
+								        aText.rel = "noopener noreferrer";
+								        aText.textContent = desc || "Abrir notícia";
+								        p.appendChild(aText);
+								      } else {
+								        p.textContent = desc || "";
+								      }
+								      art.appendChild(p);
 								
 								      return art;
 								    }
@@ -353,30 +380,16 @@
 								    async function loadNews() {
 								      try {
 								        const res = await fetch(FEED_URL.toString(), { cache: "no-cache" });
-								        if (!res.ok) {
-								          showStatus(`Erro ao carregar: ${res.status}`);
-								          return;
-								        }
+								        if (!res.ok) { showStatus(`Erro ao carregar: ${res.status}`); return; }
 								
 								        let data;
-								        try {
-								          data = await res.json();
-								        } catch (e) {
-								          showStatus("JSON inválido.");
-								          return;
-								        }
+								        try { data = await res.json(); } catch { showStatus("JSON inválido."); return; }
 								
 								        const items = Array.isArray(data.items) ? data.items : [];
-								        if (!items.length) {
-								          showStatus("Nenhuma notícia disponível.");
-								          return;
-								        }
+								        if (!items.length) { showStatus("Nenhuma notícia disponível."); return; }
 								
 								        items.sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0));
-								
-								        items.slice(0, MAX_ITEMS).forEach(item => {
-								          container.appendChild(renderCard(item));
-								        });
+								        items.slice(0, MAX_ITEMS).forEach(item => container.appendChild(renderCard(item)));
 								
 								      } catch (err) {
 								        console.error("Erro ao carregar notícias:", err);
@@ -384,7 +397,6 @@
 								      }
 								    }
 								
-								    // Carrega quando o DOM estiver pronto
 								    if (document.readyState === "loading") {
 								      document.addEventListener("DOMContentLoaded", loadNews);
 								    } else {
@@ -444,6 +456,7 @@
 	</body>
 
 </html>
+
 
 
 
