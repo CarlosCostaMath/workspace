@@ -30,6 +30,44 @@
 	      font-size: .9rem;
 	      line-height: 1.4;
 	    }
+			
+			  /* Icones animados */
+			  @media (prefers-reduced-motion: reduce) {
+			    * { animation: none !important; transition: none !important; }
+			  }
+			
+			  /* Estado base dos ícones dentro dos articles */
+			  article .icon {
+			    display: inline-block;
+			    transform-origin: center;
+			    transition: transform .25s ease, filter .25s ease;
+			  }
+			
+			  /* Efeito “lift” sutil quando o card é focado/hover */
+			  article:hover .icon,
+			  article:focus-within .icon {
+			    transform: translateY(-2px) scale(1.06);
+			    filter: drop-shadow(0 4px 8px rgba(0,0,0,.15));
+			  }
+			
+			  /* Pulso curto quando passar o mouse no link (ícone ou título) */
+			  article a:hover .icon,
+			  article a:focus .icon {
+			    animation: icon-pulse .6s ease;
+			  }
+			
+			  @keyframes icon-pulse {
+			    0%   { transform: scale(1); }
+			    50%  { transform: scale(1.12); }
+			    100% { transform: scale(1); }
+			  }
+			
+			  /* (Opcional) rotação única ao passar o mouse: adicione 'spin-once' no <span class="icon ..."> */
+			  .spin-once:hover, .spin-once:focus {
+			    animation: icon-spin 600ms ease;
+			  }
+			  @keyframes icon-spin { to { transform: rotate(360deg); } }
+
 	  </style>
 	</head>
 	<body class="is-preload">
@@ -324,6 +362,7 @@
 	</body>
 
 </html>
+
 
 
 
