@@ -248,58 +248,9 @@
 								  </div>
 								
 								  <ul class="actions">
-								    <li><a id="news-load-more" class="button">Mostrar mais</a></li>
+								    <li><button id="news-load-more" class="button" type="button">Mostrar mais</button></li>
 								  </ul>
 								</section>
-								
-								<script>
-								(function(){
-								  const CHUNK = 3;              // quantos itens carregar por clique (mude para 10 se quiser)
-								  const listEl = document.getElementById('news-list');
-								  const btnMore = document.getElementById('news-load-more');
-								  const jsonURL = 'news/links.json'; // estamos no index raiz
-								  const mshot = (u,w=640)=>`https://s.wordpress.com/mshots/v1/${encodeURIComponent(u)}?w=${w}`;
-								  const fmt = iso => {
-								    try { return new Date(iso+'T00:00:00').toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric'}) }
-								    catch { return iso }
-								  };
-								
-								  let items = [];
-								  let shown = 0;
-								
-								  function renderChunk(){
-								    const slice = items.slice(shown, shown + CHUNK);
-								    const html = slice.map(it => `
-								      <article class="link-preview">
-								        <a href="${it.url}" class="image" target="_blank" rel="noopener noreferrer">
-								          <img src="${mshot(it.url)}" alt="Prévia da página" loading="lazy">
-								        </a>
-								        <p><strong>${it.source}</strong> — ${it.title} <br><small>${fmt(it.date)}</small></p>
-								      </article>
-								    `).join('');
-								    listEl.insertAdjacentHTML('beforeend', html);
-								    shown += slice.length;
-								
-								    // esconde botão quando acabar
-								    if (shown >= items.length) btnMore.style.display = 'none';
-								  }
-								
-								  fetch(jsonURL, {cache:'no-store'})
-								    .then(r => { if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
-								    .then(data => {
-								      // ordena por data desc
-								      items = data.sort((a,b)=> new Date(b.date) - new Date(a.date));
-								      listEl.innerHTML = '';
-								      renderChunk();                // primeiros 3
-								      btnMore.addEventListener('click', renderChunk);
-								    })
-								    .catch(err => {
-								      console.error('Falha ao carregar notícias:', err);
-								      listEl.innerHTML = '<p>Não foi possível carregar as notícias.</p>';
-								      btnMore.style.display = 'none';
-								    });
-								})();
-								</script>
 
 							<!-- Section -->
 								<section>
@@ -331,10 +282,57 @@
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
+			<script>
+			(function(){
+			  const section = document.getElementById('news-math');
+			  if (!section) return;
+			
+			  const listEl = section.querySelector('#news-list');
+			  const btnMore = section.querySelector('#news-load-more');
+			  const JSON_URL = 'news/links.json';   // arquivo com seus links
+			  const POR_CLIQUE = 3;                 // mude para 10 se quiser
+			  const foto = (u,w=640)=>`https://s.wordpress.com/mshots/v1/${encodeURIComponent(u)}?w=${w}`;
+			  const dataBR = iso => new Date(iso+'T00:00:00').toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric'});
+			
+			  let itens = [];
+			  let mostrados = 0;
+			
+			  function carregarMais(){
+			    const lote = itens.slice(mostrados, mostrados + POR_CLIQUE);
+			    if (!lote.length) return;
+			
+			    listEl.insertAdjacentHTML('beforeend', lote.map(it => `
+			      <article class="link-preview">
+			        <a href="${it.url}" class="image" target="_blank" rel="noopener noreferrer">
+			          <img src="${foto(it.url)}" alt="Prévia da página" loading="lazy">
+			        </a>
+			        <p><strong>${it.source}</strong> — ${it.title}<br><small>${dataBR(it.date)}</small></p>
+			      </article>
+			    `).join(''));
+			
+			    mostrados += lote.length;
+			    if (btnMore && mostrados >= itens.length) btnMore.style.display = 'none';
+			  }
+			
+			  fetch(JSON_URL, { cache: 'no-store' })
+			    .then(r => r.json())
+			    .then(lista => {
+			      itens = lista.sort((a,b)=> new Date(b.date) - new Date(a.date));
+			      listEl.innerHTML = '';
+			      carregarMais();                 // mostra os primeiros 3
+			      if (btnMore) btnMore.onclick = carregarMais; // “Mostrar mais”
+			    })
+			    .catch(() => {
+			      listEl.innerHTML = '<p>Não foi possível carregar as notícias.</p>';
+			      if (btnMore) btnMore.style.display = 'none';
+			    });
+			})();
+			</script>
 
 	</body>
 
 </html>
+
 
 
 
