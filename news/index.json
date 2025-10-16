@@ -1,0 +1,22 @@
+{
+  "items": [
+    {
+      "url": "https://exemplo.com/resultado-topologia",
+      "image": "images/pic09.jpg",
+      "description": "Resultados recentes em topologia algébrica e aplicações à física.",
+      "date": "2025-10-10"
+    },
+    {
+      "url": "https://exemplo.com/analise-real-licenciatura",
+      "image": "images/pic08.jpg",
+      "description": "Novas abordagens didáticas para Análise Real na licenciatura.",
+      "date": "2025-10-08"
+    },
+    {
+      "url": "https://exemplo.com/teoria-dos-numeros",
+      "image": "images/pic07.jpg",
+      "description": "Conexões entre formas modulares e problemas clássicos de TDN.",
+      "date": "2025-10-05"
+    }
+  ]
+}
