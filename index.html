@@ -247,10 +247,6 @@
 								  <div class="mini-posts" id="news-list">
 								    <p>Carregando notícias...</p>
 								  </div>
-								
-								  <ul class="actions">
-								    <li><button id="news-load-more" class="button" type="button">Mostrar mais</button></li>
-								  </ul>
 								</section>
 
 							<!-- Section -->
@@ -285,81 +281,28 @@
 			<script src="assets/js/main.js"></script>
 			<script>
 			(function(){
-			  const section = document.getElementById('news-math');
-			  if (!section) return;
+			  const box = document.getElementById('news-list');
+			  if (!box) return;
 			
-			  const listEl = section.querySelector('#news-list');
-			  const btnMore = section.querySelector('#news-load-more');
-			
-			  const JSON_URL = 'news/links.json?nocache=' + Date.now(); // bust cache
-			  const POR_CLIQUE = 3;
-			  const mshot = (u,w=640)=>`https://s.wordpress.com/mshots/v1/${encodeURIComponent(u)}?w=${w}&nocache=${Date.now()}`;
-			
-			  // cria 1 card sem usar innerHTML (evita quebrar a sidebar)
-			  function addCard(item){
-			    const art = document.createElement('article');
-			    art.className = 'link-preview';
-			
-			    const a = document.createElement('a');
-			    a.className = 'image';
-			    a.href = item.url;
-			    a.target = '_blank';
-			    a.rel = 'noopener noreferrer';
-			
-			    const img = document.createElement('img');
-			    img.loading = 'lazy';
-			    img.alt = 'Prévia da página';
-			    img.src = mshot(item.url);
-			
-			    const p = document.createElement('p');
-			    const strong = document.createElement('strong');
-			    strong.textContent = item.source || '';
-			
-			    const sep = document.createTextNode(' — ');
-			    const titleText = document.createTextNode(item.title || '');
-			
-			    const br = document.createElement('br');
-			    const small = document.createElement('small');
-			    // formata data (se vier errada, apenas mostra como está)
-			    try {
-			      small.textContent = new Date(item.date + 'T00:00:00')
-			        .toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric'});
-			    } catch { small.textContent = item.date || ''; }
-			
-			    a.appendChild(img);
-			    p.appendChild(strong);
-			    p.appendChild(sep);
-			    p.appendChild(titleText);
-			    p.appendChild(br);
-			    p.appendChild(small);
-			
-			    art.appendChild(a);
-			    art.appendChild(p);
-			    listEl.appendChild(art);
-			  }
-			
-			  let itens = [];
-			  let mostrados = 0;
-			
-			  function carregarMais(){
-			    const ate = Math.min(mostrados + POR_CLIQUE, itens.length);
-			    for (let i = mostrados; i < ate; i++) addCard(itens[i]);
-			    mostrados = ate;
-			    if (btnMore && mostrados >= itens.length) btnMore.style.display = 'none';
-			  }
-			
-			  fetch(JSON_URL)
+			  fetch('news/links.json', { cache: 'no-store' })
 			    .then(r => r.json())
-			    .then(lista => {
-			      // ordena por data desc
-			      itens = lista.slice().sort((a,b)=> new Date(b.date) - new Date(a.date));
-			      listEl.textContent = '';  // limpa apenas a área de news
-			      carregarMais();           // primeiros 3
-			      if (btnMore) btnMore.onclick = carregarMais;
+			    .then(items => {
+			      // ordena por data (mais recentes primeiro) e pega só 3
+			      items.sort((a,b) => new Date(b.date) - new Date(a.date));
+			      const top3 = items.slice(0, 3);
+			
+			      box.innerHTML = top3.map(it => `
+			        <article class="link-preview">
+			          <a href="${it.url}" class="image" target="_blank" rel="noopener noreferrer">
+			            <img src="https://s.wordpress.com/mshots/v1/${encodeURIComponent(it.url)}?w=640"
+			                 alt="Prévia da página" loading="lazy" />
+			          </a>
+			          <p><strong>${it.source}</strong> — ${it.title}</p>
+			        </article>
+			      `).join('');
 			    })
 			    .catch(() => {
-			      listEl.textContent = 'Não foi possível carregar as notícias.';
-			      if (btnMore) btnMore.style.display = 'none';
+			      box.innerHTML = '<p>Não foi possível carregar as notícias.</p>';
 			    });
 			})();
 			</script>
@@ -367,6 +310,7 @@
 	</body>
 
 </html>
+
 
 
 
