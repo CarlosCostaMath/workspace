@@ -298,28 +298,20 @@
 									</ul>
 								</nav>
 							<!-- Section -->
-								<section>
-									<header class="major">
-										<h2>Math News</h2>
-									</header>
-									<div class="mini-posts">
-										<article>
-											<a href="#" class="image"><img src="images/pic07.jpg" alt="" /></a>
-											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
-										</article>
-										<article>
-											<a href="#" class="image"><img src="images/pic08.jpg" alt="" /></a>
-											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
-										</article>
-										<article>
-											<a href="#" class="image"><img src="images/pic09.jpg" alt="" /></a>
-											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
-										</article>
-									</div>
-									<ul class="actions">
-										<li><a href="#" class="button">More</a></li>
-									</ul>
+								<section id="math-news">
+								  <header class="major">
+								    <h2>Math News</h2>
+								  </header>
+								
+								  <div class="mini-posts" id="mini-posts">
+								    <!-- será preenchido via JSON -->
+								  </div>
+								
+								  <ul class="actions">
+								    <li><a href="news/" class="button" target="_blank" rel="noopener noreferrer">More</a></li>
+								  </ul>
 								</section>
+
 							<!-- Section -->				
 								<section>
 									<header class="major">
@@ -367,10 +359,101 @@
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
-		
+			<script>
+			  (function () {
+			    // news/index.json está no mesmo nível do index.html
+			    const FEED_URL = "news/index.json";
+			    const MAX_ITEMS = 3; // ajuste se quiser mais/menos
+			
+			    const container = document.querySelector("#math-news #mini-posts");
+			    if (!container) return;
+			
+			    function makeCard(item) {
+			      const art = document.createElement("article");
+			
+			      const url  = (item.url || "#").trim();
+			      const desc = (item.description || "").trim();
+			      const imgUrl = (item.image || "").trim();
+			
+			      // Se vier image no JSON, usa o bloco padrão do tema: <a class="image"><img></a>
+			      if (imgUrl) {
+			        const aImg = document.createElement("a");
+			        aImg.href = url || "#";
+			        aImg.className = "image";
+			        aImg.target = "_blank";
+			        aImg.rel = "noopener noreferrer";
+			
+			        const img = document.createElement("img");
+			        img.src = imgUrl;            // usa somente a URL do JSON
+			        img.alt = desc || "preview";
+			        img.loading = "lazy";
+			
+			        aImg.appendChild(img);
+			        art.appendChild(aImg);
+			      }
+			
+			      // Texto/descrição como link
+			      const p = document.createElement("p");
+			      const aText = document.createElement("a");
+			      aText.href = url || "#";
+			      aText.target = "_blank";
+			      aText.rel = "noopener noreferrer";
+			      aText.textContent = desc || "Abrir notícia";
+			      p.appendChild(aText);
+			      art.appendChild(p);
+			
+			      return art;
+			    }
+			
+			    function showMsg(msg) {
+			      const p = document.createElement("p");
+			      p.style.color = "#6b7280";
+			      p.style.margin = "0.5rem 0 0";
+			      p.textContent = msg;
+			      container.appendChild(p);
+			    }
+			
+			    async function loadNews() {
+			      try {
+			        const url = new URL(FEED_URL, window.location.href);
+			        // evita cache antigo do GitHub Pages
+			        url.searchParams.set("_", Date.now());
+			
+			        const res = await fetch(url.toString(), { cache: "no-cache" });
+			        if (!res.ok) { showMsg(`Erro ao carregar: ${res.status}`); return; }
+			
+			        let data;
+			        try { data = await res.json(); }
+			        catch { showMsg("JSON inválido."); return; }
+			
+			        const items = Array.isArray(data.items) ? data.items : [];
+			        if (!items.length) { showMsg("Nenhuma notícia disponível."); return; }
+			
+			        // ordena por data desc e limita
+			        items.sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0));
+			        const slice = items.slice(0, MAX_ITEMS);
+			
+			        // limpa e renderiza
+			        container.innerHTML = "";
+			        slice.forEach(item => container.appendChild(makeCard(item)));
+			
+			      } catch (e) {
+			        console.error("Math News:", e);
+			        showMsg("Falha ao carregar as notícias.");
+			      }
+			    }
+			
+			    if (document.readyState === "loading") {
+			      document.addEventListener("DOMContentLoaded", loadNews);
+			    } else {
+			      loadNews();
+			    }
+			  })();
+			</script>		
 	</body>
 
 </html>
+
 
 
 
