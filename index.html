@@ -311,54 +311,83 @@
 								</section>
 								
 								<script>
-								  // A pasta 'news' está na raiz do site, no mesmo nível do index.html
-								  // Use caminho RELATIVO para funcionar em GitHub Pages (project pages).
-								  const FEED_URL = "news/index.json";
-								  const MAX_ITEMS = 3;
-								  const PLACEHOLDER_IMG = "images/pic07.jpg";
+								  (function () {
+								    // Caminho RELATIVO (pasta 'news' no mesmo nível do index.html)
+								    // Usa base dinâmica para funcionar em GitHub Pages (project pages)
+								    const FEED_URL = new URL("news/index.json", window.location.href);
+								    // Evita cache agressivo do GitHub Pages
+								    FEED_URL.searchParams.set("_", Date.now());
 								
-								  function renderCard(item) {
-								    const art = document.createElement("article");
-								    const url = item.url || "#";
-								    const img = item.image || PLACEHOLDER_IMG;
-								    const desc = item.description || "";
-								    art.innerHTML = `
-								      <a href="${url}" class="image" target="_blank" rel="noopener noreferrer">
-								        <img src="${img}" alt="">
-								      </a>
-								      <p>${desc}</p>
-								    `;
-								    return art;
-								  }
+								    const MAX_ITEMS = 3;
+								    const PLACEHOLDER_IMG = "images/pic07.jpg";
 								
-								  async function loadNews() {
 								    const container = document.getElementById("mini-posts");
 								    if (!container) return;
 								
-								    try {
-								      // cache: 'no-cache' para sempre pegar o JSON mais recente do GitHub Pages
-								      const res = await fetch(FEED_URL, { cache: "no-cache" });
-								      if (!res.ok) throw new Error(`Manifest não encontrado (${res.status})`);
-								      const data = await res.json();
-								      const items = Array.isArray(data.items) ? data.items : [];
+								    // Util — cria um card no padrão Editorial
+								    function renderCard(item) {
+								      const art = document.createElement("article");
+								      const url = item.url || "#";
+								      const img = item.image || PLACEHOLDER_IMG;
+								      const desc = item.description || "";
 								
-								      // Ordena por data desc se existir
-								      items.sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0));
-								
-								      // Renderiza os primeiros N
-								      items.slice(0, MAX_ITEMS).forEach(i => container.appendChild(renderCard(i)));
-								
-								      if (!container.children.length) {
-								        container.innerHTML = `<p class="muted">Nenhuma notícia encontrada.</p>`;
-								      }
-								    } catch (e) {
-								      console.error("Math News:", e);
-								      const container = document.getElementById("mini-posts");
-								      if (container) container.innerHTML = `<p class="muted">Erro ao carregar as notícias.</p>`;
+								      art.innerHTML = `
+								        <a href="${url}" class="image" target="_blank" rel="noopener noreferrer">
+								          <img src="${img}" alt="">
+								        </a>
+								        <p>${desc}</p>
+								      `;
+								      return art;
 								    }
-								  }
 								
-								  document.addEventListener("DOMContentLoaded", loadNews);
+								    // Exibe uma mensagem de status visível (sem quebrar layout)
+								    function showStatus(msg) {
+								      const p = document.createElement("p");
+								      p.style.color = "#6b7280";
+								      p.style.margin = "0.5rem 0 0";
+								      p.textContent = msg;
+								      container.appendChild(p);
+								    }
+								
+								    async function loadNews() {
+								      try {
+								        const res = await fetch(FEED_URL.toString(), { cache: "no-cache" });
+								        if (!res.ok) {
+								          showStatus(`Erro ao carregar: ${res.status} ${res.statusText}`);
+								          return;
+								        }
+								
+								        // Garante JSON válido
+								        let data;
+								        try {
+								          data = await res.json();
+								        } catch (e) {
+								          showStatus("Manifesto JSON inválido (erro de parse).");
+								          return;
+								        }
+								
+								        const items = Array.isArray(data.items) ? data.items : [];
+								        if (!items.length) {
+								          showStatus("Nenhum item no manifesto.");
+								          return;
+								        }
+								
+								        // Ordena por data desc (se tiver)
+								        items.sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0));
+								
+								        // Renderiza
+								        items.slice(0, MAX_ITEMS).forEach(i => container.appendChild(renderCard(i)));
+								
+								        // Se por algum motivo nada foi renderizado, mostra status
+								        if (!container.children.length) showStatus("Nada para exibir.");
+								      } catch (err) {
+								        console.error("Math News:", err);
+								        showStatus("Erro inesperado ao carregar as notícias.");
+								      }
+								    }
+								
+								    document.addEventListener("DOMContentLoaded", loadNews);
+								  })();
 								</script>
 							<!-- Section -->				
 								<section>
@@ -411,6 +440,7 @@
 	</body>
 
 </html>
+
 
 
 
