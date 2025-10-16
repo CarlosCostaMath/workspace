@@ -1,0 +1,52 @@
+---
+---
+<!DOCTYPE HTML>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <title>Math News</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}" />
+</head>
+<body class="is-preload">
+  <div id="wrapper">
+    <div id="main">
+      <div class="inner">
+
+        <header class="major">
+          <h1>Math News</h1>
+        </header>
+
+        <section>
+          <div class="posts">
+            {% assign items = site.data.news.items | sort: "date" | reverse %}
+            {% for item in items %}
+              <article>
+                {% if item.image %}
+                  <a href="{{ item.url | escape }}" class="image" target="_blank" rel="noopener noreferrer">
+                    <img src="{{ item.image | escape }}" alt="{{ item.description | escape }}">
+                  </a>
+                {% endif %}
+                <h3>{{ item.date }}</h3>
+                <p>{{ item.description }}</p>
+                <ul class="actions">
+                  <li><a class="button" href="{{ item.url | escape }}" target="_blank" rel="noopener noreferrer">Abrir matéria</a></li>
+                </ul>
+              </article>
+            {% endfor %}
+          </div>
+        </section>
+
+      </div>
+    </div>
+
+    <!-- Se você quiser o sidebar/rodapé iguais ao index, copie-os do seu index.html para cá -->
+  </div>
+
+  <script src="{{ '/assets/js/jquery.min.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/browser.min.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/breakpoints.min.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/util.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/main.js' | relative_url }}"></script>
+</body>
+</html>
