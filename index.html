@@ -286,8 +286,16 @@
 
 							<!-- Footer -->
 								<footer id="footer">
-									<p class="copyright">&copy; Untitled. All rights reserved. Demo Images: <a href="https://unsplash.com">Unsplash</a>. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+								  <p class="copyright">
+								    &copy; <span id="year"></span> Carlos Costa · Todos os direitos reservados.
+								    Design:
+								    <a href="https://html5up.net" target="_blank" rel="noopener noreferrer">HTML5 UP</a>.
+								  </p>
 								</footer>
+								
+								<script>
+								  document.getElementById('year').textContent = new Date().getFullYear();
+								</script>
 
 						</div>
 					</div>
@@ -304,6 +312,7 @@
 	</body>
 
 </html>
+
 
 
 
