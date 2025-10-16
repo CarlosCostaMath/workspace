@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <title>Sobre — Carlos Costa</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <!-- Se você já estiver dentro do tema Editorial, o CSS abaixo vem do template.
+       Estes estilos mínimos só ajudam no modo standalone. -->
+  <style>
+    body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", Arial, sans-serif; margin:0; color:#2e3141; background:#f5f6f7; }
+    .wrapper { max-width: 1100px; margin: 0 auto; padding: 2.5rem 1.5rem; }
+    header.major { margin: 0 0 2rem 0; }
+    header.major h1, header.major h2 { margin: 0 0 .5rem 0; font-weight: 800; letter-spacing: .02em; }
+    .subtitle { color:#6b7280; margin-top: .25rem; }
+    .grid { display: grid; gap: 1.25rem; }
+    @media (min-width: 980px){ .grid.cols-2 { grid-template-columns: 1fr 1fr; } }
+    .card {
+      background: #fff; border-radius: .6rem; padding: 1.25rem 1.25rem;
+      box-shadow: 0 4px 16px rgba(0,0,0,.06);
+    }
+    .badge { display:inline-block; padding:.2rem .5rem; border-radius:999px; font-size:.78rem; background:#eef2ff; color:#4338ca; margin:.15rem .3rem .15rem 0; }
+    h3 { margin:.25rem 0 1rem 0; font-weight:700; }
+    h4 { margin: 0 0 .5rem 0; font-weight:700; color:#374151; }
+    p { line-height:1.6; }
+    ul { margin:.25rem 0 0 1.25rem; }
+    .muted { color:#6b7280; }
+    .feature {
+      display:flex; gap:.9rem; align-items:flex-start;
+      padding:.85rem 0; border-top:1px solid #e5e7eb;
+    }
+    .feature:first-child { border-top:0; }
+    .icon {
+      width: 2.25rem; height: 2.25rem; min-width:2.25rem; border-radius:.5rem;
+      display:flex; align-items:center; justify-content:center; background:#111827; color:#fff; font-size:1.05rem;
+    }
+    a { color:#2563eb; text-decoration: none; border-bottom: 1px dotted rgba(37,99,235,.45); }
+    a:hover { border-bottom-color: transparent; }
+    /* toque sutil “Editorial” */
+    .lead { font-size:1.05rem; color:#374151; }
+    /* acessibilidade de movimento */
+    @media (prefers-reduced-motion: reduce) { * { transition:none !important; animation:none !important; } }
+  </style>
+  <!-- Se estiver usando o template original, os ícones vêm do próprio tema (font awesome já incluso). -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+</head>
+<body>
+
+  <div class="wrapper">
+    <!-- Cabeçalho da página -->
+    <header class="major">
+      <h1>Sobre Carlos Costa</h1>
+      <p class="subtitle">Educador e pesquisador em Matemática • Ensino, tecnologia e inovação educacional</p>
+    </header>
+
+    <!-- Introdução -->
+    <section class="card">
+      <p class="lead">
+        É educador e pesquisador na área de matemática, com experiência no ensino e interesse em novas tecnologias aplicadas à educação.
+        Sua formação e atuação refletem compromisso com a qualidade e a inovação do ensino, baseados em uma abordagem científica.
+      </p>
+    </section>
+
+    <!-- Conteúdo em duas colunas (estilo Editorial) -->
+    <section class="grid cols-2" id="main">
+
+      <!-- Coluna 1 -->
+      <div class="grid" style="align-content:start">
+
+        <!-- Formação Acadêmica -->
+        <section class="card">
+          <h2>Formação Acadêmica</h2>
+          <div class="feature">
+            <div class="icon">🎓</div>
+            <div>
+              <h4>Mestrado — Tecnologias Emergentes em Educação</h4>
+              <p class="muted">
+                <a href="https://mustedu.com/" target="_blank" rel="noopener noreferrer">MUST University</a>
+              </p>
+            </div>
+          </div>
+          <div class="feature">
+            <div class="icon">📊</div>
+            <div>
+              <h4>Especialização — Matemática e Estatística (Cálculo e Estatística)</h4>
+              <p class="muted">
+                <a href="https://www.ufla.br/" target="_blank" rel="noopener noreferrer">Universidade Federal de Lavras (UFLA)</a>
+              </p>
+            </div>
+          </div>
+          <div class="feature">
+            <div class="icon">📐</div>
+            <div>
+              <h4>Graduação — Matemática</h4>
+              <p class="muted">
+                <a href="https://www.uneal.edu.br/" target="_blank" rel="noopener noreferrer">Universidade Estadual de Alagoas (UNEAL)</a>
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Experiência e Ensino -->
+        <section class="card">
+          <h2>Experiência Profissional e Ensino</h2>
+          <div class="feature">
+            <div class="icon">🏫</div>
+            <div>
+              <h4>Professor Auxiliar — Curso de Matemática</h4>
+              <p class="muted">
+                <a href="https://www.uneal.edu.br/institucional/campi/palmeira-dos-indios"
+                   target="_blank" rel="noopener noreferrer">UNEAL — Campus III (Palmeira dos Índios)</a>
+              </p>
+              <p>Ministra aulas nos seguintes campos:</p>
+              <ul>
+                <li>Cálculo e Análise Real</li>
+                <li>Cálculo Numérico</li>
+                <li>Álgebra Abstrata</li>
+                <li>Teoria dos Números</li>
+                <li>Geometria Euclidiana</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- Coluna 2 -->
+      <div class="grid" style="align-content:start">
+
+        <!-- Pesquisa e Inovação -->
+        <section class="card">
+          <h2>Pesquisa e Inovação</h2>
+
+          <div class="feature">
+            <div class="icon">📚</div>
+            <div>
+              <h4>Projeto de extensão — Tradução de livros</h4>
+              <p>Traduções abertas com licenças <span class="badge">Creative Commons</span> e <span class="badge">GNU</span> na área de Matemática.</p>
+            </div>
+          </div>
+
+          <div class="feature">
+            <div class="icon">🧭</div>
+            <div>
+              <h4>Cronologia da História da Matemática (com IA)</h4>
+              <p>Projeto inspirado no
+                <a href="https://mathshistory.st-andrews.ac.uk/" target="_blank" rel="noopener noreferrer">MacTutor</a>,
+                integrando recursos digitais e curadoria pedagógica.</p>
+            </div>
+          </div>
+
+          <div class="feature">
+            <div class="icon">⚙️</div>
+            <div>
+              <h4>Wolfram Language no ensino</h4>
+              <p>Estudo e aplicação de ferramentas computacionais para melhorar a compreensão conceitual e procedimental.</p>
+            </div>
+          </div>
+
+          <div class="feature">
+            <div class="icon">🧠</div>
+            <div>
+              <h4>IA na Licenciatura em Matemática</h4>
+              <p>Investigações sobre o uso de Inteligência Artificial para potencializar processos de ensino e aprendizagem.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Certificados e Vinculações -->
+        <section class="card">
+          <h2>Certificações e Vinculações</h2>
+
+          <div class="feature">
+            <div class="icon">📜</div>
+            <div>
+              <h4>Wolfram U — Certificados</h4>
+              <ul>
+                <li>Cálculo</li>
+                <li>Álgebra Elementar</li>
+                <li>Wolfram Notebook</li>
+              </ul>
+              <p class="muted">
+                <a href="https://www.wolfram.com/wolfram-u/" target="_blank" rel="noopener noreferrer">Wolfram U</a>
+              </p>
+            </div>
+          </div>
+
+          <div class="feature">
+            <div class="icon">🤝</div>
+            <div>
+              <h4>Grupo de Estudos</h4>
+              <p>Vinculação ao <strong>GREMF</strong> (Grupo de Estudos em Matemática e Estatística).</p>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </section>
+
+    <!-- CTA opcional (contato) -->
+    <section class="card" style="margin-top:1rem">
+      <h2>Contato</h2>
+      <p>Aberto a diálogos acadêmicos, colaborações de pesquisa, oficinas e palestras.</p>
+      <p>
+        <a href="mailto:carloscosta@uneal.edu.br" target="_blank" rel="noopener noreferrer">carloscosta@uneal.edu.br</a>
+        &nbsp;•&nbsp;
+        <a href="https://historia-da-matematica-9jtis9w.gamma.site/" target="_blank" rel="noopener noreferrer">Projetos Recentes</a>
+      </p>
+    </section>
+
+  </div>
+</body>
+</html>
