@@ -247,6 +247,35 @@
 								  <div class="mini-posts" id="news-list">
 								    <p>Carregando notícias...</p>
 								  </div>
+								
+								  <!-- Script colocado DENTRO da seção -->
+								  <script>
+								    document.addEventListener('DOMContentLoaded', function () {
+								      const box = document.getElementById('news-list');
+								      if (!box) return;
+								
+								      fetch('news/links.json', { cache: 'no-store' })
+								        .then(r => r.json())
+								        .then(items => {
+								          // ordena por data desc e pega só 3
+								          items.sort((a,b) => new Date(b.date) - new Date(a.date));
+								          const top3 = items.slice(0, 3);
+								
+								          box.innerHTML = top3.map(it => `
+								            <article class="link-preview">
+								              <a href="${it.url}" class="image" target="_blank" rel="noopener noreferrer">
+								                <img src="https://s.wordpress.com/mshots/v1/${encodeURIComponent(it.url)}?w=640"
+								                     alt="Prévia da página" loading="lazy" />
+								              </a>
+								              <p><strong>${it.source}</strong> — ${it.title}</p>
+								            </article>
+								          `).join('');
+								        })
+								        .catch(() => {
+								          box.innerHTML = '<p>Não foi possível carregar as notícias.</p>';
+								        });
+								    });
+								  </script>
 								</section>
 
 							<!-- Section -->
@@ -283,6 +312,7 @@
 	</body>
 
 </html>
+
 
 
 
