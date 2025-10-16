@@ -359,98 +359,65 @@
 			<script src="assets/js/main.js"></script>
 			<script>
 			  (function () {
-			    const FEED_URL = new URL("news/index.json", window.location.href);
-			    FEED_URL.searchParams.set("_", Date.now()); // evita cache
-			
-			    const MAX_ITEMS = 3;
-			    const container = document.getElementById("mini-posts");
+			    const container = document.getElementById('mini-posts');
 			    if (!container) return;
 			
-			    function renderCard(item) {
-			      const art = document.createElement("article");
+			    const jsonUrl = 'news/index.json?' + Date.now();
 			
-			      const url = (item.url || "#").trim();
-			      const desc = (item.description || "").trim();
-			      const imgSrc = item.image?.trim();
-			
-			      // Cria o link com imagem (se houver)
-			      const link = document.createElement("a");
-			      link.href = url;
-			      link.target = "_blank";
-			      link.rel = "noopener noreferrer";
-			      link.className = "image";
-			
-			      if (imgSrc) {
-			        const img = document.createElement("img");
-			        img.src = imgSrc;
-			        img.alt = "";
-			        img.loading = "lazy";
-			        link.appendChild(img);
-			      }
-			
-			      const p = document.createElement("p");
-			      p.textContent = desc;
-			
-			      art.appendChild(link);
-			      art.appendChild(p);
-			      return art;
-			    }
-			
-			    function showStatus(msg) {
-			      const p = document.createElement("p");
-			      p.style.color = "#6b7280";
-			      p.style.margin = "0.5rem 0 0";
-			      p.textContent = msg;
-			      container.appendChild(p);
-			    }
-			
-			    async function loadNews() {
-			      try {
-			        const res = await fetch(FEED_URL.toString(), { cache: "no-cache" });
-			        if (!res.ok) {
-			          showStatus(`Erro ao carregar notícias: ${res.status}`);
-			          return;
-			        }
-			
-			        let data;
-			        try {
-			          data = await res.json();
-			        } catch (e) {
-			          showStatus("JSON inválido.");
-			          return;
-			        }
-			
+			    fetch(jsonUrl, { cache: 'no-cache' })
+			      .then(res => {
+			        if (!res.ok) throw new Error('Erro na rede: ' + res.status);
+			        return res.json();
+			      })
+			      .then(data => {
 			        const items = Array.isArray(data.items) ? data.items : [];
 			        if (!items.length) {
-			          showStatus("Nenhuma notícia disponível.");
+			          container.textContent = 'Nenhuma notícia disponível.';
 			          return;
 			        }
 			
 			        // Ordena por data (mais recente primeiro)
 			        items.sort((a, b) => new Date(b.date) - new Date(a.date));
 			
-			        // Renderiza até MAX_ITEMS
-			        items.slice(0, MAX_ITEMS).forEach(item => {
-			          container.appendChild(renderCard(item));
+			        items.slice(0, 3).forEach(item => {
+			          const url = (item.url || '#').trim();
+			          const desc = (item.description || '').trim();
+			          const imgSrc = (item.image || '').trim();
+			
+			          const article = document.createElement('article');
+			
+			          const link = document.createElement('a');
+			          link.href = url;
+			          link.target = '_blank';
+			          link.rel = 'noopener noreferrer';
+			          link.className = 'image';
+			
+			          if (imgSrc) {
+			            const img = document.createElement('img');
+			            img.src = imgSrc;
+			            img.alt = '';
+			            img.loading = 'lazy';
+			            link.appendChild(img);
+			          }
+			
+			          const p = document.createElement('p');
+			          p.textContent = desc;
+			
+			          article.appendChild(link);
+			          article.appendChild(p);
+			          container.appendChild(article);
 			        });
-			
-			      } catch (err) {
-			        console.error("Erro ao carregar notícias:", err);
-			        showStatus("Falha inesperada ao carregar as notícias.");
-			      }
-			    }
-			
-			    // Executa quando o DOM estiver pronto
-			    if (document.readyState === "loading") {
-			      document.addEventListener("DOMContentLoaded", loadNews);
-			    } else {
-			      loadNews();
-			    }
+			      })
+			      .catch(err => {
+			        console.error('Falha ao carregar notícias:', err);
+			        container.textContent = 'Falha ao carregar as notícias.';
+			      });
 			  })();
 			</script>
 	</body>
 
 </html>
+
 
 
 
