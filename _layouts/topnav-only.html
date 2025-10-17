@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{ page.title }}</title>
+
+    <!-- CSS principal do seu tema -->
+    <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+  </head>
+  <body class="is-preload">
+    <div id="wrapper">
+      <!-- Conteúdo principal -->
+      <div id="main">
+        <div class="inner">
+
+          <!-- Topo com o menu (copie do seu site) -->
+          <header id="header">
+            <a href="{{ '/' | relative_url }}" class="logo"><strong>Editorial</strong> by HTML5 UP</a>
+            <!-- seus ícones/links do topo aqui -->
+          </header>
+
+          <!-- AQUI entra o texto do post -->
+          {{ content }}
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts do seu tema -->
+    <script src="{{ '/assets/js/jquery.min.js' | relative_url }}"></script>
+    <script src="{{ '/assets/js/browser.min.js' | relative_url }}"></script>
+    <script src="{{ '/assets/js/breakpoints.min.js' | relative_url }}"></script>
+    <script src="{{ '/assets/js/util.js' | relative_url }}"></script>
+    <script src="{{ '/assets/js/main.js' | relative_url }}"></script>
+  </body>
+</html>
