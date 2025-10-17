@@ -4,31 +4,37 @@ title: Título do Post
 ---
 
 <style>
-  /* header do post */
-  .post-header{ text-align:center; margin:0 0 1.75rem }
+  /* bloco central que contém tag, título e descrição */
+  .hero-block{
+    display:inline-block;        /* mede pela largura do conteúdo */
+    text-align:left;             /* alinha o texto à esquerda dentro do bloco */
+    margin:0 auto 1.75rem;       /* centraliza o bloco na página */
+    max-width: 48rem;            /* limite opcional de largura */
+  }
+
   .kicker{
-    display:block;                 /* fica alinhada ao título */
+    display:block;               /* ocupa a mesma coluna do título */
     font-size:.78rem;
     letter-spacing:.12em;
     text-transform:uppercase;
     color:#7a7a7a;
-    margin:0 auto .35rem;
+    margin:0 0 .35rem 0;
   }
+
   .headline{
     font-size:clamp(2rem,4vw,3rem);
     line-height:1.15;
     margin:.25rem 0 .25rem;
   }
+
   .dek{
-    /* texto alinhado à ESQUERDA, mas bloco levemente à direita do título */
-    text-align:left;
-    display:block;
-    max-width:42rem;
-    margin:.5rem auto 0;
-    padding-left:1rem;             /* ajuste o “pouco à direita” aqui (.75rem, 1.25rem, etc.) */
+    text-align:left;             /* texto alinhado à esquerda */
+    text-transform:none !important;  /* garante que NÃO fica tudo maiúsculo */
     color:#7a7a7a;
-    font-size:.98rem;              /* menor que o corpo */
+    font-size:1rem;              /* igual ao corpo do post */
     line-height:1.6;
+    margin:.5rem 0 0 1rem;       /* “um pouco à direita” do título */
+    max-width:42rem;
   }
 
   /* capa com altura regulável */
@@ -37,31 +43,27 @@ title: Título do Post
 </style>
 
 <article>
-  <header class="post-header">
-    <!-- TAG (link opcional) -->
+
+  <!-- TAG + TÍTULO + DESCRIÇÃO em um bloco centrado, mas com texto à esquerda -->
+  <div class="hero-block">
     <a class="kicker" href="#" title="Ver posts desta tag">Mathematical Physics</a>
-
-    <!-- TÍTULO centralizado -->
     <h1 class="headline">The Hidden Math of Ocean Waves Crashes Into View</h1>
-
-    <!-- DESCRIÇÃO: fonte menor, texto à esquerda, bloco deslocado à direita -->
     <p class="dek">
       The math of even the simplest ocean waves is notoriously uncooperative.
       A team of Italian mathematicians has made major advances toward understanding it.
     </p>
-  </header>
+  </div>
 
-  <!-- CAPA: troque a altura em --h -->
+  <!-- CAPA: ajuste a altura trocando --h -->
   <span class="image main cover" style="--h: 480px;">
     <img src="{{ '/blog/Artigos/entendi-mas-nao-entendi/capa.jpg' | relative_url }}" alt="Ocean waves illustration" loading="lazy" decoding="async">
   </span>
 
   <!-- TEXTO DO POST -->
   <section>
-    <p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Pellentesque leo mauris, consectetur id ipsum sit amet, fergiat. Pellentesque in mi eu massa lacinia malesuada et a elit. Donec urna ex, lacinia in purus ac, pretium pulvinar mauris. Curabitur sapien risus, commodo eget turpis at, elementum convallis elit. Pellentesque enim turpis, hendrerit.</p>
-
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dapibus rutrum facilisis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam tristique libero eu nibh porttitor fermentum. Nullam venenatis erat id vehicula viverra. Nunc ultrices eros ut ultricies condimentum. Mauris risus lacus, blandit sit amet venenatis non, bibendum vitae dolor. Nunc lorem mauris, fringilla in aliquam at, euismod in lectus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In non lorem sit amet elit placerat maximus. Pellentesque aliquam maximus risus, vel sed vehicula.</p>
-
-    <p>Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Pellentesque leo mauris, consectetur id ipsum sit amet, fersapien risus, commodo eget turpis at, elementum convallis elit. Pellentesque enim turpis, hendrerit tristique lorem ipsum dolor.</p>
+    <p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis…</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit…</p>
+    <p>Interdum et malesuada fames ac ante ipsum primis in faucibus…</p>
   </section>
+
 </article>
