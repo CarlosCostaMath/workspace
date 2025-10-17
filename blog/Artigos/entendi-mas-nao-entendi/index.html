@@ -7,17 +7,28 @@ title: Título do Post
   /* header do post */
   .post-header{ text-align:center; margin:0 0 1.75rem }
   .kicker{
-    display:inline-block; font-size:.78rem; letter-spacing:.12em; text-transform:uppercase;
-    color:#7a7a7a; margin-bottom:.35rem
+    display:block;                 /* fica alinhada ao título */
+    font-size:.78rem;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:#7a7a7a;
+    margin:0 auto .35rem;
   }
   .headline{
     font-size:clamp(2rem,4vw,3rem);
-    line-height:1.15; margin:.25rem 0 .25rem
+    line-height:1.15;
+    margin:.25rem 0 .25rem;
   }
   .dek{
-    /* centraliza e desloca levemente à direita */
-    display:inline-block; margin:.5rem auto 0; padding-left:1rem; /* ajuste o “pouco à direita” aqui */
-    color:#7a7a7a; font-size:1.05rem; line-height:1.6; max-width:42rem
+    /* texto alinhado à ESQUERDA, mas bloco levemente à direita do título */
+    text-align:left;
+    display:block;
+    max-width:42rem;
+    margin:.5rem auto 0;
+    padding-left:1rem;             /* ajuste o “pouco à direita” aqui (.75rem, 1.25rem, etc.) */
+    color:#7a7a7a;
+    font-size:.98rem;              /* menor que o corpo */
+    line-height:1.6;
   }
 
   /* capa com altura regulável */
@@ -26,24 +37,23 @@ title: Título do Post
 </style>
 
 <article>
-
   <header class="post-header">
-    <!-- TAG (com link opcional) -->
+    <!-- TAG (link opcional) -->
     <a class="kicker" href="#" title="Ver posts desta tag">Mathematical Physics</a>
 
     <!-- TÍTULO centralizado -->
     <h1 class="headline">The Hidden Math of Ocean Waves Crashes Into View</h1>
 
-    <!-- DESCRIÇÃO cinza, um pouco à direita -->
+    <!-- DESCRIÇÃO: fonte menor, texto à esquerda, bloco deslocado à direita -->
     <p class="dek">
       The math of even the simplest ocean waves is notoriously uncooperative.
       A team of Italian mathematicians has made major advances toward understanding it.
     </p>
   </header>
 
-  <!-- CAPA: ajuste a altura trocando --h (ex.: 360px, 520px, …) -->
+  <!-- CAPA: troque a altura em --h -->
   <span class="image main cover" style="--h: 480px;">
-    <img src="{{ '/blog/Artigos/entendi-mas-nao-entendi/capa.jpg' | relative_url }}" alt="Ocean waves illustration">
+    <img src="{{ '/blog/Artigos/entendi-mas-nao-entendi/capa.jpg' | relative_url }}" alt="Ocean waves illustration" loading="lazy" decoding="async">
   </span>
 
   <!-- TEXTO DO POST -->
@@ -54,5 +64,4 @@ title: Título do Post
 
     <p>Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Pellentesque leo mauris, consectetur id ipsum sit amet, fersapien risus, commodo eget turpis at, elementum convallis elit. Pellentesque enim turpis, hendrerit tristique lorem ipsum dolor.</p>
   </section>
-
 </article>
