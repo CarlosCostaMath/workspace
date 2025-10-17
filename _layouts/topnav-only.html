@@ -65,11 +65,22 @@
             </header>
           {% endif %}
 
-          {% if page.cover_image %}
-            <span class="image main cover" style="--h: {{ page.cover_height | default: '360px' }}">
-              <img src="{{ page.cover_image | relative_url }}" alt="{{ page.cover_alt | default: page.title }}">
-            </span>
+        {% if page.cover_image %}
+          {% assign ci = page.cover_image %}
+          {% comment %}
+            Se começar com "/", tratamos como caminho absoluto do site (ex.: /images/capa.jpg).
+            Caso contrário, supomos que o arquivo está NA MESMA PASTA do post (ex.: "capa.jpg").
+          {% endcomment %}
+          {% if ci | slice: 0,1 == '/' %}
+            {% assign cover_src = ci | relative_url %}
+          {% else %}
+            {% assign cover_src = page.url | append: ci | relative_url %}
           {% endif %}
+        
+          <span class="image main cover" style="--h: {{ page.cover_height | default: '360px' }}">
+            <img src="{{ cover_src }}" alt="{{ page.cover_alt | default: page.title }}">
+          </span>
+        {% endif %}
 
           <!-- CONTEÚDO DO POST -->
           <article>
