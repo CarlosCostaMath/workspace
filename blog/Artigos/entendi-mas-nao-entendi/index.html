@@ -1,92 +1,58 @@
 ---
 layout: topnav-only
-title: The Hidden Math of Ocean Waves Crashes Into View
+title: Título do Post
 ---
 
 <style>
-  /* header do post no estilo “revista” */
-  .hero {
-    display: grid;
-    grid-template-columns: 2fr 1fr; /* título à esquerda, descrição à direita */
-    gap: 2rem;
-    align-items: start;
-    margin-bottom: 1.75rem;
+  /* header do post */
+  .post-header{ text-align:center; margin:0 0 1.75rem }
+  .kicker{
+    display:inline-block; font-size:.78rem; letter-spacing:.12em; text-transform:uppercase;
+    color:#7a7a7a; margin-bottom:.35rem
   }
-  @media (max-width: 980px) {
-    .hero { grid-template-columns: 1fr; }
+  .headline{
+    font-size:clamp(2rem,4vw,3rem);
+    line-height:1.15; margin:.25rem 0 .25rem
   }
-
-  .kicker {
-    display:inline-block;
-    font-size:.78rem;
-    letter-spacing:.12em;
-    text-transform:uppercase;
-    color:#7a7a7a;
-    margin-bottom:.25rem;
+  .dek{
+    /* centraliza e desloca levemente à direita */
+    display:inline-block; margin:.5rem auto 0; padding-left:1rem; /* ajuste o “pouco à direita” aqui */
+    color:#7a7a7a; font-size:1.05rem; line-height:1.6; max-width:42rem
   }
 
-  .headline {
-    font-size: clamp(2rem, 4vw, 3rem); /* grande, mas responsivo */
-    line-height: 1.15;
-    margin: .25rem 0 .5rem;
-  }
-
-  .meta-row {
-    display:flex;
-    gap: .75rem;
-    align-items:center;
-    margin: .25rem 0 0;
-    color:#9a9a9a;
-    font-size: .95rem;
-  }
-
-  .dek {
-    color:#7a7a7a;
-    font-size: 1.05rem;
-    line-height: 1.6;
-    margin: .5rem 0 0;
-  }
-
-  /* capa com altura controlável e crop elegante */
-  .image.main.cover { height: var(--h, 420px); overflow: hidden; border-radius: .25rem; }
-  .image.main.cover img { width:100%; height:100%; object-fit:cover; display:block; }
+  /* capa com altura regulável */
+  .image.main.cover{ height:var(--h,420px); overflow:hidden; border-radius:.25rem }
+  .image.main.cover img{ width:100%; height:100%; object-fit:cover; display:block }
 </style>
 
-<!-- HERO -->
-<div class="hero">
-  <!-- Coluna esquerda: tag + título + (opcional) pequenos ícones -->
-  <div>
-    <!-- TAG com link -->
-    <a class="kicker" href="#" title="Ver todas nesta tag">Mathematical Physics</a>
+<article>
 
-    <!-- TÍTULO -->
+  <header class="post-header">
+    <!-- TAG (com link opcional) -->
+    <a class="kicker" href="#" title="Ver posts desta tag">Mathematical Physics</a>
+
+    <!-- TÍTULO centralizado -->
     <h1 class="headline">The Hidden Math of Ocean Waves Crashes Into View</h1>
 
-    <!-- (opcional) ícones/metadados mínimos -->
-    <div class="meta-row">
-      <span class="icon solid fa-comment" aria-hidden="true"></span>
-      <span class="icon solid fa-bookmark" aria-hidden="true"></span>
-    </div>
-  </div>
+    <!-- DESCRIÇÃO cinza, um pouco à direita -->
+    <p class="dek">
+      The math of even the simplest ocean waves is notoriously uncooperative.
+      A team of Italian mathematicians has made major advances toward understanding it.
+    </p>
+  </header>
 
-  <!-- Coluna direita: subtítulo/descrição (“dek”) -->
-  <p class="dek">
-    The math of even the simplest ocean waves is notoriously uncooperative.
-    A team of Italian mathematicians has made major advances toward understanding it.
-  </p>
-</div>
+  <!-- CAPA: ajuste a altura trocando --h (ex.: 360px, 520px, …) -->
+  <span class="image main cover" style="--h: 480px;">
+    <img src="{{ '/blog/Artigos/entendi-mas-nao-entendi/capa.jpg' | relative_url }}" alt="Ocean waves illustration">
+  </span>
 
-<!-- CAPA (ajuste a altura trocando --h) -->
-<span class="image main cover" style="--h: 480px;">
-  <img src="{{ '/blog/Artigos/entendi-mas-nao-entendi/capa.jpg' | relative_url }}"
-       alt="Ocean waves illustration">
-</span>
+  <!-- TEXTO DO POST -->
+  <section>
+    <p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Pellentesque leo mauris, consectetur id ipsum sit amet, fergiat. Pellentesque in mi eu massa lacinia malesuada et a elit. Donec urna ex, lacinia in purus ac, pretium pulvinar mauris. Curabitur sapien risus, commodo eget turpis at, elementum convallis elit. Pellentesque enim turpis, hendrerit.</p>
 
-<!-- TEXTO DO POST -->
-<section>
-  <p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Pellentesque leo mauris, consectetur id ipsum sit amet, fergiat. Pellentesque in mi eu massa lacinia malesuada et a elit. Donec urna ex, lacinia in purus ac, pretium pulvinar mauris. Curabitur sapien risus, commodo eget turpis at, elementum convallis elit. Pellentesque enim turpis, hendrerit.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dapibus rutrum facilisis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam tristique libero eu nibh porttitor fermentum. Nullam venenatis erat id vehicula viverra. Nunc ultrices eros ut ultricies condimentum. Mauris risus lacus, blandit sit amet venenatis non, bibendum vitae dolor. Nunc lorem mauris, fringilla in aliquam at, euismod in lectus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In non lorem sit amet elit placerat maximus. Pellentesque aliquam maximus risus, vel sed vehicula.</p>
 
-  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dapibus rutrum facilisis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam tristique libero eu nibh porttitor fermentum. Nullam venenatis erat id vehicula viverra. Nunc ultrices eros ut ultricies condimentum. Mauris risus lacus, blandit sit amet venenatis non, bibendum vitae dolor. Nunc lorem mauris, fringilla in aliquam at, euismod in lectus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In non lorem sit amet elit placerat maximus. Pellentesque aliquam maximus risus, vel sed vehicula.</p>
+    <p>Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Pellentesque leo mauris, consectetur id ipsum sit amet, fersapien risus, commodo eget turpis at, elementum convallis elit. Pellentesque enim turpis, hendrerit tristique lorem ipsum dolor.</p>
+  </section>
 
-  <p>Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Pellentesque leo mauris, consectetur id ipsum sit amet, fersapien risus, commodo eget turpis at, elementum convallis elit. Pellentesque enim turpis, hendrerit tristique lorem ipsum dolor.</p>
-</section>
+</article>
