@@ -8,6 +8,19 @@
     <!-- CSS do tema + Font Awesome (ícones) -->
     <link rel="stylesheet" href="{{ '/assets/css/fontawesome-all.min.css' | relative_url }}" />
     <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}" />
+
+    <!-- Estilos do cabeçalho do post (pode mover para main.css depois) -->
+    <style>
+      .post-header{ text-align:center; margin:0 0 1.25rem }
+      .post-tag{
+        display:inline-block; font-size:.8rem; text-transform:uppercase; letter-spacing:.08em;
+        background:#f0f0f0; color:#333; padding:.25rem .5rem; border-radius:.25rem; margin-bottom:.5rem
+      }
+      .post-title{ margin:.25rem 0 .25rem; line-height:1.2 }
+      .post-subtitle{ color:#666; margin:0; font-size:1rem }
+      .image.main.cover{ height:var(--h,360px); overflow:hidden }
+      .image.main.cover img{ width:100%; height:100%; object-fit:cover; display:block }
+    </style>
   </head>
   <body class="is-preload">
     <div id="wrapper">
@@ -16,7 +29,7 @@
       <div id="main">
         <div class="inner">
 
-          <!-- Header (copiado do index raiz, com caminhos ajustados) -->
+          <!-- Header (menu do topo) -->
           <header id="header">
             <a href="{{ '/' | relative_url }}" class="logo"><strong>Prof.</strong> Carlos Costa</a>
             <ul class="icons">
@@ -43,8 +56,25 @@
             </ul>
           </header>
 
+          <!-- Cabeçalho do post (opcional, usa os campos do front matter) -->
+          {% if page.tag or page.title or page.subtitle %}
+            <header class="post-header">
+              {% if page.tag %}<span class="post-tag">{{ page.tag }}</span>{% endif %}
+              {% if page.title %}<h1 class="post-title">{{ page.title }}</h1>{% endif %}
+              {% if page.subtitle %}<p class="post-subtitle">{{ page.subtitle }}</p>{% endif %}
+            </header>
+          {% endif %}
+
+          {% if page.cover_image %}
+            <span class="image main cover" style="--h: {{ page.cover_height | default: '360px' }}">
+              <img src="{{ page.cover_image | relative_url }}" alt="{{ page.cover_alt | default: page.title }}">
+            </span>
+          {% endif %}
+
           <!-- CONTEÚDO DO POST -->
-          {{ content }}
+          <article>
+            {{ content }}
+          </article>
 
         </div>
       </div>
