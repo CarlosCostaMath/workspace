@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5 Ideias Surpreendentes que Revelam Como a IA Está Aprendendo a Pensar como um Matemático</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #7c3aed;
+            --accent-color: #06b6d4;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --background: #ffffff;
+            --surface: #f8fafc;
+            --border: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            --gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.7;
+            color: var(--text-primary);
+            background-color: var(--background);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .header {
+            background: var(--gradient);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="white" stroke-width="0.5" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .header h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header .subtitle {
+            font-size: clamp(1rem, 3vw, 1.25rem);
+            font-weight: 300;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .date {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 40px;
+        }
+
+        .header-image {
+            max-width: 300px;
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+            margin-top: 20px;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 80px 0;
+        }
+
+        /* Introduction */
+        .intro {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .intro h2 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .intro-text {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* Sections */
+        .section {
+            margin-bottom: 80px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-card {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .section-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .section-number {
+            background: var(--gradient);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .section h3 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            line-height: 1.3;
+        }
+
+        .section-content {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .section-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+
+        .section-text p {
+            margin-bottom: 20px;
+        }
+
+        .section-image {
+            width: 100%;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .section-image:hover {
+            transform: scale(1.05);
+        }
+
+        /* Blockquotes */
+        .quote {
+            background: var(--surface);
+            border-left: 4px solid var(--primary-color);
+            padding: 20px 30px;
+            margin: 30px 0;
+            border-radius: 0 12px 12px 0;
+            font-style: italic;
+            position: relative;
+        }
+
+        .quote::before {
+            content: '"';
+            font-size: 4rem;
+            color: var(--primary-color);
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            opacity: 0.3;
+        }
+
+        .quote-author {
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-style: normal;
+            font-weight: 500;
+        }
+
+        /* Process Cards */
+        .process-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .process-card {
+            background: var(--surface);
+            padding: 25px;
+            border-radius: 16px;
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .process-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        .process-card .icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 15px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .process-card h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        .process-card p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* Key Features */
+        .key-features {
+            background: var(--surface);
+            padding: 60px 0;
+            margin: 80px 0;
+            border-radius: 24px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .feature-item {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .feature-item h4 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+
+        .feature-item p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Conclusion */
+        .conclusion {
+            background: var(--gradient);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+            border-radius: 24px;
+            margin: 80px 0;
+        }
+
+        .conclusion h2 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
+
+        .conclusion-text {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            opacity: 0.9;
+            line-height: 1.8;
+        }
+
+        .final-question {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 16px;
+            font-style: italic;
+            font-size: 1.1rem;
+            max-width: 900px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            .header {
+                padding: 60px 0;
+            }
+
+            .main-content {
+                padding: 60px 0;
+            }
+
+            .section {
+                margin-bottom: 60px;
+            }
+
+            .section-card {
+                padding: 30px 20px;
+            }
+
+            .section-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .section-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .process-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .intro h2 {
+                font-size: 2rem;
+            }
+
+            .conclusion h2 {
+                font-size: 2rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <h1>5 Ideias Surpreendentes que Revelam Como a IA Está Aprendendo a Pensar como um Matemático</h1>
+                <p class="subtitle">E se a Inteligência Artificial pudesse não apenas aprender com o conhecimento humano, mas também descobrir matemática do zero, apenas a partir de seus axiomas fundamentais.</p>
+                <div class="date">
+                    <i class="fas fa-calendar"></i> 03 out. de 2025
+                </div>
+                <img src="https://user-gen-media-assets.s3.amazonaws.com/seedream_images/bab607a5-bef8-4c7f-b999-d7c4db0c2f2a.png" alt="IA pensando como um matemático com fórmulas ao redor" class="header-image">
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Introduction -->
+            <section class="intro">
+                <h2>A Nova Fronteira da Inteligência Artificial</h2>
+                <p class="intro-text">
+                    Quando pensamos em inteligência artificial (IA) e matemática, a imagem que geralmente vem à mente é a de uma calculadora poderosa, capaz de resolver equações complexas em um piscar de olhos. E, de fato, os grandes modelos de linguagem (LLMs) modernos são excelentes em resolver problemas que terminam com uma resposta numérica. Mas o verdadeiro coração da matemática não está no cálculo, e sim no raciocínio — na construção de provas formais que demonstram a verdade de uma afirmação de maneira irrefutável.
+                </p>
+                <div class="quote">
+                    <p>"Modelos de linguagem de larga escala (LLMs) têm mostrado potencial na demonstração de teoremas formais usando assistentes de prova como o Lean. Entretanto, os métodos existentes são difíceis de reproduzir ou de expandir, devido a código e dados privados, bem como a grandes exigências de computação"</p>
+                    <div class="quote-author">— Yang et al. (2023, p. 1), tradução do autor</div>
+                </div>
+                <p class="intro-text">
+                    Provar um teorema não é apenas encontrar um número; é construir uma cadeia lógica de argumentos, muitas vezes exigindo estratégia, intuição e criatividade. No entanto, pesquisas recentes estão revelando uma mudança fascinante. A IA não está apenas melhorando na resolução de problemas matemáticos; ela está começando a aprender a "pensar" como um matemático.
+                </p>
+                <p class="intro-text">
+                    Este artigo explora cinco descobertas surpreendentes de pesquisas de ponta que mostram como a IA está desenvolvendo estratégias, curiosidade e até mesmo a capacidade de aprender com seus próprios erros, inaugurando uma era onde o próprio processo de descoberta pode ser automatizado.
+                </p>
+            </section>
+
+            <!-- Section 1 -->
+            <section class="section">
+                <div class="section-card">
+                    <div class="section-header">
+                        <div class="section-number">1</div>
+                        <h3>A IA não está apenas aprendendo com humanos, mas descobrindo a matemática do zero</h3>
+                    </div>
+                    <div class="section-content">
+                        <div class="section-text">
+                            <p>A abordagem tradicional para ensinar matemática à IA consiste em alimentá-la com todo o conhecimento já produzido pela humanidade: livros didáticos, fóruns online, artigos acadêmicos e bibliotecas de provas formais escritas por especialistas. A ideia é que, ao absorver esse vasto oceano de dados, a IA aprenda a imitar os padrões do raciocínio humano.</p>
+                            
+                            <p>No entanto, um projeto de pesquisa radical chamado MINIMO está virando essa lógica de cabeça para baixo. Em vez de depender do conhecimento humano, ele trata a matemática como um jogo que pode ser aprendido do zero, apenas com as "regras" — isto é, os axiomas fundamentais de um domínio matemático. Essa abordagem é inspirada no AlphaZero, a IA que dominou jogos como xadrez e Go sem estudar nenhuma partida humana, apenas jogando contra si mesma.</p>
+                            
+                            <div class="quote">
+                                <p>"Como a humanidade extraiu a matemática do éter? Exploramos a visão platônica de que a matemática pode ser descoberta a partir de seus axiomas — um jogo de conjectura e prova"</p>
+                                <div class="quote-author">— Poesia et al. (2024, p. 1), tradução do autor</div>
+                            </div>
+                            
+                            <p>É uma ideia profundamente contraintuitiva: uma IA que constrói conhecimento matemático sem depender de milênios de descobertas humanas, explorando o universo da matemática por conta própria.</p>
+                        </div>
+                        <img src="https://user-gen-media-assets.s3.amazonaws.com/seedream_images/eb66b400-fab3-4c49-9651-42153b9436fe.png" alt="IA descobrindo matemática a partir de axiomas fundamentais" class="section-image">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 2 -->
+            <section class="section">
+                <div class="section-card">
+                    <div class="section-header">
+                        <div class="section-number">2</div>
+                        <h3>A arte de perguntar — A IA está aprendendo a formular seus próprios problemas</h3>
+                    </div>
+                    <div class="section-content">
+                        <div class="section-text">
+                            <p>Em um jogo como o xadrez, o objetivo é claro: dar xeque-mate. Mas na matemática, o jogo é infinito. Um dos maiores desafios para o matemático não é apenas resolver problemas, mas também decidir quais valem a pena ser enfrentados. Essa habilidade de formular boas perguntas — ou "conjecturas" — é o que impulsiona a descoberta.</p>
+                            
+                            <p>O projeto MINIMO aborda isso com um conceito chamado motivação intrínseca (intrinsic motivation).</p>
+                            
+                            <div class="quote">
+                                <p>"Descrevemos MINIMO (Mathematics via Intrinsic Motivation): um agente que aprende, de forma conjunta, a propor problemas desafiadores para si mesmo (conjecturar) e a resolvê-los (provar teoremas)."</p>
+                                <div class="quote-author">— Poesia et al. (2024, p. 1), tradução do autor</div>
+                            </div>
+                            
+                            <p>O agente de IA não recebe uma lista de teoremas para provar. Em vez disso, ele aprende duas habilidades simultaneamente: conjecturar (propor novos problemas) e provar (resolver esses problemas).</p>
+                            
+                            <p>Isso é crucial porque a IA desenvolve uma forma de "curiosidade". Ela aprende a gerar problemas que estão no limite de sua capacidade atual — suficientemente desafiadores para promover o aprendizado, mas não tão difíceis a ponto de se tornarem impossíveis.</p>
+                        </div>
+                        <img src="https://user-gen-media-assets.s3.amazonaws.com/seedream_images/07f87a8d-6d32-45a1-9975-b0cb18978c9b.png" alt="IA desenvolvendo curiosidade e formulando suas próprias perguntas" class="section-image">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3 -->
+            <section class="section">
+                <div class="section-card">
+                    <div class="section-header">
+                        <div class="section-number">3</div>
+                        <h3>Esboçar primeiro, provar depois — A IA está imitando a estratégia humana para resolver problemas complexos</h3>
+                    </div>
+                    <div class="section-content">
+                        <div class="section-text">
+                            <p>Muitos métodos de IA para provar teoremas são considerados "míopes". Eles tentam avançar passo a passo, otimizando a próxima ação com base no estado atual, mas frequentemente se perdem em detalhes que não levam a lugar algum. É como tentar escrever um livro complexo, palavra por palavra, sem nunca planejar a estrutura dos capítulos.</p>
+                            
+                            <div class="process-cards">
+                                <div class="process-card">
+                                    <div class="icon"><i class="fas fa-drafting-compass"></i></div>
+                                    <h4>Criar Esboço</h4>
+                                    <p>A IA primeiro cria um esboço da prova com os principais argumentos</p>
+                                </div>
+                                <div class="process-card">
+                                    <div class="icon"><i class="fas fa-check-circle"></i></div>
+                                    <h4>Validar Lógica</h4>
+                                    <p>O sistema verifica se a lógica geral do esboço está correta</p>
+                                </div>
+                                <div class="process-card">
+                                    <div class="icon"><i class="fas fa-puzzle-piece"></i></div>
+                                    <h4>Preencher Detalhes</h4>
+                                    <p>A IA resolve recursivamente cada parte, uma por uma</p>
+                                </div>
+                            </div>
+                            
+                            <p>Uma nova abordagem, chamada POETRY, resolve esse problema ensinando a IA a pensar de forma hierárquica, imitando uma estratégia típica de matemáticos para lidar com a complexidade. Essa abordagem foi implementada no assistente de provas Isabelle.</p>
+                            
+                            <p>Em vez de gerar uma prova longa e detalhada de uma só vez, a IA começa criando um esboço da prova (proof sketch). Funciona como escrever um ensaio: primeiro, você cria um esboço com os principais argumentos e, em seguida, preenche os detalhes de cada seção.</p>
+                        </div>
+                        <img src="https://user-gen-media-assets.s3.amazonaws.com/seedream_images/ec3ffcec-75c1-4cb8-ab1a-3ddc0bd9d0e8.png" alt="Estratégia hierárquica de esboçar primeiro e depois preencher detalhes" class="section-image">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 4 -->
+            <section class="section">
+                <div class="section-card">
+                    <div class="section-header">
+                        <div class="section-number">4</div>
+                        <h3>O fracasso é um professor — Como a IA transforma erros em novas descobertas</h3>
+                    </div>
+                    <div class="section-content">
+                        <div class="section-text">
+                            <p>Na ciência e na matemática, o fracasso raramente é um beco sem saída. Uma experiência malsucedida ou uma tentativa de prova que não deu certo pode, muitas vezes, revelar uma verdade inesperada. Surpreendentemente, a IA também está aprendendo essa lição.</p>
+                            
+                            <p>No projeto MINIMO, os pesquisadores implementaram uma técnica genial chamada re-rotulagem retrospectiva (hindsight relabeling).</p>
+                            
+                            <div class="quote">
+                                <p>"Propomos novos métodos de re-rotulagem retrospectiva em árvores de busca de provas para melhorar significativamente a eficiência amostral do agente em ambas as tarefas."</p>
+                                <div class="quote-author">— Poesia et al. (2024, p. 1), tradução do autor</div>
+                            </div>
+                            
+                            <div class="process-cards">
+                                <div class="process-card">
+                                    <div class="icon"><i class="fas fa-target"></i></div>
+                                    <h4>Objetivo Original</h4>
+                                    <p>Tentar provar que 2+1=0</p>
+                                </div>
+                                <div class="process-card">
+                                    <div class="icon"><i class="fas fa-lightbulb"></i></div>
+                                    <h4>Descoberta Acidental</h4>
+                                    <p>Através de manipulações válidas, chegar à prova de que: 2+1=3</p>
+                                </div>
+                                <div class="process-card">
+                                    <div class="icon"><i class="fas fa-star"></i></div>
+                                    <h4>Nova Verdade</h4>
+                                    <p>Reconhecer que uma verdade inesperada foi revelada</p>
+                                </div>
+                            </div>
+                            
+                            <p>Imagine que a IA se propõe a provar a "Conjectura A". Ela tenta vários caminhos, aplica axiomas, mas no final, falha. Em vez de simplesmente descartar essa tentativa como um erro, o sistema analisa a trajetória da falha.</p>
+                            
+                            <p>Ela pode descobrir que, embora não tenha provado a Conjectura A, a cadeia de passos lógicos que seguiu acidentalmente provou uma "Conjectura B" completamente nova e desconhecida.</p>
+                        </div>
+                        <img src="https://user-gen-media-assets.s3.amazonaws.com/seedream_images/05760f3e-b2fd-456b-b29b-f1b288687c53.png" alt="IA transformando erros em novas descobertas matemáticas" class="section-image">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5 -->
+            <section class="section">
+                <div class="section-card">
+                    <div class="section-header">
+                        <div class="section-number">5</div>
+                        <h3>Uma "biblioteca" inteligente vale mais que memorização pura</h3>
+                    </div>
+                    <div class="section-content">
+                        <div class="section-text">
+                            <p>Provar um teorema raramente é um ato isolado. Quase sempre, depende do uso de teoremas, lemas e definições previamente estabelecidos, armazenados em vastas bibliotecas matemáticas. Um dos maiores desafios para a IA é escolher, entre centenas de milhares de "ferramentas" disponíveis, quais utilizar em um determinado passo da prova.</p>
+                            
+                            <p>Métodos anteriores dependiam da simples memorização do LLM. O modelo precisava "lembrar" de ter visto uma premissa semelhante em um contexto parecido durante o treinamento. Essa abordagem pode funcionar, mas não generaliza bem para cenários realmente novos.</p>
+                            
+                            <p>O projeto LeanDojo introduziu o modelo ReProver (Retrieval-Augmented Prover), que adota uma estratégia muito mais eficiente.</p>
+                            
+                            <div class="quote">
+                                <p>"Ele contém anotações detalhadas de premissas em provas, fornecendo dados valiosos para a seleção de premissas — um gargalo-chave na demonstração de teoremas. Usando esses dados, desenvolvemos o ReProver (Retrieval-Augmented Prover): um provador baseado em LLM, aprimorado com recuperação para selecionar premissas de uma vasta biblioteca matemática."</p>
+                                <div class="quote-author">— Yang et al. (2023, p. 1), tradução do autor</div>
+                            </div>
+                            
+                            <p>Em vez de tentar memorizar toda a biblioteca, ele aprende a pesquisar e recuperar a informação certa quando precisa. É como a diferença entre um estudante que tenta decorar todos os livros de uma biblioteca e um pesquisador experiente que sabe usar o catálogo para encontrar exatamente o que precisa.</p>
+                        </div>
+                        <img src="https://user-gen-media-assets.s3.amazonaws.com/seedream_images/2c4432a0-4aa1-4ef5-aa24-ad0a24b198cd.png" alt="IA consultando biblioteca matemática de forma inteligente" class="section-image">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Key Features -->
+            <section class="key-features">
+                <div class="container">
+                    <h2 style="text-align: center; font-size: 2.5rem; font-weight: 600; margin-bottom: 20px; background: var(--gradient); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">De Calculadoras a Colaboradores Criativos</h2>
+                    <p style="text-align: center; font-size: 1.1rem; color: var(--text-secondary); max-width: 800px; margin: 0 auto;">As cinco ideias exploradas apontam para uma transformação fundamental. Ao aprender do zero, formular suas próprias perguntas, esboçar estratégias, aprender com os erros e consultar bibliotecas de conhecimento, a IA passa a espelhar o próprio processo de descoberta matemática.</p>
+                    
+                    <div class="features-grid">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-atom"></i>
+                            </div>
+                            <h4>Descoberta Autônoma</h4>
+                            <p>Aprendendo matemática do zero, sem depender do conhecimento humano.</p>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-question-circle"></i>
+                            </div>
+                            <h4>Curiosidade Artificial</h4>
+                            <p>Formulando suas próprias perguntas e criando currículos de aprendizado.</p>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-layer-group"></i>
+                            </div>
+                            <h4>Estratégia Hierárquica</h4>
+                            <p>Esboçando primeiro e preenchendo detalhes depois.</p>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-recycle"></i>
+                            </div>
+                            <h4>Aprendizado com Erros</h4>
+                            <p>Transformando falhas em novas descobertas matemáticas.</p>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <h4>Pesquisa Inteligente</h4>
+                            <p>Consultando bibliotecas de conhecimento de forma eficiente.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Conclusion -->
+            <section class="conclusion">
+                <div class="container">
+                    <h2>Uma Nova Era da Descoberta</h2>
+                    <p class="conclusion-text">
+                        Como demonstram os avanços em MINIMO, POETRY e ReProver, não estamos mais diante apenas da automação de cálculos, mas da automação do próprio processo de raciocínio. A IA está desenvolvendo habilidades que, por muito tempo, consideramos exclusivamente humanas.
+                    </p>
+                    <div class="final-question">
+                        <p>
+                            Se a IA pode descobrir novas matemáticas sem recorrer à intuição humana, que territórios desconhecidos do conhecimento ela nos ajudará a explorar e até que ponto podemos considerar esse conhecimento como ciência autêntica — e não apenas como uma engenhosa simulação?
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        // Intersection Observer for animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        document.querySelectorAll('.section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Add smooth scroll behavior
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate intro section on load
+            setTimeout(() => {
+                document.querySelector('.intro').classList.add('animate-fade-in');
+            }, 500);
+        });
+
+        // Add hover effects for images
+        document.querySelectorAll('.section-image, .header-image').forEach(img => {
+            img.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.05)';
+            });
+            
+            img.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+
+        // Add click effects for process cards
+        document.querySelectorAll('.process-card, .feature-item').forEach(card => {
+            card.addEventListener('click', function() {
+                this.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
+            });
+        });
+
+        // Parallax effect for header
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const header = document.querySelector('.header');
+            const rate = scrolled * -0.5;
+            
+            if (header) {
+                header.style.transform = `translateY(${rate}px)`;
+            }
+        });
+    </script>
+</body>
+</html>
