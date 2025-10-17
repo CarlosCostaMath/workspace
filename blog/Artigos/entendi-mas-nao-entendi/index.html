@@ -4,66 +4,86 @@ title: Título do Post
 ---
 
 <style>
-  /* bloco central que contém tag, título e descrição */
-  .hero-block{
-    display:inline-block;        /* mede pela largura do conteúdo */
-    text-align:left;             /* alinha o texto à esquerda dentro do bloco */
-    margin:0 auto 1.75rem;       /* centraliza o bloco na página */
-    max-width: 48rem;            /* limite opcional de largura */
+  /* bloco centralizado */
+  .hero-center {
+    text-align: center;
+    margin: 0 auto 2rem;
+    max-width: 48rem;
   }
 
-  .kicker{
-    display:block;               /* ocupa a mesma coluna do título */
-    font-size:.78rem;
-    letter-spacing:.12em;
-    text-transform:uppercase;
-    color:#7a7a7a;
-    margin:0 0 .35rem 0;
+  /* tag e título ficam no mesmo alinhamento à esquerda dentro do bloco centralizado */
+  .hero-inner {
+    display: inline-block;
+    text-align: left;
   }
 
-  .headline{
-    font-size:clamp(2rem,4vw,3rem);
-    line-height:1.15;
-    margin:.25rem 0 .25rem;
+  .kicker {
+    display: block;
+    font-size: .8rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: #7a7a7a;
+    margin-bottom: .4rem;
   }
 
-  .dek{
-    text-align:left;             /* texto alinhado à esquerda */
-    text-transform:none !important;  /* garante que NÃO fica tudo maiúsculo */
-    color:#7a7a7a;
-    font-size:1rem;              /* igual ao corpo do post */
-    line-height:1.6;
-    margin:.5rem 0 0 1rem;       /* “um pouco à direita” do título */
-    max-width:42rem;
+  .headline {
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.15;
+    margin: .25rem 0 .25rem;
+  }
+
+  .dek {
+    /* texto comum, alinhado à esquerda, mas ligeiramente deslocado à direita */
+    text-align: left;
+    margin: .5rem 0 0 1.25rem;
+    color: #7a7a7a;
+    font-size: 1rem; /* igual ao corpo */
+    line-height: 1.6;
+    text-transform: none;
+    max-width: 42rem;
   }
 
   /* capa com altura regulável */
-  .image.main.cover{ height:var(--h,420px); overflow:hidden; border-radius:.25rem }
-  .image.main.cover img{ width:100%; height:100%; object-fit:cover; display:block }
+  .image.main.cover {
+    height: var(--h, 420px);
+    overflow: hidden;
+    border-radius: .25rem;
+  }
+  .image.main.cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
 </style>
 
 <article>
 
-  <!-- TAG + TÍTULO + DESCRIÇÃO em um bloco centrado, mas com texto à esquerda -->
-  <div class="hero-block">
-    <a class="kicker" href="#" title="Ver posts desta tag">Mathematical Physics</a>
-    <h1 class="headline">The Hidden Math of Ocean Waves Crashes Into View</h1>
+  <header class="hero-center">
+    <div class="hero-inner">
+      <!-- TAG -->
+      <a class="kicker" href="#" title="Ver posts desta tag">Mathematical Physics</a>
+
+      <!-- TÍTULO -->
+      <h1 class="headline">The Hidden Math of Ocean Waves Crashes Into View</h1>
+    </div>
+
+    <!-- DESCRIÇÃO -->
     <p class="dek">
       The math of even the simplest ocean waves is notoriously uncooperative.
       A team of Italian mathematicians has made major advances toward understanding it.
     </p>
-  </div>
+  </header>
 
-  <!-- CAPA: ajuste a altura trocando --h -->
+  <!-- CAPA -->
   <span class="image main cover" style="--h: 480px;">
-    <img src="{{ '/blog/Artigos/entendi-mas-nao-entendi/capa.jpg' | relative_url }}" alt="Ocean waves illustration" loading="lazy" decoding="async">
+    <img src="{{ '/blog/Artigos/entendi-mas-nao-entendi/capa.jpg' | relative_url }}"
+         alt="Ocean waves illustration" loading="lazy" decoding="async">
   </span>
 
-  <!-- TEXTO DO POST -->
   <section>
     <p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis…</p>
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit…</p>
-    <p>Interdum et malesuada fames ac ante ipsum primis in faucibus…</p>
   </section>
 
 </article>
