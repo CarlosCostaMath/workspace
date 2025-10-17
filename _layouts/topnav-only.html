@@ -1,33 +1,57 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{{ page.title }}</title>
+    <title>{{ page.title | default: "Prof. Carlos Costa" }}</title>
 
-    <!-- CSS principal do seu tema -->
-    <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+    <!-- CSS do tema + Font Awesome (ícones) -->
+    <link rel="stylesheet" href="{{ '/assets/css/fontawesome-all.min.css' | relative_url }}" />
+    <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}" />
   </head>
   <body class="is-preload">
     <div id="wrapper">
-      <!-- Conteúdo principal -->
+
+      <!-- Main -->
       <div id="main">
         <div class="inner">
 
-          <!-- Topo com o menu (copie do seu site) -->
+          <!-- Header (copiado do index raiz, com caminhos ajustados) -->
           <header id="header">
-            <a href="{{ '/' | relative_url }}" class="logo"><strong>Editorial</strong> by HTML5 UP</a>
-            <!-- seus ícones/links do topo aqui -->
+            <a href="{{ '/' | relative_url }}" class="logo"><strong>Prof.</strong> Carlos Costa</a>
+            <ul class="icons">
+              <li>
+                <a href="{{ '/blog/' | relative_url }}" class="icon solid fa-blog" title="Blog">
+                  <span class="label">Blog</span>
+                </a>
+              </li>
+              <li>
+                <a href="https://profcarloscosta-qkq69ff.gamma.site/atividades-traducoes" class="icon solid fa-language" title="Traduções" target="_blank" rel="noopener">
+                  <span class="label">Traduções</span>
+                </a>
+              </li>
+              <li>
+                <a href="https://historia-da-matematica-9jtis9w.gamma.site/" class="icon solid fa-hourglass-half" title="História" target="_blank" rel="noopener">
+                  <span class="label">História</span>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="icon solid fa-puzzle-piece" title="Fragmentos">
+                  <span class="label">Fragmentos</span>
+                </a>
+              </li>
+            </ul>
           </header>
 
-          <!-- AQUI entra o texto do post -->
+          <!-- CONTEÚDO DO POST -->
           {{ content }}
 
         </div>
       </div>
+
     </div>
 
-    <!-- Scripts do seu tema -->
+    <!-- Scripts do tema -->
     <script src="{{ '/assets/js/jquery.min.js' | relative_url }}"></script>
     <script src="{{ '/assets/js/browser.min.js' | relative_url }}"></script>
     <script src="{{ '/assets/js/breakpoints.min.js' | relative_url }}"></script>
