@@ -41,17 +41,6 @@ title: "Entendi, Mas Não Entendi: O Que Significa Compreender Uma Prova Matemá
             font-size: 18px;
         }
 
-        /* Barra de progresso — agora laranja e não fixa */
-        .progress-bar {
-            width: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #f39c12, #e67e22); /* laranja */
-            margin: 0 auto 2rem auto;
-            border-radius: 2px;
-            transition: width 0.1s ease;
-            max-width: var(--max-width);
-        }
-
         .navigation {
             position: sticky;
             top: 0;
@@ -89,6 +78,16 @@ title: "Entendi, Mas Não Entendi: O Que Significa Compreender Uma Prova Matemá
         .nav-links a:hover {
             color: var(--accent-color);
             border-bottom-color: var(--accent-color);
+        }
+
+        /* Barra de progresso laranja — fixa abaixo do sumário */
+        .progress-bar {
+            width: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #f39c12, #e67e22); /* laranja */
+            margin-top: 1rem;
+            border-radius: 2px;
+            transition: width 0.1s ease;
         }
 
         .container {
@@ -157,7 +156,6 @@ title: "Entendi, Mas Não Entendi: O Que Significa Compreender Uma Prova Matemá
             text-align: center;
         }
 
-        /* Imagens flutuantes à esquerda */
         .image-container.left {
             float: left;
             margin: 1rem 1.5rem 1rem 0;
@@ -165,7 +163,6 @@ title: "Entendi, Mas Não Entendi: O Que Significa Compreender Uma Prova Matemá
             clear: left;
         }
 
-        /* Imagens flutuantes à direita */
         .image-container.right {
             float: right;
             margin: 1rem 0 1rem 1.5rem;
@@ -173,7 +170,6 @@ title: "Entendi, Mas Não Entendi: O Que Significa Compreender Uma Prova Matemá
             clear: right;
         }
 
-        /* Limpar floats após seções */
         .section::after {
             content: "";
             display: table;
@@ -182,7 +178,7 @@ title: "Entendi, Mas Não Entendi: O Que Significa Compreender Uma Prova Matemá
 
         .article-image {
             max-width: 100%;
-            max-height: 420px; /* Altura máxima solicitada */
+            max-height: 420px; /* Altura máxima garantida */
             height: auto;
             border-radius: 8px;
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
@@ -392,7 +388,7 @@ title: "Entendi, Mas Não Entendi: O Que Significa Compreender Uma Prova Matemá
                 font-size: 16px;
             }
 
-            /* Em telas menores, desativar imagens flutuantes */
+            /* Desativar imagens flutuantes em mobile */
             .image-container.left,
             .image-container.right {
                 float: none;
@@ -422,6 +418,7 @@ title: "Entendi, Mas Não Entendi: O Que Significa Compreender Uma Prova Matemá
     </style>
 </head>
 <body>
+    <!-- Navegação com barra de progresso embutida -->
     <nav class="navigation">
         <div class="nav-container">
             <ul class="nav-links">
@@ -436,6 +433,8 @@ title: "Entendi, Mas Não Entendi: O Que Significa Compreender Uma Prova Matemá
                 <li><a href="#conclusao">Conclusão</a></li>
                 <li><a href="#referencias">Referências</a></li>
             </ul>
+            <!-- Barra de progresso laranja, sempre visível abaixo do sumário -->
+            <div class="progress-bar" id="progressBar"></div>
         </div>
     </nav>
 
@@ -445,9 +444,6 @@ title: "Entendi, Mas Não Entendi: O Que Significa Compreender Uma Prova Matemá
             <p class="subtitle">Provar não é o mesmo que entender. E quando a IA entra em cena, essa diferença se torna ainda mais radical.</p>
         </div>
     </header>
-
-    <!-- Barra de progresso laranja, abaixo do header e do sumário -->
-    <div class="progress-bar" id="progressBar"></div>
 
     <main class="content">
         <div class="container">
@@ -688,33 +684,22 @@ title: "Entendi, Mas Não Entendi: O Que Significa Compreender Uma Prova Matemá
     </footer>
 
     <script>
-        // Barra de progresso — agora relativa ao conteúdo do artigo
+        // Barra de progresso — sempre visível, baseada em toda a página
         window.addEventListener('scroll', function() {
-            const mainContent = document.querySelector('.content');
-            if (!mainContent) return;
-
-            const totalHeight = mainContent.scrollHeight;
-            const scrolled = window.scrollY;
-            const windowHeight = window.innerHeight;
-            
-            const maxScroll = totalHeight + mainContent.offsetTop - windowHeight;
-            
-            if (maxScroll <= 0) return;
-            
-            let progress = (scrolled / maxScroll) * 100;
-            progress = Math.max(0, Math.min(100, progress));
-            
-            document.getElementById('progressBar').style.width = progress + '%';
+            const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (scrollTop / scrollHeight) * 100;
+            document.getElementById('progressBar').style.width = scrolled + '%';
         });
 
-        // Smooth scrolling for navigation links
+        // Smooth scroll para links de navegação
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
                 const targetId = this.getAttribute('href').substring(1);
                 const targetSection = document.getElementById(targetId);
                 if (targetSection) {
-                    const offsetTop = targetSection.offsetTop - 100;
+                    const offsetTop = targetSection.offsetTop - 120; // Compensar altura da navegação + barra
                     window.scrollTo({
                         top: offsetTop,
                         behavior: 'smooth'
@@ -723,23 +708,17 @@ title: "Entendi, Mas Não Entendi: O Que Significa Compreender Uma Prova Matemá
             });
         });
 
-        // Hover effects for images
+        // Efeitos de hover nas imagens
         document.querySelectorAll('.article-image').forEach(img => {
             img.addEventListener('mouseenter', function() {
                 this.style.transform = 'translateY(-4px) scale(1.02)';
             });
-            
             img.addEventListener('mouseleave', function() {
                 this.style.transform = 'translateY(0) scale(1)';
             });
         });
 
-        // Fade-in animation for sections
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
+        // Animação de entrada suave
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -747,12 +726,12 @@ title: "Entendi, Mas Não Entendi: O Que Significa Compreender Uma Prova Matemá
                     entry.target.style.transform = 'translateY(0)';
                 }
             });
-        }, observerOptions);
+        }, { threshold: 0.1 });
 
         document.querySelectorAll('.section').forEach(section => {
             section.style.opacity = '0';
             section.style.transform = 'translateY(20px)';
-            section.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
             observer.observe(section);
         });
     </script>
