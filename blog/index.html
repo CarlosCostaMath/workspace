@@ -54,31 +54,33 @@
 									<span class="image object">
 										<img src="images/blog01.jpg" alt="" />
 									</span>
+									
 								</section>
-
-							<!-- Capa -->
-								<section>
-								  <header class="main">
-								    <h1>Entendi, Mas Não Entendi: O Que Significa Compreender Uma Prova Matemática na Era da IA?</h1>
+							<!-- Destaque -->
+								{% assign img_url = "/blog/Artigos/entendi-mas-nao-entendi/capa.jpg" | relative_url %}
+								{% assign feature_url = img_url | replace: "/capa.jpg", "/" %}
+								
+								<section class="feature-post">
+								  <header class="major">
+								    <h2>
+								      <a href="{{ feature_url }}" target="_blank" rel="noopener noreferrer">
+								        Entendi, Mas Não Entendi: O Que Significa Compreender Uma Prova Matemática na Era da IA?
+								      </a>
+								    </h2>
+								    <p class="dek">Provar não é o mesmo que entender. E quando a IA entra em cena, essa diferença se torna ainda mais radical.</p>
 								  </header>
 								
 								  <!-- Imagem do destaque (clicável) -->
-								  <a href="https://profcarloscosta-qkq69ff.gamma.site/02-filosofia"
-								     class="image main" target="_blank" rel="noopener noreferrer">
-								    <img src="{{ '/blog/Artigos/entendi-mas-nao-entendi/capa.jpg' | relative_url }}" alt="Capa do artigo" loading="lazy" decoding="async">
+								  <a href="{{ feature_url }}" class="image main" target="_blank" rel="noopener noreferrer" aria-label="Abrir artigo: Entendi, Mas Não Entendi">
+								    <img src="{{ img_url }}" alt="Capa do artigo" loading="lazy" decoding="async">
 								  </a>
 								
-								  <!-- Título da postagem -->
-								  <h2 style="margin-top: .75rem;">
-								    <a href="https://profcarloscosta-qkq69ff.gamma.site/02-filosofia"
-								       target="_blank" rel="noopener noreferrer">
-								    </a>
-								  </h2>
-								
-								  <!-- (Opcional) resumo/teaser -->
-								  <p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis.</p>
+								  <ul class="actions" style="margin-top:.75rem">
+								    <li>
+								      <a href="{{ feature_url }}" class="button" target="_blank" rel="noopener noreferrer">More</a>
+								    </li>
+								  </ul>
 								</section>
-
 							<!-- Section -->
 							
 								<section>
