@@ -153,12 +153,36 @@ title: "Entendi, Mas Não Entendi: O Que Significa Compreender Uma Prova Matemá
         }
 
         .image-container {
-            margin: 3rem 0;
+            margin: 2rem 0;
             text-align: center;
+        }
+
+        /* Imagens flutuantes à esquerda */
+        .image-container.left {
+            float: left;
+            margin: 1rem 1.5rem 1rem 0;
+            text-align: left;
+            clear: left;
+        }
+
+        /* Imagens flutuantes à direita */
+        .image-container.right {
+            float: right;
+            margin: 1rem 0 1rem 1.5rem;
+            text-align: right;
+            clear: right;
+        }
+
+        /* Limpar floats após seções com imagens flutuantes */
+        .section::after {
+            content: "";
+            display: table;
+            clear: both;
         }
 
         .article-image {
             max-width: 100%;
+            max-height: 420px; /* Limite de altura solicitado */
             height: auto;
             border-radius: 8px;
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
@@ -176,6 +200,13 @@ title: "Entendi, Mas Não Entendi: O Que Significa Compreender Uma Prova Matemá
             color: var(--dark-gray);
             margin-top: 1rem;
             font-family: var(--sans-serif-font);
+        }
+
+        /* Ajuste para legendas em imagens flutuantes */
+        .image-container.left .image-caption,
+        .image-container.right .image-caption {
+            text-align: center;
+            margin-top: 0.5rem;
         }
 
         .blockquote {
@@ -361,6 +392,15 @@ title: "Entendi, Mas Não Entendi: O Que Significa Compreender Uma Prova Matemá
             body {
                 font-size: 16px;
             }
+
+            /* Em telas menores, desativar imagens flutuantes */
+            .image-container.left,
+            .image-container.right {
+                float: none;
+                margin: 2rem auto;
+                text-align: center;
+                clear: none;
+            }
         }
 
         @media (max-width: 480px) {
@@ -417,7 +457,7 @@ title: "Entendi, Mas Não Entendi: O Que Significa Compreender Uma Prova Matemá
                 
                 <p>Esse dilema se torna ainda mais relevante na era da inteligência artificial. Computadores já produzem e verificam demonstrações em velocidades e escalas inalcançáveis para uma única mente humana. Surge então a pergunta central: o que significa compreender uma prova quando parte do processo pode ser delegada às máquinas?</p>
                 
-                <div class="image-container">
+                <div class="image-container right">
                     <img src="https://user-gen-media-assets.s3.amazonaws.com/seedream_images/d9a92e31-03e6-4381-9004-fceea18bd700.png" alt="A interseção entre matemática humana e inteligência artificial" class="article-image">
                     <p class="image-caption">A interseção entre matemática humana e inteligência artificial</p>
                 </div>
@@ -431,7 +471,7 @@ title: "Entendi, Mas Não Entendi: O Que Significa Compreender Uma Prova Matemá
                 <h3>A Diferença</h3>
                 <p>Em matemática, é possível seguir cada linha de uma demonstração, confirmar que todas as inferências estão corretas, e ainda assim sentir que algo falta. Henri Poincaré, matemático e filósofo, já notava no início do século XX essa diferença sutil. Para alguns, basta verificar cada silogismo – cada passo lógico – e pronto: entendimento alcançado. Para a maioria, porém, isso está longe de satisfazer. Queremos saber por que os passos foram dispostos daquela maneira, qual a ideia central que guia a prova.</p>
                 
-                <div class="image-container">
+                <div class="image-container left">
                     <img src="https://user-gen-media-assets.s3.amazonaws.com/seedream_images/960455e3-e4f0-4f28-bda2-44873e884f9e.png" alt="Verificação versus compreensão em matemática" class="article-image">
                     <p class="image-caption">Verificação versus compreensão em matemática</p>
                 </div>
@@ -456,7 +496,7 @@ title: "Entendi, Mas Não Entendi: O Que Significa Compreender Uma Prova Matemá
                 
                 <p>Em outras palavras, por trás de qualquer demonstração há um esqueleto de ideias guia – um plano – que orientou a escolha e a ordem de cada passo. Quando entendemos de verdade, somos capazes de revelar esse plano e segui-lo com nossa própria razão.</p>
                 
-                <div class="image-container">
+                <div class="image-container right">
                     <img src="https://user-gen-media-assets.s3.amazonaws.com/seedream_images/417d275f-9cc2-4678-be78-75ac91261572.png" alt="A arquitetura oculta de uma demonstração matemática" class="article-image">
                     <p class="image-caption">A arquitetura oculta de uma demonstração matemática</p>
                 </div>
@@ -470,7 +510,7 @@ title: "Entendi, Mas Não Entendi: O Que Significa Compreender Uma Prova Matemá
                 <h2>Ver a floresta; não só as árvores: ignorar detalhes também é compreender</h2>
                 <p>É tentador pensar que entender uma prova exige absorver todos os detalhes minuciosos. Surpreendentemente, porém, muitos matemáticos argumentam o contrário: <strong>a compreensão profunda frequentemente surge quando abstraímos os detalhes e focamos na ideia central</strong>, enxergando a floresta em vez das árvores.</p>
                 
-                <div class="image-container">
+                <div class="image-container left">
                     <img src="https://user-gen-media-assets.s3.amazonaws.com/seedream_images/c568e347-a255-42c4-ad19-1cfe73d1bfa9.png" alt="Ver a floresta, não apenas as árvores - a visão global da matemática" class="article-image">
                     <p class="image-caption">Ver a floresta, não apenas as árvores - a visão global da matemática</p>
                 </div>
@@ -509,7 +549,7 @@ title: "Entendi, Mas Não Entendi: O Que Significa Compreender Uma Prova Matemá
                 <h2>Nem só de lógica vive a matemática: a imaginação (e os experimentos mentais) importam</h2>
                 <p>Se a validade de uma prova depende da lógica, <strong>a sua descoberta e compreensão dependem da imaginação.</strong> A intuição e o pensamento visual, longe de serem opostos à razão, são o que a alimenta e a orienta.</p>
                 
-                <div class="image-container">
+                <div class="image-container right">
                     <img src="https://user-gen-media-assets.s3.amazonaws.com/seedream_images/7de68633-3ce6-480d-8e6a-3b09dafeec53.png" alt="Imaginação e experimentos mentais na matemática" class="article-image">
                     <p class="image-caption">Imaginação e experimentos mentais na matemática</p>
                 </div>
@@ -555,7 +595,7 @@ title: "Entendi, Mas Não Entendi: O Que Significa Compreender Uma Prova Matemá
                 <h2>Humanos + máquinas: uma colaboração inevitável na matemática?</h2>
                 <p>Diante de provas gigantescas ou extremamente intrincadas, matemáticos costumam "pedir ajuda" às máquinas. Provas formalizadas em computador podem ser verificadas exaustivamente, sem risco de erro por cansaço ou distração. Assistentes como Coq, Isabelle e Lean já validaram integralmente demonstrações como as do Teorema das Quatro Cores e da Conjectura de Kepler.</p>
                 
-                <div class="image-container">
+                <div class="image-container left">
                     <img src="https://user-gen-media-assets.s3.amazonaws.com/seedream_images/0eb175d4-0d2b-479d-9e98-39cb4eb5c06a.png" alt="Colaboração humano-máquina na matemática contemporânea" class="article-image">
                     <p class="image-caption">Colaboração humano-máquina na matemática contemporânea</p>
                 </div>
@@ -586,7 +626,7 @@ title: "Entendi, Mas Não Entendi: O Que Significa Compreender Uma Prova Matemá
                 <h2>Conclusão</h2>
                 <p>Aprendemos que compreender uma prova matemática é muito mais do que seguir regras lógicas até o fim. É decifrar por que a prova funciona, captar seu plano estratégico, visualizar o panorama sem se afogar nos detalhes e, frequentemente, participar de um diálogo comunitário sobre ela.</p>
                 
-                <div class="image-container">
+                <div class="image-container right">
                     <img src="https://user-gen-media-assets.s3.amazonaws.com/seedream_images/a7acd3d6-9e81-4315-b281-368f0a918b18.png" alt="O futuro da compreensão matemática - sentido humano e rigor computacional" class="article-image">
                     <p class="image-caption">O futuro da compreensão matemática - sentido humano e rigor computacional</p>
                 </div>
