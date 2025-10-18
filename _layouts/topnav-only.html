@@ -14,28 +14,108 @@
     <link rel="stylesheet" href="{{ '/assets/css/fontawesome-all.min.css' | relative_url }}" />
     <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}" />
 
-    <!-- Estilos específicos para posts (opcional) -->
     {% if page.layout_type == 'post' %}
     <style>
-      /* Centraliza e ajusta o conteúdo para leitura longa */
-		.article-image {
-		  max-width: 100%;     /* nunca ultrapassa a largura do texto */
-		  max-height: 420px;   /* altura máxima */
-		  height: auto;        /* mantém proporção */
-		  width: auto;
-		  object-fit: contain; /* evita corte */
-		  border-radius: 8px;
-		  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-		}
-		
+      /* --- Ajustes exclusivos para posts --- */
+      #main {
+        width: 100%;
+        margin: 0;
+      }
       #main .inner {
         max-width: 900px;
         margin: 0 auto;
         padding: 0 2rem;
       }
-      /* Remove sidebar em posts */
-      #sidebar { display: none; }
-      #main { width: 100%; }
+
+      /* Título do post */
+      .post-header {
+        text-align: center;
+        margin: 3rem 0 2.5rem;
+      }
+      .post-header h1 {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 2.4rem;
+        font-weight: 700;
+        color: #2c3e50;
+        line-height: 1.2;
+        margin-bottom: 1rem;
+      }
+      .post-header .subtitle {
+        font-size: 1.2rem;
+        color: #6c757d;
+        font-style: italic;
+        max-width: 700px;
+        margin: 0 auto;
+        font-family: Georgia, 'Times New Roman', serif;
+      }
+
+      /* Imagens */
+      .article-image {
+        max-width: 100%;
+        max-height: 420px;
+        height: auto;
+        width: auto;
+        object-fit: contain;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      }
+
+      /* Imagens flutuantes */
+      .image-container {
+        margin: 2rem 0;
+        text-align: center;
+      }
+      .image-container.left {
+        float: left;
+        margin: 1rem 1.5rem 1rem 0;
+        text-align: left;
+        clear: left;
+        max-width: 45%;
+      }
+      .image-container.right {
+        float: right;
+        margin: 1rem 0 1rem 1.5rem;
+        text-align: right;
+        clear: right;
+        max-width: 45%;
+      }
+      .image-container.left img,
+      .image-container.right img {
+        width: 100%;
+        height: auto;
+        max-height: 420px;
+        object-fit: contain;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      }
+      .image-caption {
+        font-style: italic;
+        font-size: 0.9rem;
+        color: #6c757d;
+        margin-top: 0.75rem;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+      .image-container.left .image-caption,
+      .image-container.right .image-caption {
+        text-align: center;
+        margin-top: 0.5rem;
+      }
+
+      /* Limpeza de floats */
+      .section::after,
+      .content::after {
+        content: "";
+        display: table;
+        clear: both;
+      }
+
+      /* Evita que texto invada área de imagem flutuante */
+      p, h2, h3, h4, blockquote {
+        overflow: hidden;
+      }
+
+      /* Remove sidebar */
+      #sidebar { display: none !important; }
     </style>
     {% endif %}
   </head>
@@ -73,24 +153,33 @@
             </ul>
           </header>
 
+          <!-- Título do post (só em posts) -->
+          {% if page.layout_type == 'post' %}
+            <header class="post-header">
+              <h1>{{ page.title }}</h1>
+              {% if page.subtitle %}
+                <p class="subtitle">{{ page.subtitle }}</p>
+              {% else %}
+                <p class="subtitle">Provar não é o mesmo que entender. E quando a IA entra em cena, essa diferença se torna ainda mais radical.</p>
+              {% endif %}
+            </header>
+          {% endif %}
+
           <!-- CONTEÚDO DA PÁGINA OU POST -->
           {{ content }}
 
         </div>
       </div>
 
-      <!-- Sidebar (só aparece se layout_type NÃO for 'post') -->
+      <!-- Sidebar (só em páginas normais) -->
       {% unless page.layout_type == 'post' %}
       <div id="sidebar">
         <div class="inner">
-          <!-- Search -->
           <section id="search" class="alt">
             <form method="post" action="#">
               <input type="text" name="query" id="query" placeholder="Search" />
             </form>
           </section>
-
-          <!-- Menu -->
           <nav id="menu">
             <header class="major">
               <h2>Menu</h2>
@@ -102,8 +191,6 @@
               <li><a href="{{ '/contato/' | relative_url }}">Contato</a></li>
             </ul>
           </nav>
-
-          <!-- Footer da sidebar -->
           <footer id="footer">
             <p class="copyright">&copy; {{ site.time | date: "%Y" }} Prof. Carlos Costa. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
           </footer>
