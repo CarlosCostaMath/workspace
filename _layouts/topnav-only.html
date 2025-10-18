@@ -40,14 +40,6 @@
         line-height: 1.2;
         margin-bottom: 1rem;
       }
-      .post-header .subtitle {
-        font-size: 1.2rem;
-        color: #6c757d;
-        font-style: italic;
-        max-width: 700px;
-        margin: 0 auto;
-        font-family: Georgia, 'Times New Roman', serif;
-      }
 
       /* Imagens */
       .article-image {
@@ -152,18 +144,6 @@
               </li>
             </ul>
           </header>
-
-          <!-- Título do post (só em posts) -->
-          {% if page.layout_type == 'post' %}
-            <header class="post-header">
-              <h1>{{ page.title }}</h1>
-              {% if page.subtitle %}
-                <p class="subtitle">{{ page.subtitle }}</p>
-              {% else %}
-                <p class="subtitle">Provar não é o mesmo que entender. E quando a IA entra em cena, essa diferença se torna ainda mais radical.</p>
-              {% endif %}
-            </header>
-          {% endif %}
 
           <!-- CONTEÚDO DA PÁGINA OU POST -->
           {{ content }}
