@@ -18,10 +18,20 @@
     {% if page.layout_type == 'post' %}
     <style>
       /* Centraliza e ajusta o conteúdo para leitura longa */
+		.article-image {
+		  max-width: 100%;     /* nunca ultrapassa a largura do texto */
+		  max-height: 420px;   /* altura máxima */
+		  height: auto;        /* mantém proporção */
+		  width: auto;
+		  object-fit: contain; /* evita corte */
+		  border-radius: 8px;
+		  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+		}
+		
       #main .inner {
-        max-width: 800px;
+        max-width: 900px;
         margin: 0 auto;
-        padding: 0 1.5rem;
+        padding: 0 2rem;
       }
       /* Remove sidebar em posts */
       #sidebar { display: none; }
