@@ -1,72 +1,33 @@
 <!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
 <html>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{{ page.title | default: "Prof. Carlos Costa" }}</title>
 
-    <!-- CSS do tema + Font Awesome (ícones) -->
+    <!-- CSS do tema -->
     <link rel="stylesheet" href="{{ '/assets/css/fontawesome-all.min.css' | relative_url }}" />
     <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}" />
 
-    <!-- Estilos específicos do cabeçalho dos posts -->
+    <!-- Estilos específicos para posts (opcional) -->
+    {% if page.layout_type == 'post' %}
     <style>
-      /* bloco centralizado */
-      .hero-center {
-        text-align: center;
-        margin: 5rem auto 2rem;       /* espaçamento em relação ao menu */
-        max-width: 56rem;             /* um pouco mais largo para evitar quebra do título */
+      /* Centraliza e ajusta o conteúdo para leitura longa */
+      #main .inner {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
       }
-
-      /* bloco interno: título + tag alinhados entre si */
-      .hero-inner {
-        display: inline-block;
-        text-align: left;
-        max-width: 44rem;             /* limite visual comum entre título e descrição */
-      }
-
-      .kicker {
-        display: block;
-        font-size: 0.8rem;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        color: #7a7a7a;
-        margin-bottom: 0.4rem;
-      }
-
-      .headline {
-        font-size: clamp(2rem, 4vw, 3rem);
-        line-height: 1.15;
-        margin: 0.25rem 0 0.25rem;
-        word-break: normal;
-        overflow-wrap: normal;
-        white-space: normal;
-      }
-
-      .dek {
-        text-align: left;
-        margin: 0.75rem 0 0 1.5rem;   /* recuo sutil à direita */
-        color: #7a7a7a;
-        font-size: 1rem;              /* igual ao corpo do post */
-        line-height: 1.6;
-        text-transform: none;         /* garante texto normal (sem caixa alta) */
-        max-width: 44rem;             /* mesmo limite do título */
-      }
-
-      /* capa com altura regulável via --h */
-      .image.main.cover {
-        height: var(--h, 420px);
-        overflow: hidden;
-        border-radius: 0.25rem;
-        margin-top: 1rem;
-      }
-      .image.main.cover img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
-      }
+      /* Remove sidebar em posts */
+      #sidebar { display: none; }
+      #main { width: 100%; }
     </style>
+    {% endif %}
   </head>
   <body class="is-preload">
     <div id="wrapper">
@@ -102,11 +63,43 @@
             </ul>
           </header>
 
-          <!-- CONTEÚDO DO POST -->
+          <!-- CONTEÚDO DA PÁGINA OU POST -->
           {{ content }}
 
         </div>
       </div>
+
+      <!-- Sidebar (só aparece se layout_type NÃO for 'post') -->
+      {% unless page.layout_type == 'post' %}
+      <div id="sidebar">
+        <div class="inner">
+          <!-- Search -->
+          <section id="search" class="alt">
+            <form method="post" action="#">
+              <input type="text" name="query" id="query" placeholder="Search" />
+            </form>
+          </section>
+
+          <!-- Menu -->
+          <nav id="menu">
+            <header class="major">
+              <h2>Menu</h2>
+            </header>
+            <ul>
+              <li><a href="{{ '/' | relative_url }}">Início</a></li>
+              <li><a href="{{ '/blog/' | relative_url }}">Blog</a></li>
+              <li><a href="{{ '/sobre/' | relative_url }}">Sobre</a></li>
+              <li><a href="{{ '/contato/' | relative_url }}">Contato</a></li>
+            </ul>
+          </nav>
+
+          <!-- Footer da sidebar -->
+          <footer id="footer">
+            <p class="copyright">&copy; {{ site.time | date: "%Y" }} Prof. Carlos Costa. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+          </footer>
+        </div>
+      </div>
+      {% endunless %}
 
     </div>
 
