@@ -10,12 +10,12 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<title>{{ page.title | default: "Prof. Carlos Costa" }}</title>
 
-	<!-- CSS do Editorial (mantido para ícones e menu) -->
+	<!-- CSS do Editorial -->
 	<link rel="stylesheet" href="{{ '/assets/css/fontawesome-all.min.css' | relative_url }}" />
 	<link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}" />
 
 	<style>
-		/* ================ DESIGN SYSTEM PARA POSTS (EXCLUSIVO) ================ */
+		/* ================ DESIGN SYSTEM PARA POSTS ================ */
 		:root {
 			--primary-color: #2c3e50;
 			--secondary-color: #34495e;
@@ -53,7 +53,7 @@
 			padding: 0 2rem;
 		}
 
-		/* Menu (preservado do Editorial) */
+		/* Header (menu do Editorial) */
 		#header {
 			padding: 1rem 0;
 			border-bottom: 1px solid var(--medium-gray);
@@ -63,13 +63,53 @@
 			top: 0;
 			z-index: 999;
 		}
+		#header .logo {
+			font-family: var(--sans-serif-font);
+			font-weight: 700;
+			font-size: 1.2rem;
+			text-decoration: none;
+			color: var(--primary-color);
+		}
+		#header .icons {
+			display: flex;
+			align-items: center;
+			gap: 1rem;
+		}
+		#header .icon {
+			color: var(--dark-gray);
+			font-size: 1.1rem;
+		}
+		#header .icon:hover {
+			color: var(--accent-color);
+		}
 
-		/* Barra de progresso */
-		.progress-bar {
-			width: 0;
+		/* Barra de progresso (estilo moderno) */
+		.progress-bar-container {
+			width: 100%;
+			background: white;
+			box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+			position: fixed;
+			top: 0;
+			left: 0;
+			z-index: 999;
+			display: flex;
+			align-items: center;
+			padding: 0.5rem 2rem;
+			border-bottom: 1px solid var(--medium-gray);
+		}
+		.progress-title {
+			font-family: var(--sans-serif-font);
+			font-size: 1rem;
+			color: var(--text-color);
+			flex: 1;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			margin-right: 1rem;
+		}
+		.progress-fill {
 			height: 4px;
 			background: linear-gradient(90deg, #f39c12, #e67e22);
-			margin: 0 auto 2rem;
 			border-radius: 2px;
 			transition: width 0.1s ease;
 		}
@@ -128,6 +168,18 @@
 			font-weight: 600;
 		}
 
+		/* Subtítulo (abaixo do título) */
+		.subtitle {
+			font-size: 1.1rem;
+			color: var(--dark-gray);
+			font-style: normal;
+			margin: 0.5rem 0 2rem;
+			text-align: center;
+			max-width: 700px;
+			margin-left: auto;
+			margin-right: auto;
+		}
+
 		/* Imagens */
 		.image-container {
 			margin: var(--spacing-md) 0;
@@ -146,6 +198,10 @@
 			text-align: right;
 			clear: right;
 			max-width: 45%;
+		}
+		.image-container.centered {
+			margin: var(--spacing-md) 0;
+			text-align: center;
 		}
 		.section::after,
 		.content::after {
@@ -231,6 +287,34 @@
 			display: inline-block;
 		}
 
+		/* Highlight boxes (para trechos-chave) */
+		.highlight-box {
+			background: #f1f5f9;
+			border: 1px solid #cbd5e1;
+			border-radius: 8px;
+			padding: 1.5rem;
+			margin: var(--spacing-md) 0;
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+			gap: 1rem;
+		}
+		.highlight-item {
+			background: white;
+			padding: 1rem;
+			border-radius: 6px;
+			box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+		}
+		.highlight-title {
+			font-weight: 600;
+			color: var(--primary-color);
+			margin-bottom: 0.5rem;
+			font-size: 1.1rem;
+		}
+		.highlight-desc {
+			font-size: 0.95rem;
+			color: var(--dark-gray);
+		}
+
 		/* Referências */
 		.references {
 			background: var(--light-gray);
@@ -263,26 +347,32 @@
 			transform: translateY(0);
 		}
 
-		/* Botão Voltar ao Topo */
-		#backToTop {
+		/* Botão Voltar ao Topo (redesenhado) */
+		.back-to-top {
 			position: fixed;
 			bottom: 20px;
 			right: 20px;
-			width: 44px;
-			height: 44px;
-			border-radius: 50%;
-			border: none;
-			background: var(--accent-color);
-			color: white;
-			font-weight: bold;
+			background: white;
+			border: 1px solid var(--medium-gray);
+			border-radius: 6px;
+			padding: 0.75rem 1rem;
+			box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 			cursor: pointer;
 			z-index: 900;
 			display: none;
-			box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-			transition: background 0.3s;
+			font-family: var(--sans-serif-font);
+			font-size: 0.9rem;
+			color: var(--text-color);
+			transition: background 0.3s, box-shadow 0.3s;
 		}
-		#backToTop:hover {
-			background: #2980b9;
+		.back-to-top:hover {
+			background: var(--light-gray);
+			box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+		}
+		.back-to-top::before {
+			content: "↑";
+			margin-right: 0.5rem;
+			font-weight: bold;
 		}
 	</style>
 </head>
@@ -303,8 +393,11 @@
 					</ul>
 				</header>
 
-				<!-- Barra de progresso -->
-				<div class="progress-bar" id="progressBar"></div>
+				<!-- Barra de progresso (estilo moderno) -->
+				<div class="progress-bar-container">
+					<span class="progress-title">{{ page.title }}</span>
+					<div class="progress-fill" id="progressFill"></div>
+				</div>
 
 				<!-- Conteúdo do post -->
 				{{ content }}
@@ -313,7 +406,7 @@
 		</div>
 	</div>
 
-	<!-- Scripts do Editorial (para ícones) -->
+	<!-- Scripts do Editorial -->
 	<script src="{{ '/assets/js/jquery.min.js' | relative_url }}"></script>
 	<script src="{{ '/assets/js/browser.min.js' | relative_url }}"></script>
 	<script src="{{ '/assets/js/breakpoints.min.js' | relative_url }}"></script>
@@ -322,12 +415,12 @@
 
 	<!-- Scripts de interatividade -->
 	<script>
-		// Barra de progresso
+		// Barra de progresso (estilo moderno)
 		window.addEventListener('scroll', () => {
 			const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
 			const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
 			const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
-			document.getElementById('progressBar').style.width = `${Math.min(100, progress)}%`;
+			document.getElementById('progressFill').style.width = `${Math.min(100, progress)}%`;
 		});
 
 		// Animação de entrada
@@ -343,12 +436,13 @@
 			if (!img.hasAttribute('loading')) img.setAttribute('loading', 'lazy');
 		});
 
-		// Botão voltar ao topo
+		// Botão voltar ao topo (redesenhado)
 		const backToTop = document.createElement('button');
-		backToTop.id = 'backToTop';
-		backToTop.textContent = '↑';
+		backToTop.className = 'back-to-top';
+		backToTop.textContent = 'Voltar ao topo';
 		backToTop.title = 'Voltar ao topo';
 		document.body.appendChild(backToTop);
+
 		window.addEventListener('scroll', () => {
 			backToTop.style.display = window.scrollY > 600 ? 'block' : 'none';
 		});
