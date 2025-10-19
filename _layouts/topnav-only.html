@@ -83,35 +83,23 @@
 			color: var(--accent-color);
 		}
 
-		/* Barra de progresso (estilo moderno) */
+		/* Barra de progresso — corrigida */
 		.progress-bar-container {
 			width: 100%;
-			background: white;
-			box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-			position: fixed;
-			top: 0;
-			left: 0;
-			z-index: 999;
+			max-width: min(900px, 95vw);
+			margin: 0 auto;
+			padding: 0 2rem;
 			display: flex;
 			align-items: center;
-			padding: 0.5rem 2rem;
-			border-bottom: 1px solid var(--medium-gray);
-		}
-		.progress-title {
-			font-family: var(--sans-serif-font);
-			font-size: 1rem;
-			color: var(--text-color);
-			flex: 1;
-			overflow: hidden;
-			white-space: nowrap;
-			text-overflow: ellipsis;
-			margin-right: 1rem;
+			height: 40px;
 		}
 		.progress-fill {
+			flex: 1;
 			height: 4px;
 			background: linear-gradient(90deg, #f39c12, #e67e22);
 			border-radius: 2px;
 			transition: width 0.1s ease;
+			margin-left: 1rem;
 		}
 
 		/* Tipografia */
@@ -146,29 +134,7 @@
 			p { text-align: left; }
 		}
 
-		/* Links */
-		a {
-			color: var(--accent-color);
-			text-decoration: none;
-		}
-		a:hover {
-			text-decoration: underline;
-		}
-		a[target="_blank"]::after {
-			content: " ↗";
-			font-size: 0.8em;
-			opacity: 0.6;
-		}
-
-		/* Ênfase em trechos */
-		.highlight {
-			background: rgba(255, 220, 100, 0.3);
-			padding: 0.15em 0.3em;
-			border-radius: 3px;
-			font-weight: 600;
-		}
-
-		/* Subtítulo (abaixo do título) */
+		/* Subtítulo */
 		.subtitle {
 			font-size: 1.1rem;
 			color: var(--dark-gray);
@@ -199,15 +165,9 @@
 			clear: right;
 			max-width: 45%;
 		}
-		.image-container.centered {
-			margin: var(--spacing-md) 0;
-			text-align: center;
-		}
-		.section::after,
-		.content::after {
-			content: "";
-			display: table;
-			clear: both;
+		.image-container.centered, .image-container:not(.left):not(.right) {
+			margin: var(--spacing-md) auto;
+			max-width: 100%;
 		}
 		.article-image {
 			max-width: 100%;
@@ -234,6 +194,13 @@
 		.image-container.right .image-caption {
 			text-align: center;
 			margin-top: 0.5rem;
+		}
+
+		/* Limpeza de floats */
+		.section::after {
+			content: "";
+			display: table;
+			clear: both;
 		}
 
 		/* Blockquotes */
@@ -263,31 +230,7 @@
 			text-align: right;
 		}
 
-		/* Callouts */
-		.callout-boxes {
-			display: grid;
-			gap: 1.5rem;
-			margin: var(--spacing-md) 0;
-		}
-		.callout-box {
-			background: linear-gradient(135deg, var(--light-gray) 0%, #ffffff 100%);
-			border: 1px solid var(--medium-gray);
-			border-radius: 12px;
-			padding: 2rem;
-			box-shadow: 0 4px 16px rgba(0,0,0,0.05);
-		}
-		.callout-title {
-			font-family: var(--sans-serif-font);
-			font-size: 1.1rem;
-			font-weight: 600;
-			color: var(--primary-color);
-			margin-bottom: 1rem;
-			border-bottom: 2px solid var(--accent-color);
-			padding-bottom: 0.5rem;
-			display: inline-block;
-		}
-
-		/* Highlight boxes (para trechos-chave) */
+		/* Highlight boxes */
 		.highlight-box {
 			background: #f1f5f9;
 			border: 1px solid #cbd5e1;
@@ -315,18 +258,19 @@
 			color: var(--dark-gray);
 		}
 
-		/* Referências */
+		/* Referências — corrigido vazamento */
 		.references {
 			background: var(--light-gray);
-			padding: 3rem;
+			padding: 2.5rem;
 			border-radius: 12px;
 			margin-top: var(--spacing-xl);
+			overflow: visible;
 		}
 		.references h2 { margin-bottom: var(--spacing-md); }
 		.reference-item {
 			background: white;
 			padding: 1.5rem;
-			margin-bottom: 1rem;
+			margin-bottom: 1.2rem;
 			border-radius: 8px;
 			border-left: 4px solid var(--accent-color);
 			box-shadow: 0 2px 8px rgba(0,0,0,0.05);
@@ -340,14 +284,14 @@
 			opacity: 0;
 			transform: translateY(20px);
 			transition: opacity 0.6s ease, transform 0.6s ease;
-			overflow: hidden;
+			overflow: visible; /* permite imagens flutuantes saírem */
 		}
 		.section.visible {
 			opacity: 1;
 			transform: translateY(0);
 		}
 
-		/* Botão Voltar ao Topo (redesenhado) */
+		/* Botão Voltar ao Topo — só "Topo" */
 		.back-to-top {
 			position: fixed;
 			bottom: 20px;
@@ -355,7 +299,7 @@
 			background: white;
 			border: 1px solid var(--medium-gray);
 			border-radius: 6px;
-			padding: 0.75rem 1rem;
+			padding: 0.6rem 1rem;
 			box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 			cursor: pointer;
 			z-index: 900;
@@ -368,11 +312,6 @@
 		.back-to-top:hover {
 			background: var(--light-gray);
 			box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-		}
-		.back-to-top::before {
-			content: "↑";
-			margin-right: 0.5rem;
-			font-weight: bold;
 		}
 	</style>
 </head>
@@ -393,9 +332,8 @@
 					</ul>
 				</header>
 
-				<!-- Barra de progresso (estilo moderno) -->
+				<!-- Barra de progresso — abaixo do menu -->
 				<div class="progress-bar-container">
-					<span class="progress-title">{{ page.title }}</span>
 					<div class="progress-fill" id="progressFill"></div>
 				</div>
 
@@ -406,16 +344,15 @@
 		</div>
 	</div>
 
-	<!-- Scripts do Editorial -->
+	<!-- Scripts -->
 	<script src="{{ '/assets/js/jquery.min.js' | relative_url }}"></script>
 	<script src="{{ '/assets/js/browser.min.js' | relative_url }}"></script>
 	<script src="{{ '/assets/js/breakpoints.min.js' | relative_url }}"></script>
 	<script src="{{ '/assets/js/util.js' | relative_url }}"></script>
 	<script src="{{ '/assets/js/main.js' | relative_url }}"></script>
 
-	<!-- Scripts de interatividade -->
 	<script>
-		// Barra de progresso (estilo moderno)
+		// Barra de progresso (esquerda → direita)
 		window.addEventListener('scroll', () => {
 			const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
 			const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
@@ -423,7 +360,7 @@
 			document.getElementById('progressFill').style.width = `${Math.min(100, progress)}%`;
 		});
 
-		// Animação de entrada
+		// Animação
 		const observer = new IntersectionObserver(entries => {
 			entries.forEach(entry => {
 				if (entry.isIntersecting) entry.target.classList.add('visible');
@@ -436,11 +373,10 @@
 			if (!img.hasAttribute('loading')) img.setAttribute('loading', 'lazy');
 		});
 
-		// Botão voltar ao topo (redesenhado)
+		// Botão "Topo"
 		const backToTop = document.createElement('button');
 		backToTop.className = 'back-to-top';
-		backToTop.textContent = 'Voltar ao topo';
-		backToTop.title = 'Voltar ao topo';
+		backToTop.textContent = 'Topo';
 		document.body.appendChild(backToTop);
 
 		window.addEventListener('scroll', () => {
