@@ -5,275 +5,373 @@
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{{ page.title | default: "Prof. Carlos Costa" }}</title>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<title>{{ page.title | default: "Prof. Carlos Costa" }}</title>
 
-    <!-- CSS do tema -->
-    <link rel="stylesheet" href="{{ '/assets/css/fontawesome-all.min.css' | relative_url }}" />
-    <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}" />
+	<!-- CSS do Editorial (sempre carregado) -->
+	<link rel="stylesheet" href="{{ '/assets/css/fontawesome-all.min.css' | relative_url }}" />
+	<link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}" />
 
-{% if page.layout_type == 'post' %}
-<style>
-  /* --- Ajustes de layout e leitura --- */
-  #main { width: 100%; margin: 0; }
-  #main .inner {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 0 2rem;
-  }
+	<!-- CSS personalizado para posts (só se layout_type == 'post') -->
+	{% if page.layout_type == 'post' %}
+	<style>
+		/* ================ DESIGN SYSTEM PARA POSTS ================ */
+		:root {
+			--primary-color: #2c3e50;
+			--secondary-color: #34495e;
+			--accent-color: #3498db;
+			--text-color: #2c3e50;
+			--light-gray: #f8f9fa;
+			--medium-gray: #e9ecef;
+			--dark-gray: #6c757d;
+			--max-width: 900px;
+			--serif-font: 'Georgia', 'Times New Roman', serif;
+			--sans-serif-font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			--spacing-sm: 1rem;
+			--spacing-md: 2rem;
+			--spacing-lg: 3rem;
+			--spacing-xl: 4rem;
+		}
 
-  /* Barra de progresso (laranja) */
-  .progress-bar {
-    position: sticky;
-    top: 0;
-    width: 0;
-    height: 4px;
-    background: linear-gradient(90deg, #f39c12, #e67e22);
-    margin: 0 auto 2rem;
-    border-radius: 2px;
-    z-index: 100;
-    transition: width 0.1s ease;
-  }
+		/* Substitui estilos do Editorial apenas no conteúdo principal */
+		#main {
+			width: 100%;
+			margin: 0;
+		}
+		#main .inner {
+			max-width: min(900px, 95vw);
+			margin: 0 auto;
+			padding: 0 2rem;
+			font-family: var(--serif-font);
+			font-size: 18px;
+			line-height: 1.7;
+			color: var(--text-color);
+			background: #fff;
+		}
 
-  /* Título do post */
-  .post-header {
-    text-align: center;
-    margin: 3rem 0 2.5rem;
-  }
-  .post-header h1 {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 2.4rem;
-    font-weight: 700;
-    color: #2c3e50;
-    line-height: 1.2;
-    margin-bottom: 1rem;
-  }
+		/* Barra de progresso (laranja) */
+		.progress-bar {
+			width: 0;
+			height: 4px;
+			background: linear-gradient(90deg, #f39c12, #e67e22);
+			margin: 0 auto 2rem;
+			border-radius: 2px;
+			transition: width 0.1s ease;
+		}
 
-  /* Imagens */
-  .article-image {
-    max-width: 100%;
-    max-height: 420px;
-    height: auto;
-    width: auto;
-    object-fit: contain;
-    border-radius: 8px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  .article-image:hover {
-    transform: translateY(-4px) scale(1.02);
-    box-shadow: 0 12px 32px rgba(0,0,0,0.15);
-  }
+		/* Seções com animação */
+		.section {
+			margin-bottom: var(--spacing-xl);
+			opacity: 0;
+			transform: translateY(20px);
+			transition: opacity 0.6s ease, transform 0.6s ease;
+			overflow: hidden;
+		}
+		.section.visible {
+			opacity: 1;
+			transform: translateY(0);
+		}
 
-  /* Imagens flutuantes */
-  .image-container {
-    margin: 2rem 0;
-    text-align: center;
-  }
-  .image-container.left {
-    float: left;
-    margin: 1rem 1.5rem 1rem 0;
-    text-align: left;
-    clear: left;
-    max-width: 45%;
-  }
-  .image-container.right {
-    float: right;
-    margin: 1rem 0 1rem 1.5rem;
-    text-align: right;
-    clear: right;
-    max-width: 45%;
-  }
-  .image-container.left img,
-  .image-container.right img {
-    width: 100%;
-    height: auto;
-    max-height: 420px;
-    object-fit: contain;
-    border-radius: 8px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-  }
-  .image-caption {
-    font-style: italic;
-    font-size: 0.9rem;
-    color: #6c757d;
-    margin-top: 0.75rem;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  }
-  .image-container.left .image-caption,
-  .image-container.right .image-caption {
-    text-align: center;
-    margin-top: 0.5rem;
-  }
+		/* Tipografia */
+		h1, h2, h3, h4 {
+			font-family: var(--sans-serif-font);
+			color: var(--primary-color);
+			line-height: 1.3;
+		}
+		h1 {
+			font-size: 2.5rem;
+			margin: 3rem 0 1.5rem;
+			text-align: center;
+		}
+		h2 {
+			font-size: 2rem;
+			margin: 3rem 0 2rem;
+			padding-bottom: 0.5rem;
+			border-bottom: 2px solid var(--accent-color);
+		}
+		h3 {
+			font-size: 1.4rem;
+			margin: 2rem 0 1rem;
+			font-weight: 600;
+			color: var(--secondary-color);
+		}
+		p {
+			margin-bottom: 1.8rem;
+			text-align: justify;
+			hyphens: auto;
+		}
+		@media (max-width: 768px) {
+			p { text-align: left; }
+		}
 
-  /* Animação de entrada */
-  .section {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-    margin-bottom: 3rem;
-    overflow: hidden;
-  }
-  .section.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
+		/* Imagens */
+		.image-container {
+			margin: var(--spacing-md) 0;
+			text-align: center;
+		}
+		.image-container.left {
+			float: left;
+			margin: 1rem 1.5rem 1rem 0;
+			text-align: left;
+			clear: left;
+			max-width: 45%;
+		}
+		.image-container.right {
+			float: right;
+			margin: 1rem 0 1rem 1.5rem;
+			text-align: right;
+			clear: right;
+			max-width: 45%;
+		}
+		.section::after {
+			content: "";
+			display: table;
+			clear: both;
+		}
+		.article-image {
+			max-width: 100%;
+			max-height: 420px;
+			height: auto;
+			border-radius: 8px;
+			box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+			transition: transform 0.3s ease, box-shadow 0.3s ease;
+			display: block;
+			margin: 0 auto;
+		}
+		.article-image:hover {
+			transform: translateY(-4px) scale(1.02);
+			box-shadow: 0 12px 32px rgba(0,0,0,0.15);
+		}
+		.image-caption {
+			font-style: italic;
+			font-size: 0.9rem;
+			color: var(--dark-gray);
+			margin-top: 1rem;
+			font-family: var(--sans-serif-font);
+		}
+		.image-container.left .image-caption,
+		.image-container.right .image-caption {
+			text-align: center;
+			margin-top: 0.5rem;
+		}
 
-  /* Limpeza de floats */
-  .section::after { content: ""; display: table; clear: both; }
+		/* Blockquotes */
+		.blockquote {
+			background: var(--light-gray);
+			padding: 2rem;
+			margin: var(--spacing-md) 0;
+			border-left: 4px solid var(--accent-color);
+			border-radius: 0 8px 8px 0;
+			font-style: italic;
+			position: relative;
+		}
+		.blockquote::before {
+			content: '"';
+			font-size: 4rem;
+			color: var(--accent-color);
+			position: absolute;
+			top: -0.5rem;
+			left: 1rem;
+			opacity: 0.3;
+		}
+		.blockquote p { margin-bottom: 1rem; }
+		.blockquote-attribution {
+			font-weight: 600;
+			color: var(--secondary-color);
+			font-size: 0.9rem;
+			text-align: right;
+		}
 
-  /* Evita invasão de texto em imagens flutuantes */
-  p, h2, h3, h4, blockquote { overflow: hidden; }
+		/* Callouts */
+		.callout-boxes {
+			display: grid;
+			gap: 1.5rem;
+			margin: var(--spacing-md) 0;
+		}
+		.callout-box {
+			background: linear-gradient(135deg, var(--light-gray) 0%, #ffffff 100%);
+			border: 1px solid var(--medium-gray);
+			border-radius: 12px;
+			padding: 2rem;
+			box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+		}
+		.callout-title {
+			font-family: var(--sans-serif-font);
+			font-size: 1.1rem;
+			font-weight: 600;
+			color: var(--primary-color);
+			margin-bottom: 1rem;
+			border-bottom: 2px solid var(--accent-color);
+			padding-bottom: 0.5rem;
+			display: inline-block;
+		}
 
-  /* Remove sidebar */
-  #sidebar { display: none !important; }
+		/* Referências */
+		.references {
+			background: var(--light-gray);
+			padding: 3rem;
+			border-radius: 12px;
+			margin-top: var(--spacing-xl);
+		}
+		.references h2 { margin-bottom: var(--spacing-md); }
+		.reference-item {
+			background: white;
+			padding: 1.5rem;
+			margin-bottom: 1rem;
+			border-radius: 8px;
+			border-left: 4px solid var(--accent-color);
+			box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+			font-size: 0.95rem;
+			line-height: 1.6;
+		}
 
-  /* Botão Voltar ao Topo */
-  #backToTop {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    border: none;
-    background: #3498db;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    z-index: 900;
-    display: none;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    transition: background 0.3s;
-  }
-  #backToTop:hover { background: #2980b9; }
-</style>
-{% endif %}
-  </head>
-  <body class="is-preload">
-    <div id="wrapper">
+		/* Esconde sidebar em posts */
+		#wrapper #sidebar { display: none !important; }
+	</style>
+	{% endif %}
+</head>
+<body class="is-preload">
 
-      <!-- Main -->
-      <div id="main">
-        <div class="inner">
+	<!-- Wrapper -->
+	<div id="wrapper">
 
-          <!-- Header (menu do topo) -->
-          <header id="header">
-            <a href="{{ '/' | relative_url }}" class="logo"><strong>Prof.</strong> Carlos Costa</a>
-            <ul class="icons">
-              <li>
-                <a href="{{ '/blog/' | relative_url }}" class="icon solid fa-blog" title="Blog">
-                  <span class="label">Blog</span>
-                </a>
-              </li>
-              <li>
-                <a href="https://profcarloscosta-qkq69ff.gamma.site/atividades-traducoes" class="icon solid fa-language" title="Traduções" target="_blank" rel="noopener">
-                  <span class="label">Traduções</span>
-                </a>
-              </li>
-              <li>
-                <a href="https://historia-da-matematica-9jtis9w.gamma.site/" class="icon solid fa-hourglass-half" title="História" target="_blank" rel="noopener">
-                  <span class="label">História</span>
-                </a>
-              </li>
-              <li>
-                <a href="#" class="icon solid fa-puzzle-piece" title="Fragmentos">
-                  <span class="label">Fragmentos</span>
-                </a>
-              </li>
-            </ul>
-          </header>
+		<!-- Main -->
+		<div id="main">
+			<div class="inner">
 
-          <!-- CONTEÚDO DA PÁGINA OU POST -->
-          {{ content }}
+				<!-- Header (menu temático do Editorial) -->
+				<header id="header">
+					<a href="{{ '/' | relative_url }}" class="logo"><strong>Prof.</strong> Carlos Costa</a>
+					<ul class="icons">
+						<li>
+							<a href="{{ '/blog/' | relative_url }}" class="icon solid fa-blog" title="Blog">
+								<span class="label">Blog</span>
+							</a>
+						</li>
+						<li>
+							<a href="https://profcarloscosta-qkq69ff.gamma.site/atividades-traducoes" class="icon solid fa-language" title="Traduções" target="_blank" rel="noopener">
+								<span class="label">Traduções</span>
+							</a>
+						</li>
+						<li>
+							<a href="https://historia-da-matematica-9jtis9w.gamma.site/" class="icon solid fa-hourglass-half" title="História" target="_blank" rel="noopener">
+								<span class="label">História</span>
+							</a>
+						</li>
+						<li>
+							<a href="#" class="icon solid fa-puzzle-piece" title="Fragmentos">
+								<span class="label">Fragmentos</span>
+							</a>
+						</li>
+					</ul>
+				</header>
 
-        </div>
-      </div>
+				<!-- Barra de progresso (só em posts) -->
+				{% if page.layout_type == 'post' %}
+				<div class="progress-bar" id="progressBar"></div>
+				{% endif %}
 
-      <!-- Sidebar (só em páginas normais) -->
-      {% unless page.layout_type == 'post' %}
-      <div id="sidebar">
-        <div class="inner">
-          <section id="search" class="alt">
-            <form method="post" action="#">
-              <input type="text" name="query" id="query" placeholder="Search" />
-            </form>
-          </section>
-          <nav id="menu">
-            <header class="major">
-              <h2>Menu</h2>
-            </header>
-            <ul>
-              <li><a href="{{ '/' | relative_url }}">Início</a></li>
-              <li><a href="{{ '/blog/' | relative_url }}">Blog</a></li>
-              <li><a href="{{ '/sobre/' | relative_url }}">Sobre</a></li>
-              <li><a href="{{ '/contato/' | relative_url }}">Contato</a></li>
-            </ul>
-          </nav>
-          <footer id="footer">
-            <p class="copyright">&copy; {{ site.time | date: "%Y" }} Prof. Carlos Costa. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
-          </footer>
-        </div>
-      </div>
-      {% endunless %}
+				<!-- Conteúdo -->
+				{{ content }}
 
-    </div>
+			</div>
+		</div>
 
-    <!-- Scripts do tema -->
-    <script src="{{ '/assets/js/jquery.min.js' | relative_url }}"></script>
-    <script src="{{ '/assets/js/browser.min.js' | relative_url }}"></script>
-    <script src="{{ '/assets/js/breakpoints.min.js' | relative_url }}"></script>
-    <script src="{{ '/assets/js/util.js' | relative_url }}"></script>
-    <script src="{{ '/assets/js/main.js' | relative_url }}"></script>
-	  {% if page.layout_type == 'post' %}
+		<!-- Sidebar (só em páginas normais) -->
+		{% unless page.layout_type == 'post' %}
+		<div id="sidebar">
+			<div class="inner">
+
+				<!-- Search -->
+				<section id="search" class="alt">
+					<form method="post" action="#">
+						<input type="text" name="query" id="query" placeholder="Search" />
+					</form>
+				</section>
+
+				<!-- Menu -->
+				<nav id="menu">
+					<header class="major">
+						<h2>Menu</h2>
+					</header>
+					<ul>
+						<li><a href="{{ '/' | relative_url }}">Início</a></li>
+						<li><a href="{{ '/blog/' | relative_url }}">Blog</a></li>
+						<li><a href="{{ '/sobre/' | relative_url }}">Sobre</a></li>
+						<li><a href="{{ '/contato/' | relative_url }}">Contato</a></li>
+					</ul>
+				</nav>
+
+				<!-- Footer da sidebar -->
+				<footer id="footer">
+					<p class="copyright">&copy; {{ site.time | date: "%Y" }} Prof. Carlos Costa. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+				</footer>
+
+			</div>
+		</div>
+		{% endunless %}
+
+	</div>
+
+	<!-- Scripts do Editorial -->
+	<script src="{{ '/assets/js/jquery.min.js' | relative_url }}"></script>
+	<script src="{{ '/assets/js/browser.min.js' | relative_url }}"></script>
+	<script src="{{ '/assets/js/breakpoints.min.js' | relative_url }}"></script>
+	<script src="{{ '/assets/js/util.js' | relative_url }}"></script>
+	<script src="{{ '/assets/js/main.js' | relative_url }}"></script>
+
+	<!-- Scripts personalizados (só em posts) -->
+	{% if page.layout_type == 'post' %}
 	<script>
-	  // Barra de progresso
-	  const progressBar = document.createElement('div');
-	  progressBar.className = 'progress-bar';
-	  progressBar.id = 'progressBar';
-	  document.querySelector('#main .inner').prepend(progressBar);
-	
-	  window.addEventListener('scroll', () => {
-	    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-	    const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-	    const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
-	    document.getElementById('progressBar').style.width = `${Math.min(100, progress)}%`;
-	  });
-	
-	  // Animação de entrada ao rolar
-	  const observer = new IntersectionObserver((entries) => {
-	    entries.forEach(entry => {
-	      if (entry.isIntersecting) {
-	        entry.target.classList.add('visible');
-	      }
-	    });
-	  }, { threshold: 0.1 });
-	
-	  document.querySelectorAll('.section').forEach(section => {
-	    observer.observe(section);
-	  });
-	
-	  // Botão "Voltar ao topo"
-	  const backToTop = document.createElement('button');
-	  backToTop.id = 'backToTop';
-	  backToTop.textContent = '↑';
-	  backToTop.setAttribute('title', 'Voltar ao topo');
-	  document.body.appendChild(backToTop);
-	
-	  window.addEventListener('scroll', () => {
-	    backToTop.style.display = window.scrollY > 600 ? 'block' : 'none';
-	  });
-	  backToTop.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
-	
-	  // Lazy loading (garantir que todas as imagens tenham o atributo)
-	  document.querySelectorAll('.article-image').forEach(img => {
-	    if (!img.hasAttribute('loading')) {
-	      img.setAttribute('loading', 'lazy');
-	    }
-	  });
+		// Barra de progresso
+		window.addEventListener('scroll', () => {
+			const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+			const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+			const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+			document.getElementById('progressBar').style.width = `${Math.min(100, progress)}%`;
+		});
+
+		// Animação de entrada
+		const observer = new IntersectionObserver((entries) => {
+			entries.forEach(entry => {
+				if (entry.isIntersecting) {
+					entry.target.classList.add('visible');
+				}
+			});
+		}, { threshold: 0.1 });
+
+		document.querySelectorAll('.section').forEach(section => {
+			observer.observe(section);
+		});
+
+		// Lazy loading
+		document.querySelectorAll('img').forEach(img => {
+			if (!img.hasAttribute('loading')) {
+				img.setAttribute('loading', 'lazy');
+			}
+		});
+	</script>
+
+	<!-- Botão Voltar ao Topo -->
+	<button id="backToTop" title="Voltar ao topo" style="
+		position: fixed; bottom: 20px; right: 20px;
+		width: 44px; height: 44px; border-radius: 50%;
+		border: none; background: #3498db; color: white;
+		font-weight: bold; cursor: pointer; z-index: 900;
+		display: none; box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+		transition: background 0.3s;
+	">↑</button>
+
+	<script>
+		const backToTop = document.getElementById('backToTop');
+		window.addEventListener('scroll', () => {
+			backToTop.style.display = window.scrollY > 600 ? 'block' : 'none';
+		});
+		backToTop.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 	</script>
 	{% endif %}
-  </body>
+
+</body>
 </html>
