@@ -1,388 +1,350 @@
-<!DOCTYPE HTML>
-<!--
-	Editorial by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-	<title>{{ page.title | default: "Prof. Carlos Costa" }}</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ page.title | default: "Prof. Carlos Costa" }}</title>
+  <link rel="stylesheet" href="{{ '/assets/css/fontawesome-all.min.css' | relative_url }}">
+  <style>
+    /* ================ SEU SISTEMA DE DESIGN PURO ================ */
+    :root {
+      --primary-color: #2c3e50;
+      --secondary-color: #34495e;
+      --accent-color: #3498db;
+      --text-color: #2c3e50;
+      --light-gray: #f8f9fa;
+      --medium-gray: #e9ecef;
+      --dark-gray: #6c757d;
+      --max-width: 900px;
+      --serif-font: 'Georgia', 'Times New Roman', serif;
+      --sans-serif-font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: var(--serif-font);
+      line-height: 1.7;
+      color: var(--text-color);
+      background: #fff;
+      font-size: 18px;
+    }
 
-	<!-- CSS do Editorial -->
-	<link rel="stylesheet" href="{{ '/assets/css/fontawesome-all.min.css' | relative_url }}" />
-	<link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}" />
+    /* Menu fixo no topo (estilo Editorial, mas independente) */
+    .navigation {
+      position: sticky;
+      top: 0;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--medium-gray);
+      z-index: 999;
+      padding: 1rem 0;
+    }
+    .nav-container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-family: var(--sans-serif-font);
+      font-weight: 700;
+      font-size: 1.2rem;
+      text-decoration: none;
+      color: var(--primary-color);
+    }
+    .icons {
+      display: flex;
+      gap: 1rem;
+    }
+    .icon {
+      color: var(--dark-gray);
+      text-decoration: none;
+    }
+    .icon:hover { color: var(--accent-color); }
 
-	<style>
-		/* ================ DESIGN SYSTEM PARA POSTS ================ */
-		:root {
-			--primary-color: #2c3e50;
-			--secondary-color: #34495e;
-			--accent-color: #3498db;
-			--text-color: #2c3e50;
-			--light-gray: #f8f9fa;
-			--medium-gray: #e9ecef;
-			--dark-gray: #6c757d;
-			--max-width: 900px;
-			--serif-font: 'Georgia', 'Times New Roman', serif;
-			--sans-serif-font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-			--spacing-sm: 1rem;
-			--spacing-md: 2rem;
-			--spacing-lg: 3rem;
-			--spacing-xl: 4rem;
-		}
+    /* Barra de progresso — abaixo do menu */
+    .progress-bar-container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 2rem;
+      height: 40px;
+      display: flex;
+      align-items: center;
+    }
+    .progress-fill {
+      height: 4px;
+      background: linear-gradient(90deg, #f39c12, #e67e22);
+      border-radius: 2px;
+      transition: width 0.1s ease;
+      flex: 1;
+      margin-left: 1rem;
+    }
 
-		* { margin: 0; padding: 0; box-sizing: border-box; }
-		html { scroll-behavior: smooth; }
-		body {
-			font-family: var(--serif-font);
-			line-height: 1.7;
-			color: var(--text-color);
-			background: #fff;
-			font-size: 18px;
-		}
+    /* Container principal */
+    .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
 
-		/* Layout */
-		#wrapper { display: block; }
-		#sidebar { display: none !important; }
-		#main { width: 100%; margin: 0; }
-		#main .inner {
-			max-width: min(900px, 95vw);
-			margin: 0 auto;
-			padding: 0 2rem;
-		}
+    /* Tipografia */
+    h1, h2, h3, h4 {
+      font-family: var(--sans-serif-font);
+      color: var(--primary-color);
+      line-height: 1.3;
+    }
+    h1 {
+      font-size: 2.5rem;
+      margin: 3rem 0 1.5rem;
+      text-align: center;
+    }
+    h2 {
+      font-size: 2rem;
+      margin: 3rem 0 2rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--accent-color);
+    }
+    h3 {
+      font-size: 1.4rem;
+      margin: 2rem 0 1rem;
+      font-weight: 600;
+      color: var(--secondary-color);
+    }
+    p {
+      margin-bottom: 1.8rem;
+      text-align: justify;
+      hyphens: auto;
+    }
+    @media (max-width: 768px) {
+      p { text-align: left; }
+    }
 
-		/* Header (menu do Editorial) */
-		#header {
-			padding: 1rem 0;
-			border-bottom: 1px solid var(--medium-gray);
-			background: rgba(255,255,255,0.95);
-			backdrop-filter: blur(10px);
-			position: sticky;
-			top: 0;
-			z-index: 999;
-		}
-		#header .logo {
-			font-family: var(--sans-serif-font);
-			font-weight: 700;
-			font-size: 1.2rem;
-			text-decoration: none;
-			color: var(--primary-color);
-		}
-		#header .icons {
-			display: flex;
-			align-items: center;
-			gap: 1rem;
-		}
-		#header .icon {
-			color: var(--dark-gray);
-			font-size: 1.1rem;
-		}
-		#header .icon:hover {
-			color: var(--accent-color);
-		}
+    .subtitle {
+      font-size: 1.1rem;
+      color: var(--dark-gray);
+      margin: 0.5rem auto 2rem;
+      text-align: center;
+      max-width: 700px;
+    }
 
-		/* Barra de progresso — corrigida */
-		.progress-bar-container {
-			width: 100%;
-			max-width: min(900px, 95vw);
-			margin: 0 auto;
-			padding: 0 2rem;
-			display: flex;
-			align-items: center;
-			height: 40px;
-		}
-		.progress-fill {
-			flex: 1;
-			height: 4px;
-			background: linear-gradient(90deg, #f39c12, #e67e22);
-			border-radius: 2px;
-			transition: width 0.1s ease;
-			margin-left: 1rem;
-		}
+    /* Imagens */
+    .image-container {
+      margin: 2rem auto;
+      text-align: center;
+      max-width: 100%;
+    }
+    .image-container.left {
+      float: left;
+      margin: 1rem 1.5rem 1rem 0;
+      text-align: left;
+      clear: left;
+      max-width: 45%;
+    }
+    .image-container.right {
+      float: right;
+      margin: 1rem 0 1rem 1.5rem;
+      text-align: right;
+      clear: right;
+      max-width: 45%;
+    }
+    .section::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+    .article-image {
+      max-width: 100%;
+      max-height: 420px;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+      display: block;
+      margin: 0 auto;
+    }
+    .image-caption {
+      font-style: italic;
+      font-size: 0.9rem;
+      color: var(--dark-gray);
+      margin-top: 1rem;
+      font-family: var(--sans-serif-font);
+    }
+    .image-container.left .image-caption,
+    .image-container.right .image-caption {
+      text-align: center;
+      margin-top: 0.5rem;
+    }
 
-		/* Tipografia */
-		h1, h2, h3, h4 {
-			font-family: var(--sans-serif-font);
-			color: var(--primary-color);
-			line-height: 1.3;
-		}
-		h1 {
-			font-size: 2.5rem;
-			margin: 3rem 0 1.5rem;
-			text-align: center;
-		}
-		h2 {
-			font-size: 2rem;
-			margin: 3rem 0 2rem;
-			padding-bottom: 0.5rem;
-			border-bottom: 2px solid var(--accent-color);
-		}
-		h3 {
-			font-size: 1.4rem;
-			margin: 2rem 0 1rem;
-			font-weight: 600;
-			color: var(--secondary-color);
-		}
-		p {
-			margin-bottom: 1.8rem;
-			text-align: justify;
-			hyphens: auto;
-		}
-		@media (max-width: 768px) {
-			p { text-align: left; }
-		}
+    /* Blockquotes */
+    .blockquote {
+      background: var(--light-gray);
+      padding: 2rem;
+      margin: 2rem 0;
+      border-left: 4px solid var(--accent-color);
+      border-radius: 0 8px 8px 0;
+      font-style: italic;
+      position: relative;
+    }
+    .blockquote::before {
+      content: '"';
+      font-size: 4rem;
+      color: var(--accent-color);
+      position: absolute;
+      top: -0.5rem;
+      left: 1rem;
+      opacity: 0.3;
+    }
+    .blockquote p { margin-bottom: 1rem; }
+    .blockquote-attribution {
+      font-weight: 600;
+      color: var(--secondary-color);
+      font-size: 0.9rem;
+      text-align: right;
+    }
 
-		/* Subtítulo */
-		.subtitle {
-			font-size: 1.1rem;
-			color: var(--dark-gray);
-			font-style: normal;
-			margin: 0.5rem 0 2rem;
-			text-align: center;
-			max-width: 700px;
-			margin-left: auto;
-			margin-right: auto;
-		}
+    /* Highlight boxes */
+    .highlight-box {
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin: 2rem 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+    .highlight-item {
+      background: white;
+      padding: 1rem;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    .highlight-title {
+      font-weight: 600;
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+    }
+    .highlight-desc {
+      font-size: 0.95rem;
+      color: var(--dark-gray);
+    }
 
-		/* Imagens */
-		.image-container {
-			margin: var(--spacing-md) 0;
-			text-align: center;
-		}
-		.image-container.left {
-			float: left;
-			margin: 1rem 1.5rem 1rem 0;
-			text-align: left;
-			clear: left;
-			max-width: 45%;
-		}
-		.image-container.right {
-			float: right;
-			margin: 1rem 0 1rem 1.5rem;
-			text-align: right;
-			clear: right;
-			max-width: 45%;
-		}
-		.image-container.centered, .image-container:not(.left):not(.right) {
-			margin: var(--spacing-md) auto;
-			max-width: 100%;
-		}
-		.article-image {
-			max-width: 100%;
-			max-height: 420px;
-			height: auto;
-			border-radius: 8px;
-			box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-			transition: transform 0.3s ease, box-shadow 0.3s ease;
-			display: block;
-			margin: 0 auto;
-		}
-		.article-image:hover {
-			transform: translateY(-4px) scale(1.02);
-			box-shadow: 0 12px 32px rgba(0,0,0,0.15);
-		}
-		.image-caption {
-			font-style: italic;
-			font-size: 0.9rem;
-			color: var(--dark-gray);
-			margin-top: 1rem;
-			font-family: var(--sans-serif-font);
-		}
-		.image-container.left .image-caption,
-		.image-container.right .image-caption {
-			text-align: center;
-			margin-top: 0.5rem;
-		}
+    /* Referências */
+    .references {
+      background: var(--light-gray);
+      padding: 2.5rem;
+      border-radius: 12px;
+      margin-top: 4rem;
+      overflow: visible;
+    }
+    .references h2 { margin-bottom: 2rem; }
+    .reference-item {
+      background: white;
+      padding: 1.5rem;
+      margin-bottom: 1.2rem;
+      border-radius: 8px;
+      border-left: 4px solid var(--accent-color);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
 
-		/* Limpeza de floats */
-		.section::after {
-			content: "";
-			display: table;
-			clear: both;
-		}
+    /* Seções */
+    .section {
+      margin-bottom: 4rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      overflow: visible;
+    }
+    .section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-		/* Blockquotes */
-		.blockquote {
-			background: var(--light-gray);
-			padding: 2rem;
-			margin: var(--spacing-md) 0;
-			border-left: 4px solid var(--accent-color);
-			border-radius: 0 8px 8px 0;
-			font-style: italic;
-			position: relative;
-		}
-		.blockquote::before {
-			content: '"';
-			font-size: 4rem;
-			color: var(--accent-color);
-			position: absolute;
-			top: -0.5rem;
-			left: 1rem;
-			opacity: 0.3;
-		}
-		.blockquote p { margin-bottom: 1rem; }
-		.blockquote-attribution {
-			font-weight: 600;
-			color: var(--secondary-color);
-			font-size: 0.9rem;
-			text-align: right;
-		}
-
-		/* Highlight boxes */
-		.highlight-box {
-			background: #f1f5f9;
-			border: 1px solid #cbd5e1;
-			border-radius: 8px;
-			padding: 1.5rem;
-			margin: var(--spacing-md) 0;
-			display: grid;
-			grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-			gap: 1rem;
-		}
-		.highlight-item {
-			background: white;
-			padding: 1rem;
-			border-radius: 6px;
-			box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-		}
-		.highlight-title {
-			font-weight: 600;
-			color: var(--primary-color);
-			margin-bottom: 0.5rem;
-			font-size: 1.1rem;
-		}
-		.highlight-desc {
-			font-size: 0.95rem;
-			color: var(--dark-gray);
-		}
-
-		/* Referências — corrigido vazamento */
-		.references {
-			background: var(--light-gray);
-			padding: 2.5rem;
-			border-radius: 12px;
-			margin-top: var(--spacing-xl);
-			overflow: visible;
-		}
-		.references h2 { margin-bottom: var(--spacing-md); }
-		.reference-item {
-			background: white;
-			padding: 1.5rem;
-			margin-bottom: 1.2rem;
-			border-radius: 8px;
-			border-left: 4px solid var(--accent-color);
-			box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-			font-size: 0.95rem;
-			line-height: 1.6;
-		}
-
-		/* Animação de seções */
-		.section {
-			margin-bottom: var(--spacing-xl);
-			opacity: 0;
-			transform: translateY(20px);
-			transition: opacity 0.6s ease, transform 0.6s ease;
-			overflow: visible; /* permite imagens flutuantes saírem */
-		}
-		.section.visible {
-			opacity: 1;
-			transform: translateY(0);
-		}
-
-		/* Botão Voltar ao Topo — só "Topo" */
-		.back-to-top {
-			position: fixed;
-			bottom: 20px;
-			right: 20px;
-			background: white;
-			border: 1px solid var(--medium-gray);
-			border-radius: 6px;
-			padding: 0.6rem 1rem;
-			box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-			cursor: pointer;
-			z-index: 900;
-			display: none;
-			font-family: var(--sans-serif-font);
-			font-size: 0.9rem;
-			color: var(--text-color);
-			transition: background 0.3s, box-shadow 0.3s;
-		}
-		.back-to-top:hover {
-			background: var(--light-gray);
-			box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-		}
-	</style>
+    /* Botão "Topo" */
+    .back-to-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: white;
+      border: 1px solid var(--medium-gray);
+      border-radius: 6px;
+      padding: 0.6rem 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      cursor: pointer;
+      z-index: 900;
+      display: none;
+      font-family: var(--sans-serif-font);
+      font-size: 0.9rem;
+      color: var(--text-color);
+    }
+    .back-to-top:hover {
+      background: var(--light-gray);
+    }
+  </style>
 </head>
-<body class="is-preload">
+<body>
 
-	<div id="wrapper">
-		<div id="main">
-			<div class="inner">
+  <!-- Menu -->
+  <nav class="navigation">
+    <div class="nav-container">
+      <a href="{{ '/' | relative_url }}" class="logo"><strong>Prof.</strong> Carlos Costa</a>
+      <div class="icons">
+        <a href="{{ '/blog/' | relative_url }}" class="icon" title="Blog"><i class="fas fa-blog"></i></a>
+        <a href="https://profcarloscosta-qkq69ff.gamma.site/atividades-traducoes" class="icon" title="Traduções" target="_blank" rel="noopener"><i class="fas fa-language"></i></a>
+        <a href="https://historia-da-matematica-9jtis9w.gamma.site/" class="icon" title="História" target="_blank" rel="noopener"><i class="fas fa-hourglass-half"></i></a>
+        <a href="#" class="icon" title="Fragmentos"><i class="fas fa-puzzle-piece"></i></a>
+      </div>
+    </div>
+  </nav>
 
-				<!-- Header (menu do Editorial) -->
-				<header id="header">
-					<a href="{{ '/' | relative_url }}" class="logo"><strong>Prof.</strong> Carlos Costa</a>
-					<ul class="icons">
-						<li><a href="{{ '/blog/' | relative_url }}" class="icon solid fa-blog" title="Blog"><span class="label">Blog</span></a></li>
-						<li><a href="https://profcarloscosta-qkq69ff.gamma.site/atividades-traducoes" class="icon solid fa-language" title="Traduções" target="_blank" rel="noopener"><span class="label">Traduções</span></a></li>
-						<li><a href="https://historia-da-matematica-9jtis9w.gamma.site/" class="icon solid fa-hourglass-half" title="História" target="_blank" rel="noopener"><span class="label">História</span></a></li>
-						<li><a href="#" class="icon solid fa-puzzle-piece" title="Fragmentos"><span class="label">Fragmentos</span></a></li>
-					</ul>
-				</header>
+  <!-- Barra de progresso -->
+  <div class="progress-bar-container">
+    <div class="progress-fill" id="progressFill"></div>
+  </div>
 
-				<!-- Barra de progresso — abaixo do menu -->
-				<div class="progress-bar-container">
-					<div class="progress-fill" id="progressFill"></div>
-				</div>
+  <!-- Conteúdo -->
+  <main class="content">
+    <div class="container">
+      {{ content }}
+    </div>
+  </main>
 
-				<!-- Conteúdo do post -->
-				{{ content }}
+  <!-- Botão Topo -->
+  <button class="back-to-top" id="backToTop">Topo</button>
 
-			</div>
-		</div>
-	</div>
+  <!-- Scripts -->
+  <script src="https://kit.fontawesome.com/your-kit-id.js" crossorigin="anonymous"></script>
+  <script>
+    // Barra de progresso
+    window.addEventListener('scroll', () => {
+      const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+      document.getElementById('progressFill').style.width = `${Math.min(100, progress)}%`;
+    });
 
-	<!-- Scripts -->
-	<script src="{{ '/assets/js/jquery.min.js' | relative_url }}"></script>
-	<script src="{{ '/assets/js/browser.min.js' | relative_url }}"></script>
-	<script src="{{ '/assets/js/breakpoints.min.js' | relative_url }}"></script>
-	<script src="{{ '/assets/js/util.js' | relative_url }}"></script>
-	<script src="{{ '/assets/js/main.js' | relative_url }}"></script>
+    // Animação
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.section').forEach(section => observer.observe(section));
 
-	<script>
-		// Barra de progresso (esquerda → direita)
-		window.addEventListener('scroll', () => {
-			const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-			const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-			const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
-			document.getElementById('progressFill').style.width = `${Math.min(100, progress)}%`;
-		});
+    // Lazy loading
+    document.querySelectorAll('img').forEach(img => {
+      if (!img.hasAttribute('loading')) img.setAttribute('loading', 'lazy');
+    });
 
-		// Animação
-		const observer = new IntersectionObserver(entries => {
-			entries.forEach(entry => {
-				if (entry.isIntersecting) entry.target.classList.add('visible');
-			});
-		}, { threshold: 0.1 });
-		document.querySelectorAll('.section').forEach(section => observer.observe(section));
-
-		// Lazy loading
-		document.querySelectorAll('img').forEach(img => {
-			if (!img.hasAttribute('loading')) img.setAttribute('loading', 'lazy');
-		});
-
-		// Botão "Topo"
-		const backToTop = document.createElement('button');
-		backToTop.className = 'back-to-top';
-		backToTop.textContent = 'Topo';
-		document.body.appendChild(backToTop);
-
-		window.addEventListener('scroll', () => {
-			backToTop.style.display = window.scrollY > 600 ? 'block' : 'none';
-		});
-		backToTop.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
-	</script>
+    // Botão Topo
+    const btn = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      btn.style.display = window.scrollY > 600 ? 'block' : 'none';
+    });
+    btn.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+  </script>
 </body>
 </html>
