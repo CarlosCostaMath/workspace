@@ -10,14 +10,12 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<title>{{ page.title | default: "Prof. Carlos Costa" }}</title>
 
-	<!-- CSS do Editorial (sempre carregado) -->
+	<!-- CSS do Editorial (mantido para ícones e menu) -->
 	<link rel="stylesheet" href="{{ '/assets/css/fontawesome-all.min.css' | relative_url }}" />
 	<link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}" />
 
-	<!-- CSS personalizado para posts (só se layout_type == 'post') -->
-	{% if page.layout_type == 'post' %}
 	<style>
-		/* ================ DESIGN SYSTEM PARA POSTS ================ */
+		/* ================ DESIGN SYSTEM PARA POSTS (EXCLUSIVO) ================ */
 		:root {
 			--primary-color: #2c3e50;
 			--secondary-color: #34495e;
@@ -35,23 +33,38 @@
 			--spacing-xl: 4rem;
 		}
 
-		/* Substitui estilos do Editorial apenas no conteúdo principal */
-		#main {
-			width: 100%;
-			margin: 0;
+		* { margin: 0; padding: 0; box-sizing: border-box; }
+		html { scroll-behavior: smooth; }
+		body {
+			font-family: var(--serif-font);
+			line-height: 1.7;
+			color: var(--text-color);
+			background: #fff;
+			font-size: 18px;
 		}
+
+		/* Layout */
+		#wrapper { display: block; }
+		#sidebar { display: none !important; }
+		#main { width: 100%; margin: 0; }
 		#main .inner {
 			max-width: min(900px, 95vw);
 			margin: 0 auto;
 			padding: 0 2rem;
-			font-family: var(--serif-font);
-			font-size: 18px;
-			line-height: 1.7;
-			color: var(--text-color);
-			background: #fff;
 		}
 
-		/* Barra de progresso (laranja) */
+		/* Menu (preservado do Editorial) */
+		#header {
+			padding: 1rem 0;
+			border-bottom: 1px solid var(--medium-gray);
+			background: rgba(255,255,255,0.95);
+			backdrop-filter: blur(10px);
+			position: sticky;
+			top: 0;
+			z-index: 999;
+		}
+
+		/* Barra de progresso */
 		.progress-bar {
 			width: 0;
 			height: 4px;
@@ -59,19 +72,6 @@
 			margin: 0 auto 2rem;
 			border-radius: 2px;
 			transition: width 0.1s ease;
-		}
-
-		/* Seções com animação */
-		.section {
-			margin-bottom: var(--spacing-xl);
-			opacity: 0;
-			transform: translateY(20px);
-			transition: opacity 0.6s ease, transform 0.6s ease;
-			overflow: hidden;
-		}
-		.section.visible {
-			opacity: 1;
-			transform: translateY(0);
 		}
 
 		/* Tipografia */
@@ -106,6 +106,28 @@
 			p { text-align: left; }
 		}
 
+		/* Links */
+		a {
+			color: var(--accent-color);
+			text-decoration: none;
+		}
+		a:hover {
+			text-decoration: underline;
+		}
+		a[target="_blank"]::after {
+			content: " ↗";
+			font-size: 0.8em;
+			opacity: 0.6;
+		}
+
+		/* Ênfase em trechos */
+		.highlight {
+			background: rgba(255, 220, 100, 0.3);
+			padding: 0.15em 0.3em;
+			border-radius: 3px;
+			font-weight: 600;
+		}
+
 		/* Imagens */
 		.image-container {
 			margin: var(--spacing-md) 0;
@@ -125,7 +147,8 @@
 			clear: right;
 			max-width: 45%;
 		}
-		.section::after {
+		.section::after,
+		.content::after {
 			content: "";
 			display: table;
 			clear: both;
@@ -227,103 +250,77 @@
 			line-height: 1.6;
 		}
 
-		/* Esconde sidebar em posts */
-		#wrapper #sidebar { display: none !important; }
+		/* Animação de seções */
+		.section {
+			margin-bottom: var(--spacing-xl);
+			opacity: 0;
+			transform: translateY(20px);
+			transition: opacity 0.6s ease, transform 0.6s ease;
+			overflow: hidden;
+		}
+		.section.visible {
+			opacity: 1;
+			transform: translateY(0);
+		}
+
+		/* Botão Voltar ao Topo */
+		#backToTop {
+			position: fixed;
+			bottom: 20px;
+			right: 20px;
+			width: 44px;
+			height: 44px;
+			border-radius: 50%;
+			border: none;
+			background: var(--accent-color);
+			color: white;
+			font-weight: bold;
+			cursor: pointer;
+			z-index: 900;
+			display: none;
+			box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+			transition: background 0.3s;
+		}
+		#backToTop:hover {
+			background: #2980b9;
+		}
 	</style>
-	{% endif %}
 </head>
 <body class="is-preload">
 
-	<!-- Wrapper -->
 	<div id="wrapper">
-
-		<!-- Main -->
 		<div id="main">
 			<div class="inner">
 
-				<!-- Header (menu temático do Editorial) -->
+				<!-- Header (menu do Editorial) -->
 				<header id="header">
 					<a href="{{ '/' | relative_url }}" class="logo"><strong>Prof.</strong> Carlos Costa</a>
 					<ul class="icons">
-						<li>
-							<a href="{{ '/blog/' | relative_url }}" class="icon solid fa-blog" title="Blog">
-								<span class="label">Blog</span>
-							</a>
-						</li>
-						<li>
-							<a href="https://profcarloscosta-qkq69ff.gamma.site/atividades-traducoes" class="icon solid fa-language" title="Traduções" target="_blank" rel="noopener">
-								<span class="label">Traduções</span>
-							</a>
-						</li>
-						<li>
-							<a href="https://historia-da-matematica-9jtis9w.gamma.site/" class="icon solid fa-hourglass-half" title="História" target="_blank" rel="noopener">
-								<span class="label">História</span>
-							</a>
-						</li>
-						<li>
-							<a href="#" class="icon solid fa-puzzle-piece" title="Fragmentos">
-								<span class="label">Fragmentos</span>
-							</a>
-						</li>
+						<li><a href="{{ '/blog/' | relative_url }}" class="icon solid fa-blog" title="Blog"><span class="label">Blog</span></a></li>
+						<li><a href="https://profcarloscosta-qkq69ff.gamma.site/atividades-traducoes" class="icon solid fa-language" title="Traduções" target="_blank" rel="noopener"><span class="label">Traduções</span></a></li>
+						<li><a href="https://historia-da-matematica-9jtis9w.gamma.site/" class="icon solid fa-hourglass-half" title="História" target="_blank" rel="noopener"><span class="label">História</span></a></li>
+						<li><a href="#" class="icon solid fa-puzzle-piece" title="Fragmentos"><span class="label">Fragmentos</span></a></li>
 					</ul>
 				</header>
 
-				<!-- Barra de progresso (só em posts) -->
-				{% if page.layout_type == 'post' %}
+				<!-- Barra de progresso -->
 				<div class="progress-bar" id="progressBar"></div>
-				{% endif %}
 
-				<!-- Conteúdo -->
+				<!-- Conteúdo do post -->
 				{{ content }}
 
 			</div>
 		</div>
-
-		<!-- Sidebar (só em páginas normais) -->
-		{% unless page.layout_type == 'post' %}
-		<div id="sidebar">
-			<div class="inner">
-
-				<!-- Search -->
-				<section id="search" class="alt">
-					<form method="post" action="#">
-						<input type="text" name="query" id="query" placeholder="Search" />
-					</form>
-				</section>
-
-				<!-- Menu -->
-				<nav id="menu">
-					<header class="major">
-						<h2>Menu</h2>
-					</header>
-					<ul>
-						<li><a href="{{ '/' | relative_url }}">Início</a></li>
-						<li><a href="{{ '/blog/' | relative_url }}">Blog</a></li>
-						<li><a href="{{ '/sobre/' | relative_url }}">Sobre</a></li>
-						<li><a href="{{ '/contato/' | relative_url }}">Contato</a></li>
-					</ul>
-				</nav>
-
-				<!-- Footer da sidebar -->
-				<footer id="footer">
-					<p class="copyright">&copy; {{ site.time | date: "%Y" }} Prof. Carlos Costa. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
-				</footer>
-
-			</div>
-		</div>
-		{% endunless %}
-
 	</div>
 
-	<!-- Scripts do Editorial -->
+	<!-- Scripts do Editorial (para ícones) -->
 	<script src="{{ '/assets/js/jquery.min.js' | relative_url }}"></script>
 	<script src="{{ '/assets/js/browser.min.js' | relative_url }}"></script>
 	<script src="{{ '/assets/js/breakpoints.min.js' | relative_url }}"></script>
 	<script src="{{ '/assets/js/util.js' | relative_url }}"></script>
 	<script src="{{ '/assets/js/main.js' | relative_url }}"></script>
 
-	<!-- Scripts personalizados (só em posts) -->
-	{% if page.layout_type == 'post' %}
+	<!-- Scripts de interatividade -->
 	<script>
 		// Barra de progresso
 		window.addEventListener('scroll', () => {
@@ -334,44 +331,28 @@
 		});
 
 		// Animação de entrada
-		const observer = new IntersectionObserver((entries) => {
+		const observer = new IntersectionObserver(entries => {
 			entries.forEach(entry => {
-				if (entry.isIntersecting) {
-					entry.target.classList.add('visible');
-				}
+				if (entry.isIntersecting) entry.target.classList.add('visible');
 			});
 		}, { threshold: 0.1 });
-
-		document.querySelectorAll('.section').forEach(section => {
-			observer.observe(section);
-		});
+		document.querySelectorAll('.section').forEach(section => observer.observe(section));
 
 		// Lazy loading
 		document.querySelectorAll('img').forEach(img => {
-			if (!img.hasAttribute('loading')) {
-				img.setAttribute('loading', 'lazy');
-			}
+			if (!img.hasAttribute('loading')) img.setAttribute('loading', 'lazy');
 		});
-	</script>
 
-	<!-- Botão Voltar ao Topo -->
-	<button id="backToTop" title="Voltar ao topo" style="
-		position: fixed; bottom: 20px; right: 20px;
-		width: 44px; height: 44px; border-radius: 50%;
-		border: none; background: #3498db; color: white;
-		font-weight: bold; cursor: pointer; z-index: 900;
-		display: none; box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-		transition: background 0.3s;
-	">↑</button>
-
-	<script>
-		const backToTop = document.getElementById('backToTop');
+		// Botão voltar ao topo
+		const backToTop = document.createElement('button');
+		backToTop.id = 'backToTop';
+		backToTop.textContent = '↑';
+		backToTop.title = 'Voltar ao topo';
+		document.body.appendChild(backToTop);
 		window.addEventListener('scroll', () => {
 			backToTop.style.display = window.scrollY > 600 ? 'block' : 'none';
 		});
 		backToTop.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 	</script>
-	{% endif %}
-
 </body>
 </html>
