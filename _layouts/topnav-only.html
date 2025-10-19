@@ -4,54 +4,30 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ page.title | default: "Prof. Carlos Costa" }}</title>
-  <!-- Font Awesome (para os ícones do menu) -->
   <link rel="stylesheet" href="{{ '/assets/css/fontawesome-all.min.css' | relative_url }}">
   <style>
-    /* ================ MENU DO EDITORIAL (mínimo necessário) ================ */
-    #header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 0;
-      border-bottom: 1px solid #e5e5e5;
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
+    /* Barra de progresso (fixa abaixo do menu) */
+    .progress-bar {
       position: sticky;
       top: 0;
-      z-index: 999;
-      width: 100%;
+      z-index: 998;
+      width: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #f39c12, #e67e22);
+      margin: 0 auto 2rem;
+      border-radius: 2px;
+      transition: width 0.1s ease;
       max-width: 900px;
-      margin: 0 auto;
-      padding: 1rem 2rem;
-    }
-    #header .logo {
-      font-weight: 700;
-      font-size: 1.25rem;
-      text-decoration: none;
-      color: #2c3e50;
-    }
-    #header .icons {
-      display: flex;
-      align-items: center;
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      gap: 1.25rem;
-    }
-    #header .icons li {
-      margin: 0;
-      padding: 0;
-    }
-    #header .icon {
-      color: #6c757d;
-      text-decoration: none;
-      font-size: 1.1rem;
-    }
-    #header .icon:hover {
-      color: #3498db;
     }
 
-    /* ================ SEU SISTEMA DE DESIGN PARA POSTS ================ */
+    /* Container do post */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* Seu sistema de design completo */
     :root {
       --primary-color: #2c3e50;
       --secondary-color: #34495e;
@@ -60,11 +36,9 @@
       --light-gray: #f8f9fa;
       --medium-gray: #e9ecef;
       --dark-gray: #6c757d;
-      --max-width: 900px;
       --serif-font: 'Georgia', 'Times New Roman', serif;
       --sans-serif-font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: var(--serif-font);
       line-height: 1.7;
@@ -72,26 +46,6 @@
       background: #fff;
       font-size: 18px;
     }
-
-    /* Container principal */
-    .container {
-      max-width: var(--max-width);
-      margin: 0 auto;
-      padding: 0 2rem;
-    }
-
-    /* Barra de progresso */
-    .progress-bar {
-      width: 0;
-      height: 4px;
-      background: linear-gradient(90deg, #f39c12, #e67e22);
-      margin: 0 auto 2rem;
-      border-radius: 2px;
-      transition: width 0.1s ease;
-      max-width: var(--max-width);
-    }
-
-    /* Tipografia */
     h1, h2, h3, h4 {
       font-family: var(--sans-serif-font);
       color: var(--primary-color);
@@ -122,7 +76,6 @@
     @media (max-width: 768px) {
       p { text-align: left; }
     }
-
     .subtitle {
       font-size: 1.1rem;
       color: var(--dark-gray);
@@ -290,26 +243,13 @@
 </head>
 <body>
 
-  <!-- Menu do Editorial (exatamente como no seu site) -->
-  <header id="header">
-    <a href="{{ '/' | relative_url }}" class="logo"><strong>Prof.</strong> Carlos Costa</a>
-    <ul class="icons">
-      <li><a href="{{ '/blog/' | relative_url }}" class="icon solid fa-blog" title="Blog"><span class="label">Blog</span></a></li>
-      <li><a href="https://profcarloscosta-qkq69ff.gamma.site/atividades-traducoes" class="icon solid fa-language" title="Traduções" target="_blank" rel="noopener"><span class="label">Traduções</span></a></li>
-      <li><a href="https://historia-da-matematica-9jtis9w.gamma.site/" class="icon solid fa-hourglass-half" title="História" target="_blank" rel="noopener"><span class="label">História</span></a></li>
-      <li><a href="#" class="icon solid fa-puzzle-piece" title="Fragmentos"><span class="label">Fragmentos</span></a></li>
-    </ul>
-  </header>
-
-  <!-- Barra de progresso -->
+  <!-- Barra de progresso (aparece abaixo do menu do site) -->
   <div class="progress-bar" id="progressBar"></div>
 
   <!-- Conteúdo do post -->
-  <main class="content">
-    <div class="container">
-      {{ content }}
-    </div>
-  </main>
+  <div class="container">
+    {{ content }}
+  </div>
 
   <!-- Botão "Topo" -->
   <button id="backToTop">Topo</button>
