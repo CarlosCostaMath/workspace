@@ -5,42 +5,109 @@
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
 <html>
-	<head>
-		<title>Generic - Editorial by HTML5 UP</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-	</head>
-	<body class="is-preload">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{ page.title | default: "Prof. Carlos Costa" }}</title>
 
-		<!-- Wrapper -->
-			<div id="wrapper">
+    <!-- CSS do tema -->
+    <link rel="stylesheet" href="{{ '/assets/css/fontawesome-all.min.css' | relative_url }}" />
+    <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}" />
 
-				<!-- Main -->
-					<div id="main">
-						<div class="inner">
+    <!-- Estilos específicos para posts (opcional) -->
+    {% if page.layout_type == 'post' %}
+    <style>
+      /* Centraliza e ajusta o conteúdo para leitura longa */
+      #main .inner {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+      }
+      /* Remove sidebar em posts */
+      #sidebar { display: none; }
+      #main { width: 100%; }
+    </style>
+    {% endif %}
+  </head>
+  <body class="is-preload">
+    <div id="wrapper">
 
-							<!-- Header -->
-								<header id="header">
-									<a href="index.html" class="logo"><strong>Editorial</strong> by HTML5 UP</a>
-									<ul class="icons">
-										<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-										<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-										<li><a href="#" class="icon brands fa-snapchat-ghost"><span class="label">Snapchat</span></a></li>
-										<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-										<li><a href="#" class="icon brands fa-medium-m"><span class="label">Medium</span></a></li>
-									</ul>
-								</header>
+      <!-- Main -->
+      <div id="main">
+        <div class="inner">
 
-						</div>
-					</div>
+          <!-- Header (menu do topo) -->
+          <header id="header">
+            <a href="{{ '/' | relative_url }}" class="logo"><strong>Prof.</strong> Carlos Costa</a>
+            <ul class="icons">
+              <li>
+                <a href="{{ '/blog/' | relative_url }}" class="icon solid fa-blog" title="Blog">
+                  <span class="label">Blog</span>
+                </a>
+              </li>
+              <li>
+                <a href="https://profcarloscosta-qkq69ff.gamma.site/atividades-traducoes" class="icon solid fa-language" title="Traduções" target="_blank" rel="noopener">
+                  <span class="label">Traduções</span>
+                </a>
+              </li>
+              <li>
+                <a href="https://historia-da-matematica-9jtis9w.gamma.site/" class="icon solid fa-hourglass-half" title="História" target="_blank" rel="noopener">
+                  <span class="label">História</span>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="icon solid fa-puzzle-piece" title="Fragmentos">
+                  <span class="label">Fragmentos</span>
+                </a>
+              </li>
+            </ul>
+          </header>
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+          <!-- CONTEÚDO DA PÁGINA OU POST -->
+          {{ content }}
 
-	</body>
+        </div>
+      </div>
+
+      <!-- Sidebar (só aparece se layout_type NÃO for 'post') -->
+      {% unless page.layout_type == 'post' %}
+      <div id="sidebar">
+        <div class="inner">
+          <!-- Search -->
+          <section id="search" class="alt">
+            <form method="post" action="#">
+              <input type="text" name="query" id="query" placeholder="Search" />
+            </form>
+          </section>
+
+          <!-- Menu -->
+          <nav id="menu">
+            <header class="major">
+              <h2>Menu</h2>
+            </header>
+            <ul>
+              <li><a href="{{ '/' | relative_url }}">Início</a></li>
+              <li><a href="{{ '/blog/' | relative_url }}">Blog</a></li>
+              <li><a href="{{ '/sobre/' | relative_url }}">Sobre</a></li>
+              <li><a href="{{ '/contato/' | relative_url }}">Contato</a></li>
+            </ul>
+          </nav>
+
+          <!-- Footer da sidebar -->
+          <footer id="footer">
+            <p class="copyright">&copy; {{ site.time | date: "%Y" }} Prof. Carlos Costa. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+          </footer>
+        </div>
+      </div>
+      {% endunless %}
+
+    </div>
+
+    <!-- Scripts do tema -->
+    <script src="{{ '/assets/js/jquery.min.js' | relative_url }}"></script>
+    <script src="{{ '/assets/js/browser.min.js' | relative_url }}"></script>
+    <script src="{{ '/assets/js/breakpoints.min.js' | relative_url }}"></script>
+    <script src="{{ '/assets/js/util.js' | relative_url }}"></script>
+    <script src="{{ '/assets/js/main.js' | relative_url }}"></script>
+  </body>
 </html>
