@@ -1,288 +1,46 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{ page.title | default: "Prof. Carlos Costa" }}</title>
-  <link rel="stylesheet" href="{{ '/assets/css/fontawesome-all.min.css' | relative_url }}">
-  <style>
-    /* Barra de progresso (fixa abaixo do menu) */
-    .progress-bar {
-      position: sticky;
-      top: 0;
-      z-index: 998;
-      width: 0;
-      height: 4px;
-      background: linear-gradient(90deg, #f39c12, #e67e22);
-      margin: 0 auto 2rem;
-      border-radius: 2px;
-      transition: width 0.1s ease;
-      max-width: 900px;
-    }
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Generic - Editorial by HTML5 UP</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body class="is-preload">
 
-    /* Container do post */
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 0 2rem;
-    }
+		<!-- Wrapper -->
+			<div id="wrapper">
 
-    /* Seu sistema de design completo */
-    :root {
-      --primary-color: #2c3e50;
-      --secondary-color: #34495e;
-      --accent-color: #3498db;
-      --text-color: #2c3e50;
-      --light-gray: #f8f9fa;
-      --medium-gray: #e9ecef;
-      --dark-gray: #6c757d;
-      --serif-font: 'Georgia', 'Times New Roman', serif;
-      --sans-serif-font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    body {
-      font-family: var(--serif-font);
-      line-height: 1.7;
-      color: var(--text-color);
-      background: #fff;
-      font-size: 18px;
-    }
-    h1, h2, h3, h4 {
-      font-family: var(--sans-serif-font);
-      color: var(--primary-color);
-      line-height: 1.3;
-    }
-    h1 {
-      font-size: 2.5rem;
-      margin: 3rem 0 1.5rem;
-      text-align: center;
-    }
-    h2 {
-      font-size: 2rem;
-      margin: 3rem 0 2rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 2px solid var(--accent-color);
-    }
-    h3 {
-      font-size: 1.4rem;
-      margin: 2rem 0 1rem;
-      font-weight: 600;
-      color: var(--secondary-color);
-    }
-    p {
-      margin-bottom: 1.8rem;
-      text-align: justify;
-      hyphens: auto;
-    }
-    @media (max-width: 768px) {
-      p { text-align: left; }
-    }
-    .subtitle {
-      font-size: 1.1rem;
-      color: var(--dark-gray);
-      margin: 0.5rem auto 2rem;
-      text-align: center;
-      max-width: 700px;
-    }
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
 
-    /* Imagens */
-    .image-container {
-      margin: 2rem auto;
-      text-align: center;
-      max-width: 100%;
-    }
-    .image-container.left {
-      float: left;
-      margin: 1rem 1.5rem 1rem 0;
-      text-align: left;
-      clear: left;
-      max-width: 45%;
-    }
-    .image-container.right {
-      float: right;
-      margin: 1rem 0 1rem 1.5rem;
-      text-align: right;
-      clear: right;
-      max-width: 45%;
-    }
-    .section::after {
-      content: "";
-      display: table;
-      clear: both;
-    }
-    .article-image {
-      max-width: 100%;
-      max-height: 420px;
-      height: auto;
-      border-radius: 8px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-      display: block;
-      margin: 0 auto;
-    }
-    .image-caption {
-      font-style: italic;
-      font-size: 0.9rem;
-      color: var(--dark-gray);
-      margin-top: 1rem;
-      font-family: var(--sans-serif-font);
-    }
-    .image-container.left .image-caption,
-    .image-container.right .image-caption {
-      text-align: center;
-      margin-top: 0.5rem;
-    }
+							<!-- Header -->
+								<header id="header">
+									<a href="index.html" class="logo"><strong>Editorial</strong> by HTML5 UP</a>
+									<ul class="icons">
+										<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+										<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+										<li><a href="#" class="icon brands fa-snapchat-ghost"><span class="label">Snapchat</span></a></li>
+										<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+										<li><a href="#" class="icon brands fa-medium-m"><span class="label">Medium</span></a></li>
+									</ul>
+								</header>
 
-    /* Blockquotes */
-    .blockquote {
-      background: var(--light-gray);
-      padding: 2rem;
-      margin: 2rem 0;
-      border-left: 4px solid var(--accent-color);
-      border-radius: 0 8px 8px 0;
-      font-style: italic;
-      position: relative;
-    }
-    .blockquote::before {
-      content: '"';
-      font-size: 4rem;
-      color: var(--accent-color);
-      position: absolute;
-      top: -0.5rem;
-      left: 1rem;
-      opacity: 0.3;
-    }
-    .blockquote p { margin-bottom: 1rem; }
-    .blockquote-attribution {
-      font-weight: 600;
-      color: var(--secondary-color);
-      font-size: 0.9rem;
-      text-align: right;
-    }
+						</div>
+					</div>
 
-    /* Highlight boxes */
-    .highlight-box {
-      background: #f1f5f9;
-      border: 1px solid #cbd5e1;
-      border-radius: 8px;
-      padding: 1.5rem;
-      margin: 2rem 0;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1rem;
-    }
-    .highlight-item {
-      background: white;
-      padding: 1rem;
-      border-radius: 6px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    }
-    .highlight-title {
-      font-weight: 600;
-      color: var(--primary-color);
-      margin-bottom: 0.5rem;
-      font-size: 1.1rem;
-    }
-    .highlight-desc {
-      font-size: 0.95rem;
-      color: var(--dark-gray);
-    }
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
 
-    /* Referências */
-    .references {
-      background: var(--light-gray);
-      padding: 2.5rem;
-      border-radius: 12px;
-      margin-top: 4rem;
-      overflow: visible;
-    }
-    .references h2 { margin-bottom: 2rem; }
-    .reference-item {
-      background: white;
-      padding: 1.5rem;
-      margin-bottom: 1.2rem;
-      border-radius: 8px;
-      border-left: 4px solid var(--accent-color);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-      font-size: 0.95rem;
-      line-height: 1.6;
-    }
-
-    /* Seções */
-    .section {
-      margin-bottom: 4rem;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-      overflow: visible;
-    }
-    .section.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* Botão "Topo" */
-    #backToTop {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: white;
-      border: 1px solid var(--medium-gray);
-      border-radius: 6px;
-      padding: 0.6rem 1rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      cursor: pointer;
-      z-index: 900;
-      display: none;
-      font-family: var(--sans-serif-font);
-      font-size: 0.9rem;
-      color: var(--text-color);
-    }
-    #backToTop:hover {
-      background: var(--light-gray);
-    }
-  </style>
-</head>
-<body>
-
-  <!-- Barra de progresso (aparece abaixo do menu do site) -->
-  <div class="progress-bar" id="progressBar"></div>
-
-  <!-- Conteúdo do post -->
-  <div class="container">
-    {{ content }}
-  </div>
-
-  <!-- Botão "Topo" -->
-  <button id="backToTop">Topo</button>
-
-  <!-- Scripts -->
-  <script>
-    // Barra de progresso
-    window.addEventListener('scroll', () => {
-      const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
-      document.getElementById('progressBar').style.width = `${Math.min(100, progress)}%`;
-    });
-
-    // Animação de entrada
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
-      });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.section').forEach(section => observer.observe(section));
-
-    // Lazy loading
-    document.querySelectorAll('img').forEach(img => {
-      if (!img.hasAttribute('loading')) img.setAttribute('loading', 'lazy');
-    });
-
-    // Botão "Topo"
-    const btn = document.getElementById('backToTop');
-    window.addEventListener('scroll', () => {
-      btn.style.display = window.scrollY > 600 ? 'block' : 'none';
-    });
-    btn.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
-  </script>
-</body>
+	</body>
 </html>
