@@ -1,0 +1,1430 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Descubra como Gottfried Wilhelm Leibniz antecipou os fundamentos da lógica moderna e da computação séculos antes de sua realização, através de seu ambicioso projeto de mecanizar o raciocínio humano.">
+    <meta name="keywords" content="Leibniz, lógica moderna, história da ciência, computação, filosofia, characteristica universalis, calculus ratiocinator, George Boole, Gottlob Frege">
+    <meta name="author" content="Blog de Divulgação Científica">
+    <title>Calculemus! Como Leibniz Sonhou com a Lógica Moderna Séculos Antes de Ela Existir</title>
+    <style>
+        :root {
+            --color-primary: #667eea;
+            --color-secondary: #764ba2;
+            --color-text: #2c3e50;
+            --color-text-light: #555;
+            --color-bg: #fafafa;
+            --color-bg-white: #ffffff;
+            --color-border: #e1e8ed;
+            --color-highlight-bg: #f5f7fa;
+            --max-content-width: 900px;
+            --reading-width: 70ch;
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2.5rem;
+            --spacing-xl: 3.5rem;
+            --font-size-base: 18px;
+        }
+
+        /* Tema Escuro */
+        [data-theme="dark"] {
+            --color-text: #e4e6eb;
+            --color-text-light: #b0b3b8;
+            --color-bg: #18191a;
+            --color-bg-white: #242526;
+            --color-border: #3a3b3c;
+            --color-highlight-bg: #2d2e2f;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Georgia, 'Times New Roman', Charter, serif;
+            font-size: var(--font-size-base);
+            line-height: 1.75;
+            color: var(--color-text);
+            background-color: var(--color-bg-white);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* HEADER */
+        header {
+            background: var(--color-bg-white);
+            color: var(--color-text);
+            padding: 3rem 2rem 2rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .header-content {
+            max-width: var(--max-content-width);
+            margin: 0 auto;
+        }
+
+        .header-category {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 1rem;
+            color: var(--color-text-light);
+        }
+
+        header h1 {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+            letter-spacing: -0.5px;
+            line-height: 1.1;
+            color: var(--color-text);
+        }
+
+        .header-description {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            font-style: italic;
+            color: var(--color-text-light);
+            margin-bottom: 1.5rem;
+        }
+
+        .header-meta {
+            display: flex;
+            gap: 0.8rem;
+            align-items: center;
+            font-size: 0.9rem;
+            color: var(--color-text-light);
+            flex-wrap: wrap;
+            padding-top: 1.2rem;
+            padding-bottom: 0.5rem;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .header-meta > div {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .header-meta .author {
+            font-weight: 600;
+            color: var(--color-text);
+        }
+
+        .header-meta .separator {
+            color: var(--color-text-light);
+            opacity: 0.3;
+            font-size: 0.7rem;
+        }
+
+        /* PROGRESS BAR */
+        .progress-container {
+            width: 100%;
+            height: 6px;
+            background: #f0f0f0;
+            position: relative;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15), inset 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .progress-bar {
+            height: 3px;
+            background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+            width: 0%;
+            transition: width 0.1s ease;
+            position: absolute;
+            bottom: 0;
+            box-shadow: 0 1px 3px rgba(102, 126, 234, 0.4);
+        }
+
+        /* HERO IMAGE CONTAINER */
+        .hero-image-container {
+            max-width: var(--max-content-width);
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .hero-image {
+            width: 100%;
+            max-height: 500px;
+            object-fit: cover;
+            display: block;
+            border-radius: 4px;
+        }
+
+        /* COMPACT NAVIGATION */
+        nav {
+            background: var(--color-bg-white);
+            padding: 0.5rem 2rem;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            transition: background-color 0.3s ease;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 0.6rem;
+            align-items: center;
+        }
+
+        .theme-toggle,
+        .font-controls {
+            display: flex;
+            gap: 0.3rem;
+            align-items: center;
+        }
+
+        .theme-toggle button,
+        .font-controls button {
+            background: transparent;
+            border: 1px solid var(--color-border);
+            color: var(--color-text);
+            width: 32px;
+            height: 32px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle button:hover,
+        .font-controls button:hover {
+            background: var(--color-highlight-bg);
+            border-color: var(--color-primary);
+        }
+
+        .font-controls button {
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .nav-title {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-size: 0.85rem;
+            color: var(--color-text);
+            font-weight: 600;
+        }
+
+        .menu-toggle,
+        .share-button {
+            background: var(--color-primary);
+            color: white;
+            border: none;
+            padding: 0.4rem 0.9rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            min-width: auto;
+            min-height: auto;
+        }
+
+        .menu-toggle:hover,
+        .share-button:hover {
+            background: var(--color-secondary);
+            transform: translateY(-1px);
+        }
+
+        .menu-toggle:focus,
+        .share-button:focus {
+            outline: 2px solid var(--color-primary);
+            outline-offset: 2px;
+        }
+
+        .share-button {
+            background: #4caf50;
+        }
+
+        .share-button:hover {
+            background: #388e3c;
+        }
+
+        .nav-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 2rem;
+            background: var(--color-bg-white);
+            border-radius: 8px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            padding: 1rem;
+            margin-top: 0.5rem;
+            display: none;
+            min-width: 280px;
+            max-height: 70vh;
+            overflow-y: auto;
+            transition: background-color 0.3s ease;
+        }
+
+        .nav-dropdown.active {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .nav-dropdown h3 {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-size: 0.85rem;
+            color: var(--color-text-light);
+            margin-bottom: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--color-border);
+        }
+
+        .nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--color-text);
+            text-decoration: none;
+            font-size: 0.9rem;
+            padding: 0.6rem 0.8rem;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            display: block;
+        }
+
+        .nav-links a:hover,
+        .nav-links a:focus {
+            background-color: var(--color-highlight-bg);
+            color: var(--color-primary);
+            padding-left: 1.2rem;
+            outline: 2px solid var(--color-primary);
+            outline-offset: 2px;
+        }
+
+        .nav-links a.active {
+            background-color: var(--color-primary);
+            color: white;
+            font-weight: 600;
+        }
+
+        .nav-links a.active:hover {
+            background-color: var(--color-secondary);
+            color: white;
+        }
+
+        /* MAIN CONTENT */
+        main {
+            max-width: var(--max-content-width);
+            margin: 0 auto;
+            padding: var(--spacing-xl) 2rem;
+            background: var(--color-bg-white);
+            transition: background-color 0.3s ease;
+        }
+
+        article > section {
+            margin-bottom: var(--spacing-xl);
+        }
+
+        article > section:last-child {
+            margin-bottom: 0;
+        }
+
+        /* TYPOGRAPHY */
+        h2 {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-size: 2rem;
+            color: var(--color-primary);
+            margin-bottom: var(--spacing-md);
+            margin-top: var(--spacing-xl);
+            padding-bottom: var(--spacing-xs);
+            border-bottom: 3px solid var(--color-primary);
+            line-height: 1.3;
+        }
+
+        section:first-child h2 {
+            margin-top: 0;
+        }
+
+        h3 {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-size: 1.5rem;
+            color: var(--color-secondary);
+            margin: var(--spacing-lg) 0 var(--spacing-sm);
+            line-height: 1.4;
+        }
+
+        h4 {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-size: 1.2rem;
+            color: var(--color-text-light);
+            margin: var(--spacing-md) 0 var(--spacing-sm);
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        p {
+            margin-bottom: 1.3rem;
+            max-width: var(--reading-width);
+        }
+
+        em {
+            font-style: italic;
+        }
+
+        strong {
+            font-weight: 600;
+            color: var(--color-text);
+        }
+
+        /* IMAGES */
+        figure {
+            margin: var(--spacing-lg) 0;
+            clear: both;
+        }
+
+        figure img {
+            max-height: 420px;
+            height: auto;
+            width: auto;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            cursor: zoom-in;
+            transition: transform 0.3s ease;
+        }
+
+        figure img:hover {
+            transform: scale(1.02);
+        }
+
+        figure.center {
+            text-align: center;
+        }
+
+        figure.center img {
+            max-width: 100%;
+        }
+
+        figure.left {
+            float: left;
+            margin: 0 2rem 1.5rem 0;
+            max-width: 45%;
+        }
+
+        figure.left img {
+            width: 100%;
+        }
+
+        figure.right {
+            float: right;
+            margin: 0 0 1.5rem 2rem;
+            max-width: 45%;
+        }
+
+        figure.right img {
+            width: 100%;
+        }
+
+        figcaption {
+            margin-top: 0.8rem;
+            font-size: 0.95rem;
+            color: #666;
+            font-style: italic;
+            line-height: 1.5;
+        }
+
+        /* BOXES AND ASIDES */
+        .highlight-box {
+            background: linear-gradient(135deg, var(--color-highlight-bg) 0%, #e8ecf1 100%);
+            padding: 1.8rem;
+            border-left: 5px solid var(--color-primary);
+            margin: var(--spacing-lg) 0;
+            border-radius: 4px;
+            font-style: italic;
+            line-height: 1.7;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            clear: both;
+        }
+
+        .highlight-box p {
+            margin-bottom: 0;
+        }
+
+        .highlight-box strong {
+            font-style: normal;
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--color-primary);
+        }
+
+        .quote-box {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-left: 6px solid var(--color-secondary);
+            margin: var(--spacing-lg) 0;
+            font-size: 1.25rem;
+            font-style: italic;
+            color: #444;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border-radius: 4px;
+            clear: both;
+        }
+
+        .quote-box strong {
+            display: block;
+            font-size: 1.5rem;
+            color: var(--color-secondary);
+            margin-bottom: 0.5rem;
+            font-style: normal;
+        }
+
+        .fun-fact {
+            background: linear-gradient(135deg, #fff5e6 0%, #ffe8cc 100%);
+            padding: 1.8rem;
+            border-left: 5px solid #ff9800;
+            margin: var(--spacing-lg) 0;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            clear: both;
+        }
+
+        .fun-fact h4 {
+            color: #e65100;
+            margin-top: 0;
+            font-size: 1.1rem;
+        }
+
+        .glossary-box {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            padding: 1.8rem;
+            border-left: 5px solid #4caf50;
+            margin: var(--spacing-lg) 0;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            clear: both;
+        }
+
+        .glossary-box h4 {
+            color: #2e7d32;
+            margin-top: 0;
+            font-size: 1.1rem;
+        }
+
+        /* CONCEPT GRID */
+        .concept-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: var(--spacing-lg) 0;
+            clear: both;
+        }
+
+        .concept-box {
+            background: linear-gradient(135deg, var(--color-bg-white) 0%, var(--color-highlight-bg) 100%);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 2px solid var(--color-border);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .concept-box:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(102, 126, 234, 0.2);
+        }
+
+        .concept-box h4 {
+            color: var(--color-primary);
+            margin-top: 0;
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+        }
+
+        .concept-box p {
+            font-size: 0.98rem;
+            margin-bottom: 0;
+            max-width: 100%;
+        }
+
+        /* TIMELINE */
+        .timeline {
+            margin: var(--spacing-lg) 0;
+            padding-left: 2rem;
+            border-left: 3px solid var(--color-primary);
+            clear: both;
+        }
+
+        .timeline-item {
+            margin-bottom: var(--spacing-lg);
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.3rem;
+            top: 0.3rem;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: var(--color-primary);
+            border: 3px solid white;
+            box-shadow: 0 0 0 2px var(--color-primary);
+        }
+
+        .timeline-item h4 {
+            margin-top: 0;
+            color: var(--color-primary);
+        }
+
+        .timeline-item p {
+            margin-bottom: 0;
+        }
+
+        /* FINAL QUESTION */
+        .final-question {
+            background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-primary) 100%);
+            color: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            margin: var(--spacing-xl) 0;
+            text-align: center;
+            font-size: 1.15rem;
+            line-height: 1.7;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .final-question h3 {
+            color: white;
+            margin: 0 0 1rem 0;
+            font-size: 1.5rem;
+        }
+
+        .final-question p {
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        /* BACK TO TOP */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--color-primary);
+            color: white;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+            transition: transform 0.3s ease;
+            font-size: 1.5rem;
+        }
+
+        .back-to-top:hover,
+        .back-to-top:focus {
+            transform: translateY(-3px);
+            outline: 2px solid var(--color-primary);
+            outline-offset: 4px;
+        }
+
+        /* FOOTER */
+        footer {
+            max-width: var(--max-content-width);
+            margin: 0 auto;
+            padding: var(--spacing-lg) 2rem;
+            text-align: center;
+            color: var(--color-text-light);
+            font-size: 0.9rem;
+            background: var(--color-bg-white);
+            transition: background-color 0.3s ease;
+        }
+
+        /* UTILITIES */
+        .clearfix::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        /* SCROLL ANIMATIONS */
+        .fade-in-element {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-in-element.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Delay progressivo para elementos sequenciais */
+        .fade-in-element:nth-child(1) { transition-delay: 0.1s; }
+        .fade-in-element:nth-child(2) { transition-delay: 0.2s; }
+        .fade-in-element:nth-child(3) { transition-delay: 0.3s; }
+        .fade-in-element:nth-child(4) { transition-delay: 0.4s; }
+        .fade-in-element:nth-child(5) { transition-delay: 0.5s; }
+
+        /* LIGHTBOX para zoom de imagens */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            align-items: center;
+            justify-content: center;
+            cursor: zoom-out;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: 4px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            background: white;
+            color: #000;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+        }
+
+        .lightbox-close:hover {
+            transform: scale(1.1);
+        }
+
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 768px) {
+            body {
+                font-size: 16px;
+            }
+
+            header h1 {
+                font-size: 2rem;
+                margin-bottom: 1rem;
+            }
+
+            .header-category {
+                font-size: 0.7rem;
+            }
+
+            .header-description {
+                font-size: 1rem;
+            }
+
+            .header-meta {
+                font-size: 0.85rem;
+            }
+
+            .hero-image-container {
+                padding: 0 1rem;
+            }
+
+            .hero-image {
+                max-height: 300px;
+            }
+
+            nav {
+                padding: 0;
+            }
+
+            .nav-content {
+                padding: 0.8rem 1rem;
+            }
+
+            .nav-title {
+                font-size: 0.85rem;
+            }
+
+            .menu-toggle,
+            .share-button {
+                padding: 0.5rem 1rem;
+                font-size: 0.85rem;
+            }
+
+            .nav-actions {
+                gap: 0.5rem;
+            }
+
+            .theme-toggle,
+            .font-controls {
+                display: none;
+            }
+
+            .nav-dropdown {
+                right: 1rem;
+                left: 1rem;
+                min-width: auto;
+            }
+
+            main {
+                padding: var(--spacing-lg) 1rem;
+            }
+
+            h2 {
+                font-size: 1.6rem;
+            }
+
+            h3 {
+                font-size: 1.3rem;
+            }
+
+            h4 {
+                font-size: 1.1rem;
+            }
+
+            figure.left,
+            figure.right {
+                float: none;
+                max-width: 100%;
+                margin: var(--spacing-lg) 0;
+            }
+
+            .concept-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .highlight-box,
+            .quote-box,
+            .fun-fact,
+            .glossary-box {
+                padding: 1.2rem;
+            }
+
+            .final-question {
+                padding: 1.8rem;
+                font-size: 1rem;
+            }
+
+            .back-to-top {
+                width: 44px;
+                height: 44px;
+                bottom: 1rem;
+                right: 1rem;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            body {
+                font-size: 17px;
+            }
+
+            header h1 {
+                font-size: 2.3rem;
+            }
+
+            figure.left,
+            figure.right {
+                max-width: 50%;
+            }
+        }
+
+        /* PRINT STYLES */
+        @media print {
+            .progress-container,
+            nav,
+            .back-to-top {
+                display: none;
+            }
+
+            body {
+                background: white;
+            }
+
+            main {
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="header-category">HISTÓRIA DA CIÊNCIA</div>
+            <h1>Calculemus! Como Leibniz Sonhou com a Lógica Moderna Séculos Antes de Ela Existir</h1>
+            <div class="header-description">
+                Descubra como um filósofo do século XVII antecipou os fundamentos da computação moderna através de uma visão revolucionária sobre o próprio ato de pensar.
+            </div>
+            <div class="header-meta">
+                <div class="author">Carlos Costa</div>
+                <span class="separator">•</span>
+                <div class="date"><time datetime="2025-10-22">22 out 2025</time></div>
+                <span class="separator">•</span>
+                <div class="reading-time">12 min de leitura</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Imagem Hero -->
+    <div class="hero-image-container">
+        <img src="imgs/hero_leibniz_vision.png" alt="Composição dramática mostrando Leibniz no século XVII conectado à era digital moderna através de símbolos lógicos e matemáticos" class="hero-image" loading="eager">
+    </div>
+
+    <!-- Menu Compacto de Navegação -->
+    <nav aria-label="Navegação do artigo">
+        <div class="nav-content">
+            <span class="nav-title">Calculemus! - Leibniz</span>
+            <div class="nav-actions">
+                <div class="theme-toggle">
+                    <button id="themeToggle" aria-label="Alternar tema escuro/claro" title="Alternar tema">
+                        <span id="themeIcon">🌙</span>
+                    </button>
+                </div>
+                <div class="font-controls">
+                    <button id="fontDecrease" aria-label="Diminuir fonte" title="Diminuir fonte">A-</button>
+                    <button id="fontIncrease" aria-label="Aumentar fonte" title="Aumentar fonte">A+</button>
+                </div>
+                <button class="share-button" id="shareButton" aria-label="Compartilhar artigo">
+                    <span>⤴</span>
+                    <span>SHARE</span>
+                </button>
+                <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-label="Abrir menu de navegação">
+                    <span>☰</span>
+                    <span>Índice</span>
+                </button>
+            </div>
+        </div>
+        <!-- Barra de Progresso de Leitura -->
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <div class="nav-dropdown" id="navDropdown">
+            <h3>Navegação do Artigo</h3>
+            <ul class="nav-links">
+                <li><a href="#introducao">Introdução</a></li>
+                <li><a href="#jornada">Uma Jornada em Três Atos</a></li>
+                <li><a href="#heranca">Herança Aristotélica</a></li>
+                <li><a href="#characteristica">Characteristica Universalis</a></li>
+                <li><a href="#calculus">Calculus Ratiocinator</a></li>
+                <li><a href="#verdade">Verdade como Contenção</a></li>
+                <li><a href="#quantificadores">Quantificadores</a></li>
+                <li><a href="#redescoberta">Redescoberta</a></li>
+                <li><a href="#legado">Legado</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <article>
+            <section id="introducao">
+                <h2>O Filósofo dos Múltiplos Mundos e de Uma Só Lógica</h2>
+                
+                <p>Gottfried Wilhelm Leibniz é frequentemente lembrado na cultura popular como o filósofo otimista do "melhor dos mundos possíveis" ou como o co-inventor do cálculo, numa célebre disputa com Isaac Newton. Essas são, sem dúvida, contribuições monumentais que solidificaram seu lugar na história do pensamento ocidental.</p>
+                
+                <p>No entanto, por trás dessas facetas mais conhecidas, esconde-se um projeto ainda mais audacioso e, por séculos, quase esquecido: a sua tentativa de revolucionar a própria estrutura do raciocínio humano.</p>
+                
+                <p>Leibniz não queria apenas descrever o mundo ou criar ferramentas para a física; ele ambicionava criar um método universal para resolver qualquer disputa, seja na filosofia, na teologia ou na ciência, através de um cálculo rigoroso. Ele sonhou com um sistema onde o debate de ideias pudesse ser tão preciso e irrefutável quanto uma equação matemática.</p>
+                
+                <figure class="center">
+                    <img src="imgs/leibniz_manuscripts.png" alt="Gottfried Wilhelm Leibniz trabalhando em seu estudo iluminado por velas, cercado por manuscritos com símbolos matemáticos" loading="lazy">
+                    <figcaption>Leibniz em seu estudo, cercado pelos manuscritos fragmentados que revelariam, séculos mais tarde, sua visão revolucionária sobre a mecanização do pensamento.</figcaption>
+                </figure>
+                
+                <p>Essa visão, que antecipou em mais de 150 anos os fundamentos da lógica moderna e da computação, permaneceu oculta em seus manuscritos fragmentados — um tesouro intelectual que o mundo levaria gerações para reconhecer.</p>
+            </section>
+
+            <section id="jornada">
+                <h2>Uma Jornada em Três Atos</h2>
+                
+                <p>Para entender a dimensão da genialidade de Leibniz e sua importância para a lógica contemporânea, faremos uma jornada em três partes que revela como suas ideias transformaram o pensamento ocidental.</p>
+                
+                <div class="concept-grid">
+                    <div class="concept-box">
+                        <h4>O Legado Recebido</h4>
+                        <p>A base aristotélica e escolástica sobre a qual Leibniz construiu seu projeto revolucionário</p>
+                    </div>
+                    <div class="concept-box">
+                        <h4>A Contribuição Transformadora</h4>
+                        <p>O ponto de virada que ele representou ao propor um cálculo do próprio raciocínio</p>
+                    </div>
+                    <div class="concept-box">
+                        <h4>O Eco nos Séculos</h4>
+                        <p>Como suas ideias finalmente encontraram seu lugar nos trabalhos dos gigantes da lógica moderna</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="heranca" class="clearfix">
+                <h2>A Herança da Lógica Aristotélica</h2>
+                
+                <p>Para apreciar a revolução proposta por Leibniz, é preciso primeiro entender o universo intelectual em que ele vivia. Seu pensamento estava imerso na tradição da lógica aristotélica, um sistema que dominou o pensamento ocidental por quase dois milênios.</p>
+                
+                <p>A lógica aristotélica, refinada pelos filósofos escolásticos medievais, era fundamentalmente uma lógica de termos e proposições qualitativas. O método de raciocínio, codificado por Aristóteles em seus <em>Analíticos Anteriores</em>, era o silogismo: uma estrutura que deduz uma conclusão a partir de duas premissas.</p>
+                
+                <aside class="glossary-box">
+                    <h4>📖 Definição: Silogismo</h4>
+                    <p>Um argumento lógico que deduz uma conclusão necessária a partir de duas premissas. Exemplo clássico: "Todos os homens são mortais. Sócrates é homem. Logo, Sócrates é mortal." Para Aristóteles, todas as sentenças devem assumir a forma técnica de "proposições" sujeito-predicado.</p>
+                </aside>
+                
+                <p>Para Aristóteles, um silogismo era um tipo específico de argumento válido — o que hoje chamaríamos de um argumento protaseico, onde todas as sentenças devem assumir a forma técnica de "proposições" sujeito-predicado. Era um sistema poderoso, mas intrinsecamente ligado às nuances e ambiguidades da linguagem natural.</p>
+                
+                <div class="highlight-box">
+                    <p>O objetivo de Leibniz não era simplesmente aplicar ou refinar esse sistema venerável. Ele o via como um ponto de partida, uma base sólida, mas limitada. Sua ambição era transcendê-lo, movendo a lógica do domínio das palavras para o domínio dos símbolos e do cálculo.</p>
+                </div>
+            </section>
+
+            <section id="characteristica" class="clearfix">
+                <h2>A Ambição de uma "Linguagem Perfeita": A Characteristica Universalis</h2>
+                
+                <figure class="right">
+                    <img src="imgs/symbolic_language.png" alt="Manuscrito antigo com símbolos lógicos e algébricos escritos em caligrafia barroca sobre pergaminho envelhecido" loading="lazy">
+                    <figcaption>Manuscrito com símbolos lógicos e algébricos — a materialização do sonho de Leibniz de uma linguagem universal do pensamento.</figcaption>
+                </figure>
+                
+                <p>A grande ambição de Leibniz, que o ocupou por toda a vida, era a criação de uma <em>characteristica universalis</em> — uma linguagem simbólica universal. Ele imaginou um alfabeto de conceitos humanos, onde cada ideia fundamental seria representada por um símbolo único e inequívoco.</p>
+                
+                <div class="concept-grid">
+                    <div class="concept-box">
+                        <h4>Símbolos Únicos</h4>
+                        <p>Cada conceito fundamental representado por um símbolo inequívoco</p>
+                    </div>
+                    <div class="concept-box">
+                        <h4>Combinações Precisas</h4>
+                        <p>Ideias complexas expressas através da combinação sistemática de símbolos</p>
+                    </div>
+                    <div class="concept-box">
+                        <h4>Eliminação de Ambiguidades</h4>
+                        <p>Superação das imprecisões inerentes às línguas naturais</p>
+                    </div>
+                </div>
+                
+                <p>Combinando esses símbolos, seria possível expressar qualquer pensamento complexo sem as imprecisões e mal-entendidos inerentes às línguas naturais como o latim, o alemão ou o francês. A ideia de uma "arte combinatória" ou de uma linguagem formal não era inteiramente nova, mas Leibniz a elevou a um patamar de seriedade filosófica e rigor lógico sem precedentes.</p>
+                
+                <div class="quote-box">
+                    <strong>"Calculemus!"</strong>
+                    "Vamos calcular!" — A expressão que sintetiza o sonho de Leibniz de resolver disputas filosóficas e científicas não com retórica, mas com cálculo preciso.
+                </div>
+            </section>
+
+            <section id="calculus" class="clearfix">
+                <h2>O Calculus Ratiocinator: Transformando o Raciocínio em Álgebra</h2>
+                
+                <figure class="left">
+                    <img src="imgs/calculus_ratiocinator.png" alt="Cálculos matemáticos e fórmulas lógicas com símbolos A, B, Y escritos em pergaminho antigo com iluminação lateral dramática" loading="lazy">
+                    <figcaption>Equações lógicas e símbolos algébricos — a tentativa de Leibniz de criar uma verdadeira álgebra do pensamento.</figcaption>
+                </figure>
+                
+                <p>Esta foi a inovação central de Leibniz: a tentativa de construir um <em>calculus ratiocinator</em>, ou "cálculo do raciocínio". A ideia era criar uma álgebra não de números, mas de conceitos. Em seus diversos fragmentos, ele experimentou com diferentes sistemas de notação, usando símbolos familiares de maneiras novas e radicais.</p>
+                
+                <div class="concept-grid">
+                    <div class="concept-box">
+                        <h4>União de Conceitos (+)</h4>
+                        <p>O sinal + representava a união ou combinação de conceitos, como em: homem + racional = homem racional</p>
+                    </div>
+                    <div class="concept-box">
+                        <h4>Remoção de Conceitos (−)</h4>
+                        <p>O sinal − indicava a remoção de um conceito de outro, permitindo análises por subtração</p>
+                    </div>
+                    <div class="concept-box">
+                        <h4>Identidade e Contenção (=)</h4>
+                        <p>O sinal = representava a identidade ou a contenção de um conceito em outro</p>
+                    </div>
+                </div>
+                
+                <p>Crucialmente, a natureza fragmentária desses manuscritos revela não um sistema finalizado, mas a mente de um pioneiro no ato da invenção, testando e descartando abordagens em um território lógico inexplorado.</p>
+                
+                <div class="highlight-box">
+                    <p><strong>Princípio Filosófico:</strong> Guiado pela ideia de que apenas proposições idênticas são genuinamente axiomáticas, Leibniz tentou reduzir o número de axiomas a um mínimo absoluto. Este princípio é o motor filosófico de todo o seu projeto: ao insistir que as leis lógicas derivam das definições dos operadores, ele propõe um sistema formal radicalmente moderno e autocontido, deslocando o fundamento da lógica da intuição metafísica para as propriedades combinatórias dos símbolos — a própria essência de um cálculo.</p>
+                </div>
+            </section>
+
+            <section id="verdade">
+                <h2>A Verdade como Contenção: A Base Filosófica da Lógica Leibniziana</h2>
+                
+                <p>Por trás do projeto técnico do <em>calculus ratiocinator</em> havia um princípio metafísico fundamental: a ideia de que em toda proposição verdadeira da forma "Todo A é B", o conceito do predicado (B) já está contido no conceito do sujeito (A).</p>
+                
+                <p>Para Leibniz, a verdade não era uma correspondência com um estado de coisas externo, mas uma relação interna entre conceitos.</p>
+                
+                <h3>Verdades Necessárias</h3>
+                <p>A proposição "O triângulo tem três lados" é verdadeira porque o conceito de "ter três lados" está contido na própria definição do conceito de "triângulo".</p>
+                
+                <h3>Verdades Contingentes</h3>
+                <p>Leibniz estendeu essa ideia radicalmente a todas as verdades, inclusive as contingentes. Para ele, a proposição "César cruzou o Rubicão" é verdadeira porque, no conceito completo e individual de "César" — um conceito que apenas Deus poderia conhecer em sua totalidade — está incluído o ato de "cruzar o Rubicão".</p>
+                
+                <aside class="fun-fact">
+                    <h4>🔬 Você Sabia?</h4>
+                    <p>Essa teoria da verdade como contenção conceitual teve profundas implicações filosóficas, levando Leibniz a conclusões surpreendentes sobre livre-arbítrio, necessidade e a harmonia pré-estabelecida do universo. Se tudo que é verdadeiro sobre César está contido em seu conceito individual, isso significaria que toda a história estava, de certa forma, predeterminada desde a criação do mundo?</p>
+                </aside>
+                
+                <p>Essa visão reforça imensamente o seu projeto de um cálculo. Se a verdade é, em última análise, uma questão de analisar a relação de contenção entre conceitos, então um sistema formal capaz de manipular e decompor esses conceitos poderia, em princípio, determinar a verdade de qualquer proposição de forma mecânica.</p>
+            </section>
+
+            <section id="quantificadores">
+                <h2>Conceitos Indefinidos e Quantificadores: Um Vislumbre da Lógica Moderna</h2>
+                
+                <p>Uma das antecipações mais notáveis de Leibniz foi o uso de "conceitos indefinidos" ou variáveis, simbolizados por letras como Y ou X. Com esse artifício, ele conseguiu expressar a generalidade de uma forma que a lógica tradicional sujeito-predicado não conseguia capturar de maneira puramente formal.</p>
+                
+                <div class="concept-grid">
+                    <div class="concept-box">
+                        <h4>Proposição Universal</h4>
+                        <p>Todo A é B — a forma tradicional aristotélica</p>
+                    </div>
+                    <div class="concept-box">
+                        <h4>Formalização Leibniziana</h4>
+                        <p>A = BY — equação que expressa contenção conceitual</p>
+                    </div>
+                    <div class="concept-box">
+                        <h4>Interpretação</h4>
+                        <p>O conceito A é idêntico ao conceito B combinado com algum outro conceito Y</p>
+                    </div>
+                    <div class="concept-box">
+                        <h4>Quantificação Implícita</h4>
+                        <p>A presença do Y "indefinido" introduz uma variável existencialmente quantificada (∃Y)</p>
+                    </div>
+                </div>
+                
+                <p>Como formalizado no <em>Handbook</em>, essa relação é expressa como (CONT 4) A e B ++ ∃Y(A = BY), onde ++ significa "se e somente se". A presença do Y "indefinido" é a chave, introduzindo uma variável existencialmente quantificada (∃Y, ou "existe algum conceito Y tal que...").</p>
+                
+                <div class="highlight-box">
+                    <p><strong>Legado Antecipado:</strong> Essa formulação é um precursor direto da teoria da quantificação, a pedra angular da lógica moderna, que só seria plenamente desenvolvida por Gottlob Frege e Charles S. Peirce mais de 150 anos depois.</p>
+                </div>
+                
+                <p>Apesar dessas inovações brilhantes, as ideias de Leibniz permaneceram em grande parte desconhecidas por séculos, um gigante adormecido nos arquivos.</p>
+            </section>
+
+            <section id="redescoberta">
+                <h2>Um Gigante Adormecido: A Redescoberta nos Séculos XIX e XX</h2>
+                
+                <figure class="center">
+                    <img src="imgs/library_rediscovery.png" alt="Biblioteca europeia do século XVIII com estantes de livros antigos iluminadas por luz natural através de janelas" loading="lazy">
+                    <figcaption>Os arquivos de Hanover, onde os manuscritos lógicos de Leibniz permaneceram adormecidos por quase dois séculos, aguardando sua redescoberta por Louis Couturat e Bertrand Russell.</figcaption>
+                </figure>
+                
+                <p>Por quase duzentos anos, os escritos lógicos de Leibniz foram ignorados ou mal compreendidos. A visão predominante, consolidada por filósofos como Immanuel Kant, era de que a lógica, como disciplina, não havia feito nenhum progresso significativo desde Aristóteles. A história da lógica, e talvez da tecnologia, teria sido vastamente diferente se esses fragmentos tivessem sido compreendidos no século XVIII.</p>
+                
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h4>Século XVIII</h4>
+                        <p>Manuscritos de Leibniz permanecem ignorados. Kant afirma que a lógica não progrediu desde Aristóteles.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>Século XIX</h4>
+                        <p>George Boole desenvolve álgebra lógica de forma independente, sem conhecer os trabalhos de Leibniz.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>Virada do Século XX</h4>
+                        <p>Louis Couturat e Bertrand Russell mergulham nos manuscritos em Hanover e revelam ao mundo o verdadeiro alcance das ideias de Leibniz.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h4>Avaliação Moderna</h4>
+                        <p>Lenzen (1990) resume: a álgebra de Leibniz é equivalente à de Boole, seus conceitos indefinidos antecipam quantificadores, e seu cálculo permite derivar as leis do silogismo.</p>
+                    </div>
+                </div>
+                
+                <p>Esta avaliação radicalmente nova da lógica de Leibniz demonstrou que ele não era um mero reformador da escolástica, mas um verdadeiro profeta da lógica matemática.</p>
+                
+                <p>A primeira tese — a surpreendente equivalência entre o cálculo de Leibniz e a álgebra de George Boole — foi uma das revelações mais impactantes e demonstrou como o sonho de Leibniz finalmente começou a se realizar.</p>
+            </section>
+
+            <section id="legado" class="clearfix">
+                <h2>O Legado Reivindicado: Duas Tradições, Um Sonho Realizado</h2>
+                
+                <figure class="right">
+                    <img src="imgs/legacy_modern.png" alt="Transição visual de manuscritos antigos do século XVII para código de computador moderno representando a ponte entre lógica clássica e computação digital" loading="lazy">
+                    <figcaption>A ponte entre passado e presente: das equações lógicas de Leibniz aos algoritmos da era digital — um sonho de três séculos finalmente realizado.</figcaption>
+                </figure>
+                
+                <p>A trajetória de Leibniz na história da lógica é a de um visionário cujo tempo ainda não havia chegado. Partindo da lógica antiga de Aristóteles, ele concebeu um projeto radicalmente novo: transformar a razão em cálculo e a linguagem em um sistema formal preciso.</p>
+                
+                <h3>Tradição Algébrica: O Calculus Ratiocinator</h3>
+                <p>De Boole a Schröder, a criação de uma álgebra funcional para a lógica. Embora Boole provavelmente não tivesse acesso direto aos fragmentos de Leibniz, ele realizou de forma independente uma parte fundamental daquele sonho.</p>
+                
+                <h3>Tradição Logicista: A Lingua Characteristica</h3>
+                <p>De Frege a Russell, a criação de uma linguagem conceitual perfeita. A <em>Begriffsschrift</em> de Frege (1879) foi a primeira realização completa da lógica de predicados com quantificação — finalmente, o cumprimento da promessa da <em>characteristica universalis</em>.</p>
+                
+                <p>Quando a lógica finalmente passou por sua maior revolução desde a antiguidade, no final do século XIX, ela o fez seguindo exatamente as duas trilhas que Leibniz havia esboçado. As duas grandes correntes da lógica moderna que surgiram podem ser vistas como a realização das duas metades do sonho leibniziano.</p>
+                
+                <div class="highlight-box">
+                    <p>Leibniz não foi apenas um precursor; ele foi o arquiteto secreto da lógica moderna.</p>
+                </div>
+            </section>
+
+            <section id="conclusao">
+                <div class="final-question">
+                    <h3>Uma Pergunta Provocadora</h3>
+                    <p>Se os manuscritos lógicos de Leibniz tivessem sido publicados e compreendidos no século XVIII, a revolução digital poderia ter acontecido 150 anos antes?</p>
+                </div>
+                
+                <p>O legado de Leibniz nos lembra que as ideias mais transformadoras às vezes precisam esperar séculos para encontrar seu momento. Seu sonho de mecanizar a razão, de transformar o debate em cálculo, de criar uma linguagem perfeita para o pensamento — tudo isso finalmente se realizou, mesmo que ele nunca tenha testemunhado sua vitória.</p>
+                
+                <p>Hoje, cada vez que usamos um computador, cada vez que escrevemos código, cada vez que formalizamos um argumento, estamos, de certa forma, dizendo junto com Leibniz: <strong><em>Calculemus!</em></strong></p>
+            </section>
+        </article>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Blog de Divulgação Científica. Todos os direitos reservados.</p>
+        <p>Este artigo faz parte da série "Grandes Mentes da Ciência"</p>
+    </footer>
+
+    <a href="#" class="back-to-top" aria-label="Voltar ao topo">↑</a>
+
+    <!-- Lightbox para zoom de imagens -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" id="lightboxClose" aria-label="Fechar">&times;</button>
+        <img src="" alt="" id="lightboxImg">
+    </div>
+
+    <script>
+        // Tamanho de fonte
+        let fontSize = 18;
+        const fontSizes = [14, 16, 18, 20, 22, 24];
+        let currentFontIndex = 2;
+
+        document.getElementById('fontIncrease').addEventListener('click', function() {
+            if (currentFontIndex < fontSizes.length - 1) {
+                currentFontIndex++;
+                document.documentElement.style.setProperty('--font-size-base', fontSizes[currentFontIndex] + 'px');
+            }
+        });
+
+        document.getElementById('fontDecrease').addEventListener('click', function() {
+            if (currentFontIndex > 0) {
+                currentFontIndex--;
+                document.documentElement.style.setProperty('--font-size-base', fontSizes[currentFontIndex] + 'px');
+            }
+        });
+
+        // Tema Escuro/Claro
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        themeIcon.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+
+        themeToggle.addEventListener('click', function() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            themeIcon.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+        });
+
+        // Lightbox para zoom de imagens
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightboxImg');
+        const lightboxClose = document.getElementById('lightboxClose');
+        const figures = document.querySelectorAll('figure img');
+
+        figures.forEach(img => {
+            img.addEventListener('click', function() {
+                lightbox.classList.add('active');
+                lightboxImg.src = this.src;
+                lightboxImg.alt = this.alt;
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        lightboxClose.addEventListener('click', closeLightbox);
+        lightbox.addEventListener('click', function(e) {
+            if (e.target === lightbox) {
+                closeLightbox();
+            }
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+                closeLightbox();
+            }
+        });
+
+        // Indicador de seção ativa no menu
+        const sections = document.querySelectorAll('article > section');
+        const navLinks = document.querySelectorAll('.nav-links a');
+
+        function updateActiveSection() {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateActiveSection);
+        updateActiveSection();
+
+        // Barra de Progresso de Leitura
+        function updateProgressBar() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progressBar').style.width = scrolled + '%';
+        }
+
+        window.addEventListener('scroll', updateProgressBar);
+
+        // Animação de Scroll - Fade In
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observar todos os elementos que devem ter animação
+        document.addEventListener('DOMContentLoaded', function() {
+            const elementsToAnimate = document.querySelectorAll(
+                'article > section, ' +
+                'section > p, ' +
+                'section > h2, ' +
+                'section > h3, ' +
+                'figure, ' +
+                '.highlight-box, ' +
+                '.quote-box, ' +
+                '.fun-fact, ' +
+                '.glossary-box, ' +
+                '.concept-grid, ' +
+                '.timeline, ' +
+                '.final-question'
+            );
+
+            elementsToAnimate.forEach(el => {
+                el.classList.add('fade-in-element');
+                observer.observe(el);
+            });
+        });
+
+        // Menu Dropdown Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navDropdown = document.getElementById('navDropdown');
+
+        menuToggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const isActive = navDropdown.classList.toggle('active');
+            menuToggle.setAttribute('aria-expanded', isActive);
+        });
+
+        // Fechar menu ao clicar fora
+        document.addEventListener('click', function(e) {
+            if (!navDropdown.contains(e.target) && e.target !== menuToggle) {
+                navDropdown.classList.remove('active');
+                menuToggle.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        // Fechar menu ao clicar em um link
+        const navMenuLinks = navDropdown.querySelectorAll('a');
+        navMenuLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                navDropdown.classList.remove('active');
+                menuToggle.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        // Fechar menu com tecla Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && navDropdown.classList.contains('active')) {
+                navDropdown.classList.remove('active');
+                menuToggle.setAttribute('aria-expanded', 'false');
+                menuToggle.focus();
+            }
+        });
+
+        // Botão Share
+        const shareButton = document.getElementById('shareButton');
+        shareButton.addEventListener('click', async function() {
+            const shareData = {
+                title: 'Calculemus! Como Leibniz Sonhou com a Lógica Moderna',
+                text: 'Descubra como Leibniz antecipou os fundamentos da computação moderna através de uma visão revolucionária sobre o pensamento.',
+                url: window.location.href
+            };
+
+            try {
+                if (navigator.share) {
+                    await navigator.share(shareData);
+                } else {
+                    // Fallback: copiar URL para clipboard
+                    await navigator.clipboard.writeText(window.location.href);
+                    alert('Link copiado para a área de transferência!');
+                }
+            } catch (err) {
+                console.log('Erro ao compartilhar:', err);
+            }
+        });
+    </script>
+</body>
+</html>
