@@ -129,20 +129,18 @@
         /* PROGRESS BAR */
         .progress-container {
             width: 100%;
-            height: 6px;
-            background: #f0f0f0;
+            height: 4px;
+            background: transparent;
             position: relative;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15), inset 0 1px 2px rgba(0, 0, 0, 0.1);
         }
 
         .progress-bar {
-            height: 3px;
+            height: 4px;
             background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-secondary) 100%);
             width: 0%;
             transition: width 0.1s ease;
             position: absolute;
             bottom: 0;
-            box-shadow: 0 1px 3px rgba(102, 126, 234, 0.4);
         }
 
         /* HERO IMAGE CONTAINER */
@@ -186,15 +184,6 @@
             align-items: center;
         }
 
-        /* Menu de opções mobile */
-        .mobile-options-toggle {
-            display: none;
-        }
-
-        .mobile-options-menu {
-            display: none;
-        }
-
         .theme-toggle,
         .font-controls {
             display: flex;
@@ -234,7 +223,7 @@
             color: inherit;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.75rem;
             transition: opacity 0.3s ease;
         }
 
@@ -249,6 +238,8 @@
             font-weight: 600;
             display: flex;
             align-items: center;
+            padding-left: 0.75rem;
+            border-left: 1px solid var(--color-border);
             gap: 0.5rem;
         }
 
@@ -265,42 +256,72 @@
             transform: scale(1.1);
         }
 
-        .menu-toggle,
-        .share-button {
-            background: var(--color-primary);
-            color: white;
-            border: none;
-            padding: 0.4rem 0.9rem;
+        /* Botão Índice - mesmo estilo dos controles de tema/fonte */
+        .menu-toggle {
+            background: transparent;
+            color: var(--color-text);
+            border: 1px solid var(--color-border);
+            width: 32px;
+            height: 32px;
             border-radius: 4px;
             cursor: pointer;
-            font-size: 0.8rem;
+            font-size: 1rem;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             display: flex;
             align-items: center;
-            gap: 0.4rem;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            min-width: auto;
-            min-height: auto;
+            justify-content: center;
+            transition: all 0.3s ease;
+            padding: 0;
         }
 
-        .menu-toggle:hover,
-        .share-button:hover {
-            background: var(--color-secondary);
-            transform: translateY(-1px);
+        .menu-toggle:hover {
+            background: var(--color-highlight-bg);
+            border-color: var(--color-primary);
         }
 
-        .menu-toggle:focus,
-        .share-button:focus {
+        .menu-toggle:focus {
             outline: 2px solid var(--color-primary);
             outline-offset: 2px;
         }
 
+        /* Botão Share - mesmo estilo dos controles de tema/fonte */
         .share-button {
-            background: #4caf50;
+            background: transparent;
+            color: var(--color-text);
+            border: 1px solid var(--color-border);
+            width: 32px;
+            height: 32px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            padding: 0;
         }
 
         .share-button:hover {
-            background: #388e3c;
+            background: var(--color-highlight-bg);
+            border-color: var(--color-primary);
+        }
+
+        .share-button:focus {
+            outline: 2px solid #4caf50;
+            outline-offset: 2px;
+        }
+
+        /* Ocultar texto dos botões Share e Índice em todos os tamanhos de tela */
+        .menu-toggle span:last-child,
+        .share-button span:last-child {
+            display: none;
+        }
+
+        /* Garantir que os ícones sejam visíveis */
+        .menu-toggle span:first-child,
+        .share-button span:first-child {
+            font-size: 1rem;
         }
 
         .nav-dropdown {
@@ -857,136 +878,20 @@
                 height: 24px;
             }
 
-            .menu-toggle,
-            .share-button {
-                padding: 0.5rem 1rem;
-                font-size: 0.85rem;
-            }
-
             .nav-actions {
-                gap: 0.4rem;
+                gap: 0.3rem;
             }
 
-            /* Esconder controles individuais no mobile */
-            .theme-toggle,
-            .font-controls,
-            .share-button,
-            .menu-toggle {
-                display: none;
-            }
-
-            /* Mostrar botão de opções mobile */
-            .mobile-options-toggle {
-                display: flex;
-                background: var(--color-primary);
-                color: white;
-                border: none;
-                padding: 0.5rem 1rem;
-                border-radius: 4px;
-                cursor: pointer;
+            /* Manter todos os controles visíveis, mas compactos */
+            .theme-toggle button,
+            .font-controls button {
+                width: 28px;
+                height: 28px;
                 font-size: 0.85rem;
-                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-                align-items: center;
-                gap: 0.4rem;
-                transition: background-color 0.3s ease;
+                padding: 0;
             }
 
-            .mobile-options-toggle:hover {
-                background: var(--color-secondary);
-            }
-
-            /* Menu dropdown de opções mobile */
-            .mobile-options-menu {
-                position: absolute;
-                top: 100%;
-                right: 1rem;
-                background: var(--color-bg-white);
-                border-radius: 8px;
-                box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-                padding: 1rem;
-                margin-top: 0.5rem;
-                min-width: 260px;
-                z-index: 1000;
-                transition: background-color 0.3s ease;
-            }
-
-            .mobile-options-menu.active {
-                display: block;
-                animation: slideDown 0.3s ease;
-            }
-
-            .mobile-options-section {
-                margin-bottom: 1rem;
-                padding-bottom: 1rem;
-                border-bottom: 1px solid var(--color-border);
-            }
-
-            .mobile-options-section:last-child {
-                margin-bottom: 0;
-                padding-bottom: 0;
-                border-bottom: none;
-            }
-
-            .mobile-options-label {
-                font-size: 0.75rem;
-                color: var(--color-text-light);
-                text-transform: uppercase;
-                letter-spacing: 0.5px;
-                font-weight: 600;
-                margin-bottom: 0.5rem;
-                display: block;
-            }
-
-            .mobile-options-controls {
-                display: flex;
-                gap: 0.5rem;
-                align-items: center;
-                flex-wrap: wrap;
-            }
-
-            .mobile-options-menu button {
-                background: transparent;
-                border: 1px solid var(--color-border);
-                color: var(--color-text);
-                padding: 0.5rem 1rem;
-                border-radius: 4px;
-                cursor: pointer;
-                font-size: 0.9rem;
-                transition: all 0.3s ease;
-                flex: 1;
-                min-width: 70px;
-            }
-
-            .mobile-options-menu button:hover {
-                background: var(--color-highlight-bg);
-                border-color: var(--color-primary);
-            }
-
-            .mobile-nav-button {
-                width: 100%;
-                background: var(--color-primary);
-                color: white;
-                border: none;
-                padding: 0.7rem 1rem;
-                border-radius: 4px;
-                cursor: pointer;
-                font-size: 0.9rem;
-                font-weight: 600;
-                margin-top: 0.3rem;
-                transition: background-color 0.3s ease;
-            }
-
-            .mobile-nav-button:hover {
-                background: var(--color-secondary);
-            }
-
-            .mobile-nav-button.share {
-                background: #4caf50;
-            }
-
-            .mobile-nav-button.share:hover {
-                background: #388e3c;
-            }
+            /* Ajustes específicos para mobile já estão nos estilos gerais */
 
             .nav-dropdown {
                 right: 1rem;
@@ -1122,50 +1027,11 @@
                     <span>☰</span>
                     <span>Índice</span>
                 </button>
-                
-                <!-- Botão de opções para mobile -->
-                <button class="mobile-options-toggle" id="mobileOptionsToggle" aria-expanded="false" aria-label="Abrir menu de opções">
-                    <span>⚙</span>
-                    <span>Opções</span>
-                </button>
             </div>
         </div>
         <!-- Barra de Progresso de Leitura -->
         <div class="progress-container">
             <div class="progress-bar" id="progressBar"></div>
-        </div>
-        
-        <!-- Menu de opções mobile -->
-        <div class="mobile-options-menu" id="mobileOptionsMenu">
-            <div class="mobile-options-section">
-                <span class="mobile-options-label">Tema</span>
-                <div class="mobile-options-controls">
-                    <button id="themeToggleMobile" aria-label="Alternar tema">
-                        <span id="themeIconMobile">🌙</span> <span id="themeTextMobile">Escuro</span>
-                    </button>
-                </div>
-            </div>
-            
-            <div class="mobile-options-section">
-                <span class="mobile-options-label">Tamanho da Fonte</span>
-                <div class="mobile-options-controls">
-                    <button id="fontDecreaseMobile" aria-label="Diminuir fonte">A-</button>
-                    <button id="fontIncreaseMobile" aria-label="Aumentar fonte">A+</button>
-                </div>
-            </div>
-            
-            <div class="mobile-options-section">
-                <button class="mobile-nav-button" id="menuToggleMobile" aria-label="Abrir índice">
-                    ☰ Índice do Artigo
-                </button>
-                <button class="mobile-nav-button share" id="shareButtonMobile" aria-label="Compartilhar">
-                    ⤴ Compartilhar
-                </button>
-            </div>
-        </div>
-        
-        <!-- Menu dropdown original -->
-        <div class="nav-dropdown" id="navDropdown">
         </div>
         <!-- Barra de Progresso de Leitura -->
         <div class="progress-container">
@@ -1477,16 +1343,7 @@
         const savedTheme = localStorage.getItem('theme') || 'light';
         
         document.documentElement.setAttribute('data-theme', savedTheme);
-        const isDark = savedTheme === 'dark';
-        themeIcon.textContent = isDark ? '☀️' : '🌙';
-        
-        // Inicializar tema mobile
-        const themeIconMobile = document.getElementById('themeIconMobile');
-        const themeTextMobile = document.getElementById('themeTextMobile');
-        if (themeIconMobile && themeTextMobile) {
-            themeIconMobile.textContent = isDark ? '☀️' : '🌙';
-            themeTextMobile.textContent = isDark ? 'Claro' : 'Escuro';
-        }
+        themeIcon.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
 
         function toggleTheme() {
             const currentTheme = document.documentElement.getAttribute('data-theme');
@@ -1494,17 +1351,7 @@
             
             document.documentElement.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
-            
-            // Atualizar todos os ícones de tema
-            const isDark = newTheme === 'dark';
-            themeIcon.textContent = isDark ? '☀️' : '🌙';
-            
-            const themeIconMobile = document.getElementById('themeIconMobile');
-            const themeTextMobile = document.getElementById('themeTextMobile');
-            if (themeIconMobile && themeTextMobile) {
-                themeIconMobile.textContent = isDark ? '☀️' : '🌙';
-                themeTextMobile.textContent = isDark ? 'Claro' : 'Escuro';
-            }
+            themeIcon.textContent = newTheme === 'dark' ? '☀️' : '🌙';
         }
 
         themeToggle.addEventListener('click', toggleTheme);
@@ -1660,93 +1507,24 @@
             }
         }
 
-        // Botão Share desktop
+        // Botão Share
         const shareButton = document.getElementById('shareButton');
         shareButton.addEventListener('click', shareArticle);
 
-        // ===== CONTROLES MOBILE =====
-        
-        // Menu de opções mobile
-        const mobileOptionsToggle = document.getElementById('mobileOptionsToggle');
-        const mobileOptionsMenu = document.getElementById('mobileOptionsMenu');
-
-        if (mobileOptionsToggle && mobileOptionsMenu) {
-            mobileOptionsToggle.addEventListener('click', function(e) {
-                e.stopPropagation();
-                const isActive = mobileOptionsMenu.classList.toggle('active');
-                mobileOptionsToggle.setAttribute('aria-expanded', isActive);
-                
-                // Fechar menu de índice se estiver aberto
-                if (isActive && navDropdown.classList.contains('active')) {
-                    navDropdown.classList.remove('active');
-                    menuToggle.setAttribute('aria-expanded', 'false');
-                }
-            });
-        }
-
-        // Tema mobile
-        const themeToggleMobile = document.getElementById('themeToggleMobile');
-        if (themeToggleMobile) {
-            themeToggleMobile.addEventListener('click', toggleTheme);
-        }
-
-        // Fonte mobile
-        const fontIncreaseMobile = document.getElementById('fontIncreaseMobile');
-        const fontDecreaseMobile = document.getElementById('fontDecreaseMobile');
-        
-        if (fontIncreaseMobile) {
-            fontIncreaseMobile.addEventListener('click', increaseFontSize);
-        }
-        
-        if (fontDecreaseMobile) {
-            fontDecreaseMobile.addEventListener('click', decreaseFontSize);
-        }
-
-        // Índice mobile
-        const menuToggleMobile = document.getElementById('menuToggleMobile');
-        if (menuToggleMobile) {
-            menuToggleMobile.addEventListener('click', function() {
-                // Fechar menu de opções
-                mobileOptionsMenu.classList.remove('active');
-                mobileOptionsToggle.setAttribute('aria-expanded', 'false');
-                
-                // Abrir menu de índice
-                navDropdown.classList.add('active');
-                menuToggle.setAttribute('aria-expanded', 'true');
-            });
-        }
-
-        // Compartilhar mobile
-        const shareButtonMobile = document.getElementById('shareButtonMobile');
-        if (shareButtonMobile) {
-            shareButtonMobile.addEventListener('click', shareArticle);
-        }
-
-        // Fechar menu mobile ao clicar fora
+        // Fechar menu ao clicar fora
         document.addEventListener('click', function(e) {
-            if (mobileOptionsMenu && !mobileOptionsMenu.contains(e.target) && e.target !== mobileOptionsToggle) {
-                mobileOptionsMenu.classList.remove('active');
-                if (mobileOptionsToggle) {
-                    mobileOptionsToggle.setAttribute('aria-expanded', 'false');
-                }
-            }
-            
             if (!navDropdown.contains(e.target) && e.target !== menuToggle) {
                 navDropdown.classList.remove('active');
                 menuToggle.setAttribute('aria-expanded', 'false');
             }
         });
 
-        // Fechar menu mobile com Escape
+        // Fechar menu com tecla Escape
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                if (mobileOptionsMenu && mobileOptionsMenu.classList.contains('active')) {
-                    mobileOptionsMenu.classList.remove('active');
-                    if (mobileOptionsToggle) {
-                        mobileOptionsToggle.setAttribute('aria-expanded', 'false');
-                        mobileOptionsToggle.focus();
-                    }
-                }
+            if (e.key === 'Escape' && navDropdown.classList.contains('active')) {
+                navDropdown.classList.remove('active');
+                menuToggle.setAttribute('aria-expanded', 'false');
+                menuToggle.focus();
             }
         });
     </script>
