@@ -186,6 +186,15 @@
             align-items: center;
         }
 
+        /* Menu de opções mobile */
+        .mobile-options-toggle {
+            display: none;
+        }
+
+        .mobile-options-menu {
+            display: none;
+        }
+
         .theme-toggle,
         .font-controls {
             display: flex;
@@ -220,11 +229,40 @@
             font-weight: 600;
         }
 
+        .nav-logo-link {
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: opacity 0.3s ease;
+        }
+
+        .nav-logo-link:hover {
+            opacity: 0.8;
+        }
+
         .nav-title {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             font-size: 0.85rem;
             color: var(--color-text);
             font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-logo {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease;
+        }
+
+        .nav-logo-link:hover .nav-logo {
+            transform: scale(1.1);
         }
 
         .menu-toggle,
@@ -529,6 +567,15 @@
             font-size: 1.1rem;
         }
 
+        [data-theme="dark"] .fun-fact {
+            background: linear-gradient(135deg, #2d2410 0%, #3d3010 100%);
+            border-left-color: #ff9800;
+        }
+
+        [data-theme="dark"] .fun-fact h4 {
+            color: #ffb74d;
+        }
+
         .glossary-box {
             background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
             padding: 1.8rem;
@@ -543,6 +590,15 @@
             color: #2e7d32;
             margin-top: 0;
             font-size: 1.1rem;
+        }
+
+        [data-theme="dark"] .glossary-box {
+            background: linear-gradient(135deg, #1a2e1a 0%, #243824 100%);
+            border-left-color: #4caf50;
+        }
+
+        [data-theme="dark"] .glossary-box h4 {
+            color: #81c784;
         }
 
         /* CONCEPT GRID */
@@ -796,6 +852,11 @@
                 font-size: 0.85rem;
             }
 
+            .nav-logo {
+                width: 24px;
+                height: 24px;
+            }
+
             .menu-toggle,
             .share-button {
                 padding: 0.5rem 1rem;
@@ -803,12 +864,128 @@
             }
 
             .nav-actions {
-                gap: 0.5rem;
+                gap: 0.4rem;
             }
 
+            /* Esconder controles individuais no mobile */
             .theme-toggle,
-            .font-controls {
+            .font-controls,
+            .share-button,
+            .menu-toggle {
                 display: none;
+            }
+
+            /* Mostrar botão de opções mobile */
+            .mobile-options-toggle {
+                display: flex;
+                background: var(--color-primary);
+                color: white;
+                border: none;
+                padding: 0.5rem 1rem;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 0.85rem;
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+                align-items: center;
+                gap: 0.4rem;
+                transition: background-color 0.3s ease;
+            }
+
+            .mobile-options-toggle:hover {
+                background: var(--color-secondary);
+            }
+
+            /* Menu dropdown de opções mobile */
+            .mobile-options-menu {
+                position: absolute;
+                top: 100%;
+                right: 1rem;
+                background: var(--color-bg-white);
+                border-radius: 8px;
+                box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+                padding: 1rem;
+                margin-top: 0.5rem;
+                min-width: 260px;
+                z-index: 1000;
+                transition: background-color 0.3s ease;
+            }
+
+            .mobile-options-menu.active {
+                display: block;
+                animation: slideDown 0.3s ease;
+            }
+
+            .mobile-options-section {
+                margin-bottom: 1rem;
+                padding-bottom: 1rem;
+                border-bottom: 1px solid var(--color-border);
+            }
+
+            .mobile-options-section:last-child {
+                margin-bottom: 0;
+                padding-bottom: 0;
+                border-bottom: none;
+            }
+
+            .mobile-options-label {
+                font-size: 0.75rem;
+                color: var(--color-text-light);
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                font-weight: 600;
+                margin-bottom: 0.5rem;
+                display: block;
+            }
+
+            .mobile-options-controls {
+                display: flex;
+                gap: 0.5rem;
+                align-items: center;
+                flex-wrap: wrap;
+            }
+
+            .mobile-options-menu button {
+                background: transparent;
+                border: 1px solid var(--color-border);
+                color: var(--color-text);
+                padding: 0.5rem 1rem;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 0.9rem;
+                transition: all 0.3s ease;
+                flex: 1;
+                min-width: 70px;
+            }
+
+            .mobile-options-menu button:hover {
+                background: var(--color-highlight-bg);
+                border-color: var(--color-primary);
+            }
+
+            .mobile-nav-button {
+                width: 100%;
+                background: var(--color-primary);
+                color: white;
+                border: none;
+                padding: 0.7rem 1rem;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 0.9rem;
+                font-weight: 600;
+                margin-top: 0.3rem;
+                transition: background-color 0.3s ease;
+            }
+
+            .mobile-nav-button:hover {
+                background: var(--color-secondary);
+            }
+
+            .mobile-nav-button.share {
+                background: #4caf50;
+            }
+
+            .mobile-nav-button.share:hover {
+                background: #388e3c;
             }
 
             .nav-dropdown {
@@ -923,7 +1100,10 @@
     <!-- Menu Compacto de Navegação -->
     <nav aria-label="Navegação do artigo">
         <div class="nav-content">
-            <span class="nav-title">Calculemus! - Leibniz</span>
+            <a href="https://carloscostamath.github.io/workspace/" class="nav-logo-link" target="_blank" rel="noopener noreferrer" aria-label="Ir para a página principal">
+                <img src="imgs/logo_calculemus.jpg" alt="Logo Calculemus" class="nav-logo">
+                <span class="nav-title">Calculemus! - Leibniz</span>
+            </a>
             <div class="nav-actions">
                 <div class="theme-toggle">
                     <button id="themeToggle" aria-label="Alternar tema escuro/claro" title="Alternar tema">
@@ -942,7 +1122,50 @@
                     <span>☰</span>
                     <span>Índice</span>
                 </button>
+                
+                <!-- Botão de opções para mobile -->
+                <button class="mobile-options-toggle" id="mobileOptionsToggle" aria-expanded="false" aria-label="Abrir menu de opções">
+                    <span>⚙</span>
+                    <span>Opções</span>
+                </button>
             </div>
+        </div>
+        <!-- Barra de Progresso de Leitura -->
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        
+        <!-- Menu de opções mobile -->
+        <div class="mobile-options-menu" id="mobileOptionsMenu">
+            <div class="mobile-options-section">
+                <span class="mobile-options-label">Tema</span>
+                <div class="mobile-options-controls">
+                    <button id="themeToggleMobile" aria-label="Alternar tema">
+                        <span id="themeIconMobile">🌙</span> <span id="themeTextMobile">Escuro</span>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="mobile-options-section">
+                <span class="mobile-options-label">Tamanho da Fonte</span>
+                <div class="mobile-options-controls">
+                    <button id="fontDecreaseMobile" aria-label="Diminuir fonte">A-</button>
+                    <button id="fontIncreaseMobile" aria-label="Aumentar fonte">A+</button>
+                </div>
+            </div>
+            
+            <div class="mobile-options-section">
+                <button class="mobile-nav-button" id="menuToggleMobile" aria-label="Abrir índice">
+                    ☰ Índice do Artigo
+                </button>
+                <button class="mobile-nav-button share" id="shareButtonMobile" aria-label="Compartilhar">
+                    ⤴ Compartilhar
+                </button>
+            </div>
+        </div>
+        
+        <!-- Menu dropdown original -->
+        <div class="nav-dropdown" id="navDropdown">
         </div>
         <!-- Barra de Progresso de Leitura -->
         <div class="progress-container">
@@ -1231,19 +1454,22 @@
         const fontSizes = [14, 16, 18, 20, 22, 24];
         let currentFontIndex = 2;
 
-        document.getElementById('fontIncrease').addEventListener('click', function() {
+        function increaseFontSize() {
             if (currentFontIndex < fontSizes.length - 1) {
                 currentFontIndex++;
                 document.documentElement.style.setProperty('--font-size-base', fontSizes[currentFontIndex] + 'px');
             }
-        });
+        }
 
-        document.getElementById('fontDecrease').addEventListener('click', function() {
+        function decreaseFontSize() {
             if (currentFontIndex > 0) {
                 currentFontIndex--;
                 document.documentElement.style.setProperty('--font-size-base', fontSizes[currentFontIndex] + 'px');
             }
-        });
+        }
+
+        document.getElementById('fontIncrease').addEventListener('click', increaseFontSize);
+        document.getElementById('fontDecrease').addEventListener('click', decreaseFontSize);
 
         // Tema Escuro/Claro
         const themeToggle = document.getElementById('themeToggle');
@@ -1251,16 +1477,37 @@
         const savedTheme = localStorage.getItem('theme') || 'light';
         
         document.documentElement.setAttribute('data-theme', savedTheme);
-        themeIcon.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+        const isDark = savedTheme === 'dark';
+        themeIcon.textContent = isDark ? '☀️' : '🌙';
+        
+        // Inicializar tema mobile
+        const themeIconMobile = document.getElementById('themeIconMobile');
+        const themeTextMobile = document.getElementById('themeTextMobile');
+        if (themeIconMobile && themeTextMobile) {
+            themeIconMobile.textContent = isDark ? '☀️' : '🌙';
+            themeTextMobile.textContent = isDark ? 'Claro' : 'Escuro';
+        }
 
-        themeToggle.addEventListener('click', function() {
+        function toggleTheme() {
             const currentTheme = document.documentElement.getAttribute('data-theme');
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
             
             document.documentElement.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
-            themeIcon.textContent = newTheme === 'dark' ? '☀️' : '🌙';
-        });
+            
+            // Atualizar todos os ícones de tema
+            const isDark = newTheme === 'dark';
+            themeIcon.textContent = isDark ? '☀️' : '🌙';
+            
+            const themeIconMobile = document.getElementById('themeIconMobile');
+            const themeTextMobile = document.getElementById('themeTextMobile');
+            if (themeIconMobile && themeTextMobile) {
+                themeIconMobile.textContent = isDark ? '☀️' : '🌙';
+                themeTextMobile.textContent = isDark ? 'Claro' : 'Escuro';
+            }
+        }
+
+        themeToggle.addEventListener('click', toggleTheme);
 
         // Lightbox para zoom de imagens
         const lightbox = document.getElementById('lightbox');
@@ -1378,13 +1625,7 @@
             menuToggle.setAttribute('aria-expanded', isActive);
         });
 
-        // Fechar menu ao clicar fora
-        document.addEventListener('click', function(e) {
-            if (!navDropdown.contains(e.target) && e.target !== menuToggle) {
-                navDropdown.classList.remove('active');
-                menuToggle.setAttribute('aria-expanded', 'false');
-            }
-        });
+
 
         // Fechar menu ao clicar em um link
         const navMenuLinks = navDropdown.querySelectorAll('a');
@@ -1395,18 +1636,11 @@
             });
         });
 
-        // Fechar menu com tecla Escape
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && navDropdown.classList.contains('active')) {
-                navDropdown.classList.remove('active');
-                menuToggle.setAttribute('aria-expanded', 'false');
-                menuToggle.focus();
-            }
-        });
 
-        // Botão Share
-        const shareButton = document.getElementById('shareButton');
-        shareButton.addEventListener('click', async function() {
+
+        // Função de compartilhar
+        async function shareArticle() {
+
             const shareData = {
                 title: 'Calculemus! Como Leibniz Sonhou com a Lógica Moderna',
                 text: 'Descubra como Leibniz antecipou os fundamentos da computação moderna através de uma visão revolucionária sobre o pensamento.',
@@ -1423,6 +1657,96 @@
                 }
             } catch (err) {
                 console.log('Erro ao compartilhar:', err);
+            }
+        }
+
+        // Botão Share desktop
+        const shareButton = document.getElementById('shareButton');
+        shareButton.addEventListener('click', shareArticle);
+
+        // ===== CONTROLES MOBILE =====
+        
+        // Menu de opções mobile
+        const mobileOptionsToggle = document.getElementById('mobileOptionsToggle');
+        const mobileOptionsMenu = document.getElementById('mobileOptionsMenu');
+
+        if (mobileOptionsToggle && mobileOptionsMenu) {
+            mobileOptionsToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const isActive = mobileOptionsMenu.classList.toggle('active');
+                mobileOptionsToggle.setAttribute('aria-expanded', isActive);
+                
+                // Fechar menu de índice se estiver aberto
+                if (isActive && navDropdown.classList.contains('active')) {
+                    navDropdown.classList.remove('active');
+                    menuToggle.setAttribute('aria-expanded', 'false');
+                }
+            });
+        }
+
+        // Tema mobile
+        const themeToggleMobile = document.getElementById('themeToggleMobile');
+        if (themeToggleMobile) {
+            themeToggleMobile.addEventListener('click', toggleTheme);
+        }
+
+        // Fonte mobile
+        const fontIncreaseMobile = document.getElementById('fontIncreaseMobile');
+        const fontDecreaseMobile = document.getElementById('fontDecreaseMobile');
+        
+        if (fontIncreaseMobile) {
+            fontIncreaseMobile.addEventListener('click', increaseFontSize);
+        }
+        
+        if (fontDecreaseMobile) {
+            fontDecreaseMobile.addEventListener('click', decreaseFontSize);
+        }
+
+        // Índice mobile
+        const menuToggleMobile = document.getElementById('menuToggleMobile');
+        if (menuToggleMobile) {
+            menuToggleMobile.addEventListener('click', function() {
+                // Fechar menu de opções
+                mobileOptionsMenu.classList.remove('active');
+                mobileOptionsToggle.setAttribute('aria-expanded', 'false');
+                
+                // Abrir menu de índice
+                navDropdown.classList.add('active');
+                menuToggle.setAttribute('aria-expanded', 'true');
+            });
+        }
+
+        // Compartilhar mobile
+        const shareButtonMobile = document.getElementById('shareButtonMobile');
+        if (shareButtonMobile) {
+            shareButtonMobile.addEventListener('click', shareArticle);
+        }
+
+        // Fechar menu mobile ao clicar fora
+        document.addEventListener('click', function(e) {
+            if (mobileOptionsMenu && !mobileOptionsMenu.contains(e.target) && e.target !== mobileOptionsToggle) {
+                mobileOptionsMenu.classList.remove('active');
+                if (mobileOptionsToggle) {
+                    mobileOptionsToggle.setAttribute('aria-expanded', 'false');
+                }
+            }
+            
+            if (!navDropdown.contains(e.target) && e.target !== menuToggle) {
+                navDropdown.classList.remove('active');
+                menuToggle.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        // Fechar menu mobile com Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                if (mobileOptionsMenu && mobileOptionsMenu.classList.contains('active')) {
+                    mobileOptionsMenu.classList.remove('active');
+                    if (mobileOptionsToggle) {
+                        mobileOptionsToggle.setAttribute('aria-expanded', 'false');
+                        mobileOptionsToggle.focus();
+                    }
+                }
             }
         });
     </script>
